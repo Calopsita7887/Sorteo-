@@ -716,7 +716,29 @@
 
 </div>
 
-<script>
+<script type="module">
+    // *** CAMBIO: Importaciones de Firebase Firestore y Analytics ***
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
+    import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
+
+    // Tu configuración de Firebase
+    const firebaseConfig = {
+        apiKey: "AIzaSyCKbcikTf5Trz7AEaERhDVOvZD32Vwktzo",
+        authDomain: "red-pilar.firebaseapp.com",
+        projectId: "red-pilar",
+        storageBucket: "red-pilar.firebasestorage.app",
+        messagingSenderId: "281046444455",
+        appId: "1:281046444455:web:0fce47a544e1c5d3426e82",
+        measurementId: "G-H7J13LYZCT"
+    };
+
+    // Inicializa Firebase y la base de datos Firestore
+    const app = initializeApp(firebaseConfig);
+    const analytics = getAnalytics(app);
+    const db = getFirestore(app);
+
+    // Mantiene el resto de tu código JavaScript
     const numbersContainer = document.getElementById('numbers-container');
     const personNameInput = document.getElementById('person-name');
     const addButton = document.getElementById('add-button');
@@ -781,32 +803,8 @@
         }
     }
 
-    function saveData() {
-        const data = {
-            participants: allParticipants,
-            assignedNumbers: [...assignedNumbers],
-            currentMaxNumber: currentMaxNumber
-        };
-        localStorage.setItem('raffleData', JSON.stringify(data));
-    }
-
-    function loadData() {
-        const savedData = localStorage.getItem('raffleData');
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            allParticipants = data.participants;
-            assignedNumbers = new Set(data.assignedNumbers);
-            currentMaxNumber = data.currentMaxNumber;
-
-            generateNumberBoxes(0, currentMaxNumber);
-            updateParticipantsList();
-        } else {
-            generateNumberBoxes(0, 99);
-            currentMaxNumber = 99;
-        }
-
-        updateRangeLabel();
-
+    // *** CAMBIO: La función loadData ahora lee de Firestore en lugar de localStorage ***
+    async function loadData() {
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             themeSelector.value = savedTheme;
@@ -814,7 +812,33 @@
         } else {
             themeSelector.value = 'default';
         }
+
+        // Cargar participantes desde Firestore
+        allParticipants = [];
+        assignedNumbers.clear();
+        
+        try {
+            const querySnapshot = await getDocs(collection(db, "participantes"));
+            querySnapshot.forEach((doc) => {
+                const participant = { id: doc.id, ...doc.data() };
+                allParticipants.push(participant);
+                if (participant.numbers) {
+                    participant.numbers.forEach(num => assignedNumbers.add(num));
+                }
+            });
+            updateParticipantsList();
+        } catch (e) {
+            console.error("Error al cargar participantes: ", e);
+        }
+        
+        // Cargar la configuración de números desde Firestore (opcional, por ahora mantenemos el default)
+        currentMaxNumber = 99;
+        generateNumberBoxes(0, currentMaxNumber);
+        updateRangeLabel();
     }
+    
+    // *** CAMBIO: Ya no se necesita una función saveData genérica ***
+    // *** Los datos se guardarán, actualizarán y eliminarán directamente en sus respectivas funciones ***
 
     function updateParticipantsList() {
         resultsList.innerHTML = '';
@@ -870,7 +894,8 @@
         `;
     }
 
-    function updateParticipantName(index) {
+    // *** CAMBIO: Esta función ahora usa updateDoc para guardar en Firestore ***
+    async function updateParticipantName(index) {
         const newName = document.getElementById(`edit-name-${index}`).value.trim();
         if (newName === '') {
             alert('El nombre no puede estar vacío.');
@@ -878,32 +903,50 @@
         }
 
         const participant = allParticipants[index];
-        participant.name = newName;
         
-        saveData();
-        updateParticipantsList();
+        try {
+            const participantRef = doc(db, "participantes", participant.id);
+            await updateDoc(participantRef, {
+                name: newName
+            });
+            
+            participant.name = newName;
+            updateParticipantsList();
+        } catch (e) {
+            console.error("Error al actualizar el nombre: ", e);
+            alert("Hubo un error al actualizar los datos.");
+        }
     }
 
 
-    function removeNumberFromParticipant(index, numberToRemove) {
+    async function removeNumberFromParticipant(index, numberToRemove) {
         const participant = allParticipants[index];
         const numberIndex = participant.numbers.indexOf(numberToRemove);
         
         if (numberIndex > -1) {
-            participant.numbers.splice(numberIndex, 1);
-            assignedNumbers.delete(numberToRemove);
+            const updatedNumbers = participant.numbers.filter(num => num !== numberToRemove);
             
-            const box = document.querySelector(`.number-box[data-number="${numberToRemove}"]`);
-            if (box) {
-                box.classList.remove('assigned');
-                box.classList.remove('selected');
+            try {
+                const participantRef = doc(db, "participantes", participant.id);
+                await updateDoc(participantRef, { numbers: updatedNumbers });
+                
+                participant.numbers = updatedNumbers;
+                assignedNumbers.delete(numberToRemove);
+                
+                const box = document.querySelector(`.number-box[data-number="${numberToRemove}"]`);
+                if (box) {
+                    box.classList.remove('assigned');
+                    box.classList.remove('selected');
+                }
+                editParticipant(index); // Re-renderizar la entrada de edición
+            } catch (e) {
+                console.error("Error al eliminar el número: ", e);
+                alert("Hubo un error al actualizar los datos.");
             }
-            saveData();
-            editParticipant(index); // Re-renderizar la entrada de edición
         }
     }
 
-    function addNumberToParticipant(index) {
+    async function addNumberToParticipant(index) {
         const number = prompt(`Ingresa un número para agregar (00-${currentMaxNumber}):`);
         if (number === null || number.trim() === '') return;
 
@@ -924,35 +967,53 @@
             return;
         }
         
-        participant.numbers.push(num);
-        assignedNumbers.add(num);
-        
-        const box = document.querySelector(`.number-box[data-number="${num}"]`);
-        if (box) {
-            box.classList.add('assigned');
-        }
+        const updatedNumbers = [...participant.numbers, num];
+        try {
+            const participantRef = doc(db, "participantes", participant.id);
+            await updateDoc(participantRef, { numbers: updatedNumbers });
+            
+            participant.numbers = updatedNumbers;
+            assignedNumbers.add(num);
+            
+            const box = document.querySelector(`.number-box[data-number="${num}"]`);
+            if (box) {
+                box.classList.add('assigned');
+            }
 
-        saveData();
-        editParticipant(index); // Re-renderizar la entrada de edición
+            editParticipant(index); // Re-renderizar la entrada de edición
+        } catch (e) {
+            console.error("Error al agregar el número: ", e);
+            alert("Hubo un error al actualizar los datos.");
+        }
     }
 
-    function removeParticipant(index) {
+    // *** CAMBIO: Esta función ahora usa deleteDoc para eliminar en Firestore ***
+    async function removeParticipant(index) {
         if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
             const participant = allParticipants[index];
-            participant.numbers.forEach(num => {
-                assignedNumbers.delete(num);
-                const box = document.querySelector(`.number-box[data-number="${num}"]`);
-                if (box) {
-                    box.classList.remove('assigned');
-                }
-            });
-            allParticipants.splice(index, 1);
-            saveData();
-            updateParticipantsList();
+            try {
+                // Eliminar de Firestore
+                await deleteDoc(doc(db, "participantes", participant.id));
+                
+                // Eliminar de la lista local y números asignados
+                participant.numbers.forEach(num => {
+                    assignedNumbers.delete(num);
+                    const box = document.querySelector(`.number-box[data-number="${num}"]`);
+                    if (box) {
+                        box.classList.remove('assigned');
+                    }
+                });
+                allParticipants.splice(index, 1);
+                updateParticipantsList();
+            } catch (e) {
+                console.error("Error al eliminar el participante: ", e);
+                alert("Hubo un error al eliminar los datos.");
+            }
         }
     }
 
-    addButton.addEventListener('click', () => {
+    // *** CAMBIO: Esta función ahora usa addDoc para guardar en Firestore ***
+    addButton.addEventListener('click', async () => {
         const personName = personNameInput.value.trim();
         if (personName === '') {
             alert('Por favor, escribe el nombre de la persona.');
@@ -963,22 +1024,32 @@
             return;
         }
 
-        allParticipants.push({ name: personName, numbers: selectedNumbers });
+        try {
+            const docRef = await addDoc(collection(db, "participantes"), {
+                name: personName,
+                numbers: selectedNumbers,
+            });
+            console.log("Documento escrito con ID: ", docRef.id);
+            
+            // Agrega el participante a la lista local con su ID de Firestore
+            allParticipants.push({ id: docRef.id, name: personName, numbers: selectedNumbers });
 
-        selectedNumbers.forEach(num => {
-            assignedNumbers.add(num);
-        });
+            selectedNumbers.forEach(num => {
+                assignedNumbers.add(num);
+            });
 
-        personNameInput.value = '';
-        selectedNumbers = [];
-        
-        // Deseleccionar y actualizar
-        document.querySelectorAll('.number-box.selected').forEach(box => {
-            box.classList.remove('selected');
-        });
-        
-        saveData();
-        updateParticipantsList();
+            personNameInput.value = '';
+            selectedNumbers = [];
+            
+            document.querySelectorAll('.number-box.selected').forEach(box => {
+                box.classList.remove('selected');
+            });
+            
+            updateParticipantsList();
+        } catch (e) {
+            console.error("Error al añadir el documento: ", e);
+            alert("Hubo un error al guardar los datos.");
+        }
     });
 
     sorteoButton.addEventListener('click', () => {
@@ -1048,32 +1119,47 @@
         }, 1000);
     });
 
-    clearButton.addEventListener('click', () => {
-        if (confirm('¿Estás seguro de que quieres limpiar toda la lista de participantes y números?')) {
-            localStorage.clear();
-            resultsList.innerHTML = '';
-            ganadorContainer.style.display = 'none';
-            personNameInput.value = '';
-            selectedNumbers = [];
-            allParticipants.length = 0;
-            assignedNumbers.clear();
+    // *** CAMBIO: La función clearButton ahora elimina todos los documentos de Firestore ***
+    clearButton.addEventListener('click', async () => {
+        if (confirm('¿Estás seguro de que quieres limpiar toda la lista de participantes y números? Esto eliminará los datos de la base de datos.')) {
+            try {
+                const querySnapshot = await getDocs(collection(db, "participantes"));
+                const batch = writeBatch(db); // Para eliminar múltiples documentos de forma eficiente
+                querySnapshot.forEach((doc) => {
+                    batch.delete(doc.ref);
+                });
+                await batch.commit();
 
-            document.querySelectorAll('.number-box').forEach(box => {
-                box.remove();
-            });
-            generateNumberBoxes(0, 99);
-            currentMaxNumber = 99;
-            updateRangeLabel();
-            saveData();
+                // Limpiar la interfaz y el estado local
+                resultsList.innerHTML = '';
+                ganadorContainer.style.display = 'none';
+                personNameInput.value = '';
+                selectedNumbers = [];
+                allParticipants.length = 0;
+                assignedNumbers.clear();
+
+                document.querySelectorAll('.number-box').forEach(box => {
+                    box.remove();
+                });
+                generateNumberBoxes(0, 99);
+                currentMaxNumber = 99;
+                updateRangeLabel();
+                alert("Todos los datos han sido eliminados de la base de datos.");
+            } catch (e) {
+                console.error("Error al limpiar la base de datos: ", e);
+                alert("Hubo un error al limpiar la base de datos.");
+            }
         }
     });
+
 
     function addNumbers(count) {
         const lastNumber = numbersContainer.childElementCount > 0 ? parseInt(numbersContainer.lastChild.dataset.number) : -1;
         generateNumberBoxes(lastNumber + 1, lastNumber + count);
         currentMaxNumber = lastNumber + count;
+        // No hay necesidad de guardar esta configuración en la base de datos, lo dejamos en localStorage si quieres
+        // localStorage.setItem('currentMaxNumber', currentMaxNumber);
         updateRangeLabel();
-        saveData();
     }
 
     function removeNumbers(count) {
@@ -1099,7 +1185,7 @@
         if (removedCount > 0) {
             currentMaxNumber = currentMaxNumberCopy - removedCount;
             updateRangeLabel();
-            saveData();
+            // localStorage.setItem('currentMaxNumber', currentMaxNumber);
         }
     }
 
@@ -1192,3 +1278,4 @@
 </script>
 
 </body>
+</html>
