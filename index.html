@@ -47,7 +47,7 @@
             font-weight: bold;
             transition: color 0.5s ease;
         }
-        input[type="text"] {
+        input[type="text"], input[type="email"], input[type="password"] {
             width: calc(100% - 22px);
             padding: 10px;
             border: 1px solid #ccc;
@@ -647,11 +647,43 @@
         .hide-on-edit-mode {
             display: none;
         }
+
+        /* --- ESTILOS AÑADIDOS PARA LOGIN Y SESION --- */
+        #main-app {
+            display: none; /* Oculta la app hasta que el usuario inicie sesión */
+        }
+        #login-container {
+            display: block;
+            margin-top: 50px;
+            text-align: center;
+        }
+        #login-container h2 {
+            color: #4CAF50;
+        }
+        #login-container input {
+            width: 80%;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
 
-<div class="container" id="main-container">
+    <div class="container" id="login-container">
+        <div class="logo-container">
+            <img src="logo.png" alt="Logo de CELUAPUESTAS">
+        </div>
+        <h2>Inicio de Sesión</h2>
+        <div class="form-group">
+            <label for="login-email">Email:</label>
+            <input type="email" id="login-email" placeholder="Ingresa tu email">
+        </div>
+        <div class="form-group">
+            <label for="login-password">Contraseña:</label>
+            <input type="password" id="login-password" placeholder="Ingresa tu contraseña">
+        </div>
+        <button id="login-button" style="background-color: #007BFF; width: 100%;">Iniciar Sesión</button>
+    </div>
+    <div class="container" id="main-app">
     <div id="theme-toggle-group">
         <label for="theme-selector" style="font-weight: normal;">Seleccionar tema:</label>
         <select id="theme-selector">
@@ -660,7 +692,8 @@
             <option value="neon">Neon Party</option>
             <option value="pastel">Pastel Dreams</option>
         </select>
-    </div>
+        <button id="logout-button" style="background-color: #f44336; margin-left: 10px;">Salir</button>
+        </div>
     
     <div class="logo-container">
         <img src="logo.png" alt="Logo de CELUAPUESTAS">
@@ -728,6 +761,9 @@
 </div>
 
 <script type="module">
+    // --- CAMBIOS AÑADIDOS ---
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
+    // --- FIN CAMBIOS AÑADIDOS ---
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, writeBatch } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
@@ -745,6 +781,9 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
+    // --- CAMBIOS AÑADIDOS ---
+    const auth = getAuth(app);
+    // --- FIN CAMBIOS AÑADIDOS ---
 
     const numbersContainer = document.getElementById('numbers-container');
     const personNameInput = document.getElementById('person-name');
@@ -768,6 +807,15 @@
     const sorteoCodeInput = document.getElementById('sorteo-code-input');
     const loadButton = document.getElementById('load-button');
 
+    // --- CAMBIOS AÑADIDOS ---
+    const loginContainer = document.getElementById('login-container');
+    const mainApp = document.getElementById('main-app');
+    const loginEmailInput = document.getElementById('login-email');
+    const loginPasswordInput = document.getElementById('login-password');
+    const loginButton = document.getElementById('login-button');
+    const logoutButton = document.getElementById('logout-button');
+    // --- FIN CAMBIOS AÑADIDOS ---
+
     const countdownSound = new Audio('https://www.soundboard.com/mediafiles/3/30018_e2f694931a78c1874249a567634f195d.mp3');
     const spinSound = new Audio('https://www.soundboard.com/mediafiles/1/18167_nfs_prostreet_rev_4.mp3');
     const winnerSound = new Audio('https://www.soundboard.com/mediafiles/6/6389_87900b90e9e46a78280f58a329d91f86.mp3');
@@ -780,9 +828,51 @@
     const MIN_NUMBERS = 100;
     let currentMaxNumber = 99;
 
-    // Cargar el código del sorteo guardado al inicio
-    sorteoCodeInput.value = currentSorteoCode;
-    loadSorteo(currentSorteoCode);
+    // --- CAMBIOS AÑADIDOS ---
+    // Manejar el estado de la autenticación al cargar la página
+    onAuthStateChanged(auth, (user) => {
+        if (user) {
+            // Usuario logueado
+            loginContainer.style.display = 'none';
+            mainApp.style.display = 'block';
+            
+            // Cargar el código del sorteo guardado al inicio
+            sorteoCodeInput.value = currentSorteoCode;
+            loadSorteo(currentSorteoCode);
+
+        } else {
+            // Usuario no logueado
+            loginContainer.style.display = 'block';
+            mainApp.style.display = 'none';
+        }
+    });
+
+    loginButton.addEventListener('click', async () => {
+        const email = loginEmailInput.value;
+        const password = loginPasswordInput.value;
+        try {
+            await signInWithEmailAndPassword(auth, email, password);
+            alert("Inicio de sesión exitoso!");
+        } catch (error) {
+            alert("Error de inicio de sesión. Revisa tu email y contraseña. Si no tienes una cuenta, el sistema intentará crear una.");
+            // Si el inicio de sesión falla, intentar crear una nueva cuenta
+            try {
+                // Esto es solo para la primera vez. Lo ideal es crear la cuenta en la consola de Firebase.
+                await createUserWithEmailAndPassword(auth, email, password);
+                alert("Cuenta creada y sesión iniciada exitosamente!");
+            } catch (createError) {
+                console.error("Error al iniciar sesión o crear cuenta:", createError);
+                alert("Hubo un error al iniciar sesión. Verifica el email y contraseña.");
+            }
+        }
+    });
+
+    logoutButton.addEventListener('click', async () => {
+        await signOut(auth);
+        alert("Sesión cerrada.");
+    });
+    // --- FIN CAMBIOS AÑADIDOS ---
+
 
     loadButton.addEventListener('click', () => {
         const newCode = sorteoCodeInput.value.trim();
