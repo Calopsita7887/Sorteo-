@@ -681,7 +681,10 @@
             <label for="login-password">Contraseña:</label>
             <input type="password" id="login-password" placeholder="Ingresa tu contraseña">
         </div>
-        <button id="login-button" style="background-color: #007BFF; width: 100%;">Iniciar Sesión</button>
+        <div style="display: flex; gap: 10px;">
+            <button id="login-button" style="background-color: #007BFF; width: 50%;">Iniciar Sesión</button>
+            <button id="signup-button" style="background-color: #4CAF50; width: 50%;">Crear Cuenta</button>
+        </div>
     </div>
     <div class="container" id="main-app">
     <div id="theme-toggle-group">
@@ -761,9 +764,7 @@
 </div>
 
 <script type="module">
-    // --- CAMBIOS AÑADIDOS ---
-    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
-    // --- FIN CAMBIOS AÑADIDOS ---
+    import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-auth.js";
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
     import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, writeBatch } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
@@ -781,9 +782,7 @@
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
-    // --- CAMBIOS AÑADIDOS ---
     const auth = getAuth(app);
-    // --- FIN CAMBIOS AÑADIDOS ---
 
     const numbersContainer = document.getElementById('numbers-container');
     const personNameInput = document.getElementById('person-name');
@@ -807,13 +806,14 @@
     const sorteoCodeInput = document.getElementById('sorteo-code-input');
     const loadButton = document.getElementById('load-button');
 
-    // --- CAMBIOS AÑADIDOS ---
     const loginContainer = document.getElementById('login-container');
     const mainApp = document.getElementById('main-app');
     const loginEmailInput = document.getElementById('login-email');
     const loginPasswordInput = document.getElementById('login-password');
     const loginButton = document.getElementById('login-button');
     const logoutButton = document.getElementById('logout-button');
+    // --- CAMBIOS AÑADIDOS para crear cuenta ---
+    const signupButton = document.getElementById('signup-button');
     // --- FIN CAMBIOS AÑADIDOS ---
 
     const countdownSound = new Audio('https://www.soundboard.com/mediafiles/3/30018_e2f694931a78c1874249a567634f195d.mp3');
@@ -828,20 +828,14 @@
     const MIN_NUMBERS = 100;
     let currentMaxNumber = 99;
 
-    // --- CAMBIOS AÑADIDOS ---
-    // Manejar el estado de la autenticación al cargar la página
     onAuthStateChanged(auth, (user) => {
         if (user) {
-            // Usuario logueado
             loginContainer.style.display = 'none';
             mainApp.style.display = 'block';
-            
-            // Cargar el código del sorteo guardado al inicio
             sorteoCodeInput.value = currentSorteoCode;
             loadSorteo(currentSorteoCode);
 
         } else {
-            // Usuario no logueado
             loginContainer.style.display = 'block';
             mainApp.style.display = 'none';
         }
@@ -854,22 +848,31 @@
             await signInWithEmailAndPassword(auth, email, password);
             alert("Inicio de sesión exitoso!");
         } catch (error) {
-            alert("Error de inicio de sesión. Revisa tu email y contraseña. Si no tienes una cuenta, el sistema intentará crear una.");
-            // Si el inicio de sesión falla, intentar crear una nueva cuenta
-            try {
-                // Esto es solo para la primera vez. Lo ideal es crear la cuenta en la consola de Firebase.
-                await createUserWithEmailAndPassword(auth, email, password);
-                alert("Cuenta creada y sesión iniciada exitosamente!");
-            } catch (createError) {
-                console.error("Error al iniciar sesión o crear cuenta:", createError);
-                alert("Hubo un error al iniciar sesión. Verifica el email y contraseña.");
-            }
+            console.error("Error de inicio de sesión:", error);
+            alert("Error de inicio de sesión. Revisa tu email y contraseña.");
         }
     });
 
     logoutButton.addEventListener('click', async () => {
         await signOut(auth);
         alert("Sesión cerrada.");
+    });
+
+    // --- CAMBIOS AÑADIDOS para crear cuenta ---
+    signupButton.addEventListener('click', async () => {
+        const email = loginEmailInput.value;
+        const password = loginPasswordInput.value;
+        if (email.length === 0 || password.length === 0) {
+            alert("Por favor, ingresa un email y contraseña válidos.");
+            return;
+        }
+        try {
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert("Cuenta creada y sesión iniciada exitosamente!");
+        } catch (error) {
+            console.error("Error al crear la cuenta:", error);
+            alert(`Error al crear la cuenta: ${error.message}`);
+        }
     });
     // --- FIN CAMBIOS AÑADIDOS ---
 
