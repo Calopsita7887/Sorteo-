@@ -91,10 +91,11 @@
             color: #777;
             cursor: not-allowed;
         }
-        .button-group, .add-numbers-group, #theme-toggle-group, .range-buttons, .search-group {
+        .button-group, .add-numbers-group, #theme-toggle-group, .range-buttons, .search-group, .sorteo-group {
             display: flex;
             justify-content: space-between;
             margin-top: 20px;
+            align-items: center;
         }
         .search-group {
             align-items: center;
@@ -129,6 +130,8 @@
         #clear-button:hover { background-color: #da190b; }
         #sorteo-button { background-color: #007BFF; }
         #sorteo-button:hover { background-color: #0056b3; }
+        #load-button { background-color: #f4b400; }
+        #load-button:hover { background-color: #e0a300; }
         .add-numbers-group button, .range-buttons button { background-color: #17a2b8; }
         .add-numbers-group button:hover, .range-buttons button:hover { background-color: #138496; }
         #search-button { background-color: #f4b400; color: #fff; }
@@ -665,6 +668,14 @@
 
     <h1>Red Pilar</h1>
 
+    <div class="sorteo-group">
+        <label for="sorteo-code-input" style="font-weight: bold; margin-bottom: 0;">Código del Sorteo:</label>
+        <input type="text" id="sorteo-code-input" placeholder="Ej. SORTEO-2025" style="width: 150px;">
+        <button id="load-button">Cargar/Crear Sorteo</button>
+    </div>
+
+    <hr>
+    
     <div class="form-group">
         <label for="person-name">Nombre de la persona:</label>
         <input type="text" id="person-name" placeholder="Escribe el nombre aquí...">
@@ -717,12 +728,10 @@
 </div>
 
 <script type="module">
-    // *** CAMBIO: Importaciones de Firebase Firestore y Analytics ***
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js";
-    import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
+    import { getFirestore, collection, addDoc, getDocs, updateDoc, deleteDoc, doc, writeBatch } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore.js";
     import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.6.1/firebase-analytics.js";
 
-    // Tu configuración de Firebase
     const firebaseConfig = {
         apiKey: "AIzaSyCKbcikTf5Trz7AEaERhDVOvZD32Vwktzo",
         authDomain: "red-pilar.firebaseapp.com",
@@ -733,12 +742,10 @@
         measurementId: "G-H7J13LYZCT"
     };
 
-    // Inicializa Firebase y la base de datos Firestore
     const app = initializeApp(firebaseConfig);
     const analytics = getAnalytics(app);
     const db = getFirestore(app);
 
-    // Mantiene el resto de tu código JavaScript
     const numbersContainer = document.getElementById('numbers-container');
     const personNameInput = document.getElementById('person-name');
     const addButton = document.getElementById('add-button');
@@ -758,8 +765,9 @@
     const body = document.body;
     const mainContainer = document.getElementById('main-container');
     const numbersRangeLabel = document.getElementById('numbers-range-label');
+    const sorteoCodeInput = document.getElementById('sorteo-code-input');
+    const loadButton = document.getElementById('load-button');
 
-    // Audio
     const countdownSound = new Audio('https://www.soundboard.com/mediafiles/3/30018_e2f694931a78c1874249a567634f195d.mp3');
     const spinSound = new Audio('https://www.soundboard.com/mediafiles/1/18167_nfs_prostreet_rev_4.mp3');
     const winnerSound = new Audio('https://www.soundboard.com/mediafiles/6/6389_87900b90e9e46a78280f58a329d91f86.mp3');
@@ -767,10 +775,49 @@
     let selectedNumbers = [];
     let allParticipants = [];
     let assignedNumbers = new Set();
+    let currentSorteoCode = localStorage.getItem('currentSorteoCode') || 'sorteo-default';
+
     const MIN_NUMBERS = 100;
     let currentMaxNumber = 99;
 
-    loadData();
+    // Cargar el código del sorteo guardado al inicio
+    sorteoCodeInput.value = currentSorteoCode;
+    loadSorteo(currentSorteoCode);
+
+    loadButton.addEventListener('click', () => {
+        const newCode = sorteoCodeInput.value.trim();
+        if (newCode === '') {
+            alert('Por favor, ingresa un código para el sorteo.');
+            return;
+        }
+        currentSorteoCode = newCode;
+        localStorage.setItem('currentSorteoCode', newCode);
+        loadSorteo(newCode);
+    });
+
+    async function loadSorteo(code) {
+        alert(`Cargando sorteo con código: ${code}`);
+        allParticipants = [];
+        assignedNumbers.clear();
+        resultsList.innerHTML = '';
+        numbersContainer.innerHTML = '';
+        generateNumberBoxes(0, 99); // Restaurar los números iniciales
+
+        try {
+            const querySnapshot = await getDocs(collection(db, code));
+            querySnapshot.forEach((doc) => {
+                const participant = { id: doc.id, ...doc.data() };
+                allParticipants.push(participant);
+                if (participant.numbers) {
+                    participant.numbers.forEach(num => assignedNumbers.add(num));
+                }
+            });
+            updateParticipantsList();
+        } catch (e) {
+            console.error("Error al cargar participantes: ", e);
+            alert("No se pudo cargar el sorteo. Puede que el código no exista. Se creará uno nuevo.");
+        }
+    }
 
     function updateRangeLabel() {
         numbersRangeLabel.textContent = `Selecciona los números (00 a ${currentMaxNumber}):`;
@@ -802,43 +849,6 @@
             createNumberBox(i);
         }
     }
-
-    // *** CAMBIO: La función loadData ahora lee de Firestore en lugar de localStorage ***
-    async function loadData() {
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            themeSelector.value = savedTheme;
-            applyTheme(savedTheme);
-        } else {
-            themeSelector.value = 'default';
-        }
-
-        // Cargar participantes desde Firestore
-        allParticipants = [];
-        assignedNumbers.clear();
-        
-        try {
-            const querySnapshot = await getDocs(collection(db, "participantes"));
-            querySnapshot.forEach((doc) => {
-                const participant = { id: doc.id, ...doc.data() };
-                allParticipants.push(participant);
-                if (participant.numbers) {
-                    participant.numbers.forEach(num => assignedNumbers.add(num));
-                }
-            });
-            updateParticipantsList();
-        } catch (e) {
-            console.error("Error al cargar participantes: ", e);
-        }
-        
-        // Cargar la configuración de números desde Firestore (opcional, por ahora mantenemos el default)
-        currentMaxNumber = 99;
-        generateNumberBoxes(0, currentMaxNumber);
-        updateRangeLabel();
-    }
-    
-    // *** CAMBIO: Ya no se necesita una función saveData genérica ***
-    // *** Los datos se guardarán, actualizarán y eliminarán directamente en sus respectivas funciones ***
 
     function updateParticipantsList() {
         resultsList.innerHTML = '';
@@ -894,7 +904,6 @@
         `;
     }
 
-    // *** CAMBIO: Esta función ahora usa updateDoc para guardar en Firestore ***
     async function updateParticipantName(index) {
         const newName = document.getElementById(`edit-name-${index}`).value.trim();
         if (newName === '') {
@@ -905,10 +914,8 @@
         const participant = allParticipants[index];
         
         try {
-            const participantRef = doc(db, "participantes", participant.id);
-            await updateDoc(participantRef, {
-                name: newName
-            });
+            const participantRef = doc(db, currentSorteoCode, participant.id);
+            await updateDoc(participantRef, { name: newName });
             
             participant.name = newName;
             updateParticipantsList();
@@ -918,7 +925,6 @@
         }
     }
 
-
     async function removeNumberFromParticipant(index, numberToRemove) {
         const participant = allParticipants[index];
         const numberIndex = participant.numbers.indexOf(numberToRemove);
@@ -927,7 +933,7 @@
             const updatedNumbers = participant.numbers.filter(num => num !== numberToRemove);
             
             try {
-                const participantRef = doc(db, "participantes", participant.id);
+                const participantRef = doc(db, currentSorteoCode, participant.id);
                 await updateDoc(participantRef, { numbers: updatedNumbers });
                 
                 participant.numbers = updatedNumbers;
@@ -938,7 +944,7 @@
                     box.classList.remove('assigned');
                     box.classList.remove('selected');
                 }
-                editParticipant(index); // Re-renderizar la entrada de edición
+                editParticipant(index);
             } catch (e) {
                 console.error("Error al eliminar el número: ", e);
                 alert("Hubo un error al actualizar los datos.");
@@ -969,7 +975,7 @@
         
         const updatedNumbers = [...participant.numbers, num];
         try {
-            const participantRef = doc(db, "participantes", participant.id);
+            const participantRef = doc(db, currentSorteoCode, participant.id);
             await updateDoc(participantRef, { numbers: updatedNumbers });
             
             participant.numbers = updatedNumbers;
@@ -980,22 +986,19 @@
                 box.classList.add('assigned');
             }
 
-            editParticipant(index); // Re-renderizar la entrada de edición
+            editParticipant(index);
         } catch (e) {
             console.error("Error al agregar el número: ", e);
             alert("Hubo un error al actualizar los datos.");
         }
     }
 
-    // *** CAMBIO: Esta función ahora usa deleteDoc para eliminar en Firestore ***
     async function removeParticipant(index) {
         if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
             const participant = allParticipants[index];
             try {
-                // Eliminar de Firestore
-                await deleteDoc(doc(db, "participantes", participant.id));
+                await deleteDoc(doc(db, currentSorteoCode, participant.id));
                 
-                // Eliminar de la lista local y números asignados
                 participant.numbers.forEach(num => {
                     assignedNumbers.delete(num);
                     const box = document.querySelector(`.number-box[data-number="${num}"]`);
@@ -1012,8 +1015,11 @@
         }
     }
 
-    // *** CAMBIO: Esta función ahora usa addDoc para guardar en Firestore ***
     addButton.addEventListener('click', async () => {
+        if (!currentSorteoCode) {
+            alert('Por favor, ingresa y carga un código de sorteo primero.');
+            return;
+        }
         const personName = personNameInput.value.trim();
         if (personName === '') {
             alert('Por favor, escribe el nombre de la persona.');
@@ -1025,13 +1031,12 @@
         }
 
         try {
-            const docRef = await addDoc(collection(db, "participantes"), {
+            const docRef = await addDoc(collection(db, currentSorteoCode), {
                 name: personName,
                 numbers: selectedNumbers,
             });
             console.log("Documento escrito con ID: ", docRef.id);
             
-            // Agrega el participante a la lista local con su ID de Firestore
             allParticipants.push({ id: docRef.id, name: personName, numbers: selectedNumbers });
 
             selectedNumbers.forEach(num => {
@@ -1059,7 +1064,6 @@
             return;
         }
         
-        // Desplazar la vista al contenedor del sorteo
         ganadorContainer.style.display = 'block';
         ganadorContainer.scrollIntoView({ behavior: 'smooth' });
 
@@ -1119,18 +1123,20 @@
         }, 1000);
     });
 
-    // *** CAMBIO: La función clearButton ahora elimina todos los documentos de Firestore ***
     clearButton.addEventListener('click', async () => {
-        if (confirm('¿Estás seguro de que quieres limpiar toda la lista de participantes y números? Esto eliminará los datos de la base de datos.')) {
+        if (!currentSorteoCode) {
+            alert('No hay un sorteo cargado para limpiar.');
+            return;
+        }
+        if (confirm(`¿Estás seguro de que quieres limpiar todo el sorteo "${currentSorteoCode}"? Esto eliminará los datos de la base de datos.`)) {
             try {
-                const querySnapshot = await getDocs(collection(db, "participantes"));
-                const batch = writeBatch(db); // Para eliminar múltiples documentos de forma eficiente
+                const querySnapshot = await getDocs(collection(db, currentSorteoCode));
+                const batch = writeBatch(db);
                 querySnapshot.forEach((doc) => {
                     batch.delete(doc.ref);
                 });
                 await batch.commit();
 
-                // Limpiar la interfaz y el estado local
                 resultsList.innerHTML = '';
                 ganadorContainer.style.display = 'none';
                 personNameInput.value = '';
@@ -1144,7 +1150,7 @@
                 generateNumberBoxes(0, 99);
                 currentMaxNumber = 99;
                 updateRangeLabel();
-                alert("Todos los datos han sido eliminados de la base de datos.");
+                alert(`Todos los datos del sorteo "${currentSorteoCode}" han sido eliminados de la base de datos.`);
             } catch (e) {
                 console.error("Error al limpiar la base de datos: ", e);
                 alert("Hubo un error al limpiar la base de datos.");
@@ -1152,14 +1158,13 @@
         }
     });
 
-
     function addNumbers(count) {
         const lastNumber = numbersContainer.childElementCount > 0 ? parseInt(numbersContainer.lastChild.dataset.number) : -1;
-        generateNumberBoxes(lastNumber + 1, lastNumber + count);
+        numbersContainer.innerHTML = ''; // Limpiar los números existentes
+        generateNumberBoxes(0, lastNumber + count);
         currentMaxNumber = lastNumber + count;
-        // No hay necesidad de guardar esta configuración en la base de datos, lo dejamos en localStorage si quieres
-        // localStorage.setItem('currentMaxNumber', currentMaxNumber);
         updateRangeLabel();
+        updateParticipantsList(); // Para re-marcar los números asignados
     }
 
     function removeNumbers(count) {
@@ -1167,25 +1172,28 @@
         const boxes = numbersContainer.children;
         const currentMaxNumberCopy = currentMaxNumber;
 
-        if (currentMaxNumberCopy < 99) {
+        if (currentMaxNumberCopy <= 99) {
             alert(`No se pueden eliminar más números. El mínimo es el 99.`);
             return;
         }
 
+        const numbersToDelete = [];
         for (let i = currentMaxNumberCopy; i >= 0 && removedCount < count; i--) {
             if (!assignedNumbers.has(i)) {
-                const box = document.querySelector(`.number-box[data-number="${i}"]`);
-                if (box) {
-                    box.remove();
-                    removedCount++;
-                }
+                numbersToDelete.push(i);
+                removedCount++;
             }
         }
-        
+
         if (removedCount > 0) {
+            numbersToDelete.forEach(num => {
+                const box = document.querySelector(`.number-box[data-number="${num}"]`);
+                if (box) {
+                    box.remove();
+                }
+            });
             currentMaxNumber = currentMaxNumberCopy - removedCount;
             updateRangeLabel();
-            // localStorage.setItem('currentMaxNumber', currentMaxNumber);
         }
     }
 
@@ -1195,23 +1203,21 @@
     selectRange10Button.addEventListener('click', () => {
         const allBoxes = document.querySelectorAll('.number-box');
         const unassignedBoxes = Array.from(allBoxes).filter(box => !box.classList.contains('assigned'));
+        selectedNumbers = []; // Limpiar selección anterior
+        document.querySelectorAll('.number-box.selected').forEach(box => box.classList.remove('selected'));
 
         let newSelected = 0;
-        unassignedBoxes.forEach((box, index) => {
-            if (newSelected < 10 && !box.classList.contains('selected')) {
+        unassignedBoxes.forEach((box) => {
+            if (newSelected < 10) {
                 box.classList.add('selected');
-                const num = parseInt(box.dataset.number);
-                if (!selectedNumbers.includes(num)) {
-                    selectedNumbers.push(num);
-                    newSelected++;
-                }
+                selectedNumbers.push(parseInt(box.dataset.number));
+                newSelected++;
             }
         });
     });
 
     function searchNumber() {
         const numToSearch = parseInt(searchNumberInput.value.trim());
-
         if (isNaN(numToSearch)) {
             alert('Por favor, ingresa un número válido.');
             return;
