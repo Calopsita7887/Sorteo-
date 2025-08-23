@@ -604,4 +604,434 @@
 
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-sliders-h text-blue-400 mr-
+                        <i class="fas fa-sliders-h text-blue-400 mr-2"></i>
+                        Control de Números
+                    </h2>
+                    <div class="flex space-x-4 mb-6">
+                        <button onclick="modifyNumbers(-10)" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-all">
+                            <i class="fas fa-minus mr-2"></i> Quitar 10 números
+                        </button>
+                        <button onclick="modifyNumbers(10)" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-all">
+                            <i class="fas fa-plus mr-2"></i> Agregar 10 números
+                        </button>
+                    </div>
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
+                        <div class="flex-1">
+                            <label for="startNumber" class="block text-sm text-gray-400 mb-1">Desde:</label>
+                            <input type="number" id="startNumber" value="1" min="1" max="9999" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                        <div class="flex-1">
+                            <label for="endNumber" class="block text-sm text-gray-400 mb-1">Hasta:</label>
+                            <input type="number" id="endNumber" value="100" min="1" max="9999" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                        </div>
+                    </div>
+                    <button onclick="generateNumbers()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4 transition-all">
+                        <i class="fas fa-sync-alt mr-2"></i> Generar Números
+                    </button>
+                </div>
+                
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
+                        <i class="fas fa-user-plus text-green-400 mr-2"></i>
+                        Añadir Participante
+                    </h2>
+                    <div class="mb-4">
+                        <label for="participantName" class="block text-sm text-gray-400 mb-1">Nombre:</label>
+                        <input type="text" id="participantName" placeholder="Escribe el nombre del participante" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <div class="mb-4">
+                        <label for="numbersToAssign" class="block text-sm text-gray-400 mb-1">Números a asignar (Separados por coma):</label>
+                        <input type="text" id="numbersToAssign" placeholder="Ej: 1, 5, 20" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    </div>
+                    <button onclick="addParticipant()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-all">
+                        <i class="fas fa-plus mr-2"></i> Añadir Participante
+                    </button>
+                </div>
+            </div>
+
+            <div class="flex-1 space-y-6">
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
+                        <i class="fas fa-users text-purple-400 mr-2"></i>
+                        Lista de Participantes
+                    </h2>
+                    <div id="participantsList" class="overflow-y-auto max-h-96">
+                        </div>
+                </div>
+
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
+                        <i class="fas fa-chart-bar text-yellow-400 mr-2"></i>
+                        Estadísticas
+                    </h2>
+                    <div class="grid grid-cols-2 gap-4 text-sm font-semibold">
+                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
+                            <span class="text-gray-400">Total de Números:</span>
+                            <span id="totalNumbers" class="text-white">0</span>
+                        </div>
+                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
+                            <span class="text-gray-400">Números Asignados:</span>
+                            <span id="assignedNumbers" class="text-white">0</span>
+                        </div>
+                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
+                            <span class="text-gray-400">Números Libres:</span>
+                            <span id="unassignedNumbers" class="text-white">0</span>
+                        </div>
+                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
+                            <span class="text-gray-400">Total de Participantes:</span>
+                            <span id="totalParticipants" class="text-white">0</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg text-center">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center justify-center text-white">
+                        <i class="fas fa-trophy text-yellow-400 mr-2"></i>
+                        Realizar Sorteo
+                    </h2>
+                    <button onclick="startRaffle()" id="raffleButton" class="w-full bg-gradient-to-r from-yellow-500 to-red-600 hover:from-yellow-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-lg transition-all text-xl shadow-lg">
+                        <i class="fas fa-bullhorn mr-2"></i> ¡Comenzar Sorteo!
+                    </button>
+                    <p id="raffleMessage" class="mt-4 text-gray-400 italic" style="display:none;">¡Suerte para todos los participantes!</p>
+                </div>
+
+                <div id="raffleResult" class="bg-gray-800 rounded-xl p-6 shadow-lg text-center mt-6 hidden">
+                    <h3 class="text-2xl font-bold mb-4 text-blue-400">Ganador del Sorteo 🎉</h3>
+                    <div id="winnerInfo" class="bg-gray-900 text-white p-4 rounded-lg">
+                        <p class="text-sm text-gray-300">Número ganador:</p>
+                        <p id="winnerNumber" class="text-4xl font-bold mt-2 text-blue-300 animate-pulse"></p>
+                        <p class="text-sm text-gray-300 mt-4">Participante:</p>
+                        <p id="winnerName" class="text-2xl font-semibold mt-1 text-blue-300"></p>
+                    </div>
+                    <button onclick="resetRaffle()" class="mt-4 bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-lg transition-all">
+                        <i class="fas fa-undo mr-2"></i> Reiniciar Sorteo
+                    </button>
+                </div>
+            </div>
+        </div>
+        
+        <div id="editNumbersModal" class="modal">
+            <div class="modal-content">
+                <span class="close-btn" onclick="closeModal()">&times;</span>
+                <h3 class="text-2xl font-bold mb-4 text-white">Editar Números de <span id="modalParticipantName" class="text-blue-400"></span></h3>
+                <div class="flex items-center space-x-2 mb-4">
+                    <input type="text" id="addNumberInput" placeholder="Añadir un número..." class="flex-1 bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <button onclick="addNumberToParticipant()" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-all">
+                        <i class="fas fa-plus"></i>
+                    </button>
+                </div>
+                <div id="selectedNumbers" class="number-grid-container mt-4">
+                    </div>
+                <div class="text-center mt-4 text-sm text-gray-400">Haz clic en un número para eliminarlo.</div>
+                <button onclick="saveNumbers()" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-bold transition-all">
+                    <i class="fas fa-save mr-2"></i> Guardar Cambios
+                </button>
+            </div>
+        </div>
+        
+        <footer class="mt-12 text-center text-sm text-gray-400">
+            <p>&copy; 2024 SORTEO RED PILAR. All Rights Reserved.</p>
+            <p>Design by Clau</p>
+        </footer>
+
+    </div>
+
+    <script>
+        let availableNumbers = [];
+        let participants = [];
+        let assignedNumbersMap = {};
+        let currentParticipantIndex = -1;
+
+        const startNumberInput = document.getElementById('startNumber');
+        const endNumberInput = document.getElementById('endNumber');
+        const participantsList = document.getElementById('participantsList');
+        const totalNumbersSpan = document.getElementById('totalNumbers');
+        const assignedNumbersSpan = document.getElementById('assignedNumbers');
+        const unassignedNumbersSpan = document.getElementById('unassignedNumbers');
+        const totalParticipantsSpan = document.getElementById('totalParticipants');
+        const raffleResultDiv = document.getElementById('raffleResult');
+        const winnerNumberP = document.getElementById('winnerNumber');
+        const winnerNameP = document.getElementById('winnerName');
+        const editModal = document.getElementById('editNumbersModal');
+        const modalParticipantName = document.getElementById('modalParticipantName');
+        const modalSelectedNumbers = document.getElementById('selectedNumbers');
+        const numbersToAssignInput = document.getElementById('numbersToAssign');
+        const participantNameInput = document.getElementById('participantName');
+
+        function generateNumbers() {
+            const start = parseInt(startNumberInput.value);
+            const end = parseInt(endNumberInput.value);
+
+            if (isNaN(start) || isNaN(end) || start < 1 || end < start) {
+                alert('Por favor, ingresa un rango de números válido (Ej: 1 al 100).');
+                return;
+            }
+
+            availableNumbers = [];
+            for (let i = start; i <= end; i++) {
+                availableNumbers.push(i);
+            }
+
+            participants = [];
+            assignedNumbersMap = {};
+            updateStatistics();
+            renderParticipants();
+            raffleResultDiv.classList.add('hidden');
+            document.getElementById('raffleMessage').style.display = 'none';
+        }
+
+        function modifyNumbers(amount) {
+            let end = parseInt(endNumberInput.value);
+            const newEnd = end + amount;
+            if (newEnd > 0 && newEnd <= 9999) {
+                endNumberInput.value = newEnd;
+                generateNumbers();
+            } else {
+                alert('El rango de números debe estar entre 1 y 9999.');
+            }
+        }
+
+        function updateStatistics() {
+            totalNumbersSpan.textContent = availableNumbers.length;
+            assignedNumbersSpan.textContent = Object.keys(assignedNumbersMap).length;
+            unassignedNumbersSpan.textContent = availableNumbers.length - Object.keys(assignedNumbersMap).length;
+            totalParticipantsSpan.textContent = participants.length;
+        }
+
+        function addParticipant() {
+            const name = participantNameInput.value.trim();
+            const numbersStr = numbersToAssignInput.value.trim();
+            
+            if (!name) {
+                alert('El nombre del participante no puede estar vacío.');
+                return;
+            }
+
+            const newNumbers = parseNumbers(numbersStr);
+            const validNumbers = [];
+            const invalidNumbers = [];
+
+            newNumbers.forEach(num => {
+                if (num >= parseInt(startNumberInput.value) && num <= parseInt(endNumberInput.value) && !assignedNumbersMap[num]) {
+                    validNumbers.push(num);
+                    assignedNumbersMap[num] = { name: name, id: participants.length };
+                } else {
+                    invalidNumbers.push(num);
+                }
+            });
+
+            if (validNumbers.length > 0) {
+                const newParticipant = {
+                    name: name,
+                    numbers: validNumbers,
+                    id: participants.length
+                };
+                participants.push(newParticipant);
+                renderParticipants();
+                updateStatistics();
+
+                participantNameInput.value = '';
+                numbersToAssignInput.value = '';
+
+                if (invalidNumbers.length > 0) {
+                    alert(`Se asignaron ${validNumbers.length} números. Los siguientes números ya estaban asignados o están fuera del rango: ${invalidNumbers.join(', ')}`);
+                }
+            } else {
+                alert('No se pudo asignar ningún número. Verifica que los números no estén ya asignados o estén dentro del rango válido.');
+            }
+        }
+
+        function renderParticipants() {
+            participantsList.innerHTML = '';
+            if (participants.length === 0) {
+                participantsList.innerHTML = '<p class="text-center text-gray-500 italic">No hay participantes aún.</p>';
+            }
+            participants.forEach((p, index) => {
+                const card = document.createElement('div');
+                card.className = 'participant-card';
+                card.innerHTML = `
+                    <div class="flex justify-between items-start mb-2">
+                        <div class="flex-1">
+                            <p class="font-bold text-lg">${p.name}</p>
+                            <p class="text-sm text-gray-400 mt-1">Números: ${p.numbers.join(', ')}</p>
+                        </div>
+                        <div class="flex space-x-2">
+                            <button onclick="openModal(${index})" class="text-sm text-blue-400 hover:text-blue-200 transition-colors">
+                                <i class="fas fa-edit"></i>
+                            </button>
+                            <button onclick="removeParticipant(${index})" class="text-sm text-red-500 hover:text-red-300 transition-colors">
+                                <i class="fas fa-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                `;
+                participantsList.appendChild(card);
+            });
+        }
+
+        function removeParticipant(index) {
+            if (confirm(`¿Estás seguro de que quieres eliminar a ${participants[index].name}?`)) {
+                const numbersToRemove = participants[index].numbers;
+                numbersToRemove.forEach(num => {
+                    delete assignedNumbersMap[num];
+                });
+
+                participants.splice(index, 1);
+                updateStatistics();
+                renderParticipants();
+            }
+        }
+
+        function openModal(index) {
+            currentParticipantIndex = index;
+            const participant = participants[index];
+            modalParticipantName.textContent = participant.name;
+            renderModalNumbers(participant.numbers);
+            editModal.style.display = 'block';
+        }
+
+        function closeModal() {
+            editModal.style.display = 'none';
+            currentParticipantIndex = -1;
+        }
+        
+        window.onclick = function(event) {
+            if (event.target == editModal) {
+                closeModal();
+            }
+        }
+
+        function renderModalNumbers(numbers) {
+            modalSelectedNumbers.innerHTML = '';
+            const numberGrid = document.createElement('div');
+            numberGrid.className = 'number-grid';
+            numbers.forEach(num => {
+                const cell = document.createElement('div');
+                cell.className = 'number-cell bg-blue-900 text-blue-300';
+                cell.textContent = num;
+                cell.onclick = () => removeNumberFromModal(num);
+                numberGrid.appendChild(cell);
+            });
+            modalSelectedNumbers.appendChild(numberGrid);
+        }
+
+        function addNumberToParticipant() {
+            const newNumberStr = document.getElementById('addNumberInput').value.trim();
+            const newNumber = parseInt(newNumberStr);
+
+            if (isNaN(newNumber) || newNumber < parseInt(startNumberInput.value) || newNumber > parseInt(endNumberInput.value)) {
+                alert('Por favor, introduce un número válido dentro del rango.');
+                return;
+            }
+
+            if (assignedNumbersMap[newNumber]) {
+                alert('Este número ya está asignado a otro participante.');
+                return;
+            }
+
+            const participant = participants[currentParticipantIndex];
+            if (!participant.numbers.includes(newNumber)) {
+                participant.numbers.push(newNumber);
+                assignedNumbersMap[newNumber] = { name: participant.name, id: participant.id };
+                renderModalNumbers(participant.numbers);
+                document.getElementById('addNumberInput').value = '';
+            } else {
+                alert('Este número ya lo tiene el participante.');
+            }
+        }
+
+        function removeNumberFromModal(number) {
+            const participant = participants[currentParticipantIndex];
+            const numberIndex = participant.numbers.indexOf(number);
+            if (numberIndex > -1) {
+                participant.numbers.splice(numberIndex, 1);
+                delete assignedNumbersMap[number];
+                renderModalNumbers(participant.numbers);
+            }
+        }
+
+        function saveNumbers() {
+            renderParticipants();
+            updateStatistics();
+            closeModal();
+        }
+
+        function startRaffle() {
+            const raffleMessage = document.getElementById('raffleMessage');
+            const raffleButton = document.getElementById('raffleButton');
+            
+            raffleButton.disabled = true;
+            raffleButton.textContent = '¡Girando...!';
+            raffleMessage.style.display = 'block';
+            
+            raffleResultDiv.classList.add('hidden');
+
+            const unassigned = availableNumbers.filter(num => !assignedNumbersMap[num]);
+            const raffleNumbers = [...Object.keys(assignedNumbersMap).map(Number), ...unassigned];
+
+            if (raffleNumbers.length === 0) {
+                alert('No hay números disponibles para el sorteo.');
+                raffleButton.disabled = false;
+                raffleButton.textContent = '¡Comenzar Sorteo!';
+                raffleMessage.style.display = 'none';
+                return;
+            }
+
+            // Simulación del sorteo
+            let spinCount = 0;
+            const spinInterval = setInterval(() => {
+                const randomIndex = Math.floor(Math.random() * raffleNumbers.length);
+                const winningNumber = raffleNumbers[randomIndex];
+                winnerNumberP.textContent = winningNumber;
+                spinCount++;
+
+                if (spinCount > 50) { // Duración de la animación
+                    clearInterval(spinInterval);
+                    
+                    const winnerInfo = assignedNumbersMap[winningNumber];
+                    winnerNameP.textContent = winnerInfo ? winnerInfo.name : '¡Número libre!';
+                    
+                    raffleResultDiv.classList.remove('hidden');
+                    raffleButton.disabled = false;
+                    raffleButton.textContent = '¡Comenzar Sorteo!';
+                    raffleMessage.style.display = 'none';
+                }
+            }, 50);
+        }
+
+        function resetRaffle() {
+            raffleResultDiv.classList.add('hidden');
+            winnerNumberP.textContent = '';
+            winnerNameP.textContent = '';
+        }
+
+        function parseNumbers(str) {
+            return str.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n));
+        }
+
+        // Funcionalidad de cambio de tema
+        function changeTheme() {
+            const desktopSelector = document.getElementById('theme-selector-desktop');
+            const mobileSelector = document.getElementById('theme-selector-mobile');
+            const theme = desktopSelector.value || mobileSelector.value;
+            
+            document.body.classList.remove('pastel-theme', 'elegance-theme', 'bvb-theme');
+            if (theme !== 'dark') {
+                document.body.classList.add(`${theme}-theme`);
+            }
+            
+            // Sincronizar selectores
+            if (desktopSelector.value !== theme) {
+                desktopSelector.value = theme;
+            }
+            if (mobileSelector.value !== theme) {
+                mobileSelector.value = theme;
+            }
+        }
+
+        // Inicialización
+        generateNumbers();
+        changeTheme();
+    </script>
+</body>
+</html>
