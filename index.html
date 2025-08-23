@@ -24,6 +24,9 @@
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1-px rgba(0, 0, 0, 0.2);
             --theme-selector-bg: #334155;
             --theme-selector-text: #f1f5f9;
+            --footer-bg: #1e293b;
+            --footer-text: #94a3b8;
+            --logo-filter: none;
         }
 
         body {
@@ -32,6 +35,8 @@
             transition: all 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .number-grid-container {
@@ -81,7 +86,7 @@
             cursor: not-allowed;
             position: relative;
         }
-
+        
         .number-cell.assigned::before,
         .number-cell.assigned::after {
             content: '';
@@ -111,7 +116,7 @@
             transform: translateX(4px);
             box-shadow: var(--card-shadow);
         }
-
+    
         .winner-animation {
             animation: pulse 2s infinite;
         }
@@ -189,6 +194,30 @@
             cursor: pointer;
         }
 
+        /* Estilo para el footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            max-width: 100px; /* Tamaño base del logo */
+            height: auto;
+            transition: all 0.3s ease;
+            filter: var(--logo-filter);
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 80px; /* Tamaño más pequeño en móvil */
+            }
+        }
+
         /* --- ESTILOS TEMA PASTEL DREAMS --- */
         .pastel-theme {
             --bg-primary: #f7e1e6;
@@ -202,14 +231,17 @@
             --card-shadow: 0 4px 15px rgba(181, 126, 220, 0.4);
             --theme-selector-bg: #f0e1ff;
             --theme-selector-text: #5e548e;
+            --footer-bg: #f0e1ff;
+            --footer-text: #5e548e;
+            --logo-filter: none;
         }
-
+        
         body.pastel-theme {
             background-color: var(--bg-primary);
             color: var(--text-primary);
             font-family: 'Comic Sans MS', cursive, sans-serif;
         }
-
+        
         .pastel-theme .bg-gray-800 { background-color: var(--bg-secondary); }
         .pastel-theme .text-white { color: var(--text-primary); }
         .pastel-theme .text-gray-400 { color: var(--text-secondary); }
@@ -233,7 +265,7 @@
         .pastel-theme .hover\:bg-green-700:hover { background-color: #4cc7b0; }
         .pastel-theme .bg-blue-600 { background-color: #b57edc; }
         .pastel-theme .hover\:bg-blue-700:hover { background-color: #a06ac9; }
-
+        
         /* Números y texto */
         .pastel-theme .number-cell, .pastel-theme .raffle-number, .pastel-theme .participant-card, .pastel-theme #selectedNumbers, .pastel-theme #editNumbersModal, .pastel-theme #raffleResult {
             font-style: italic;
@@ -259,15 +291,15 @@
         .pastel-theme .number-cell.assigned::before, .pastel-theme .number-cell.assigned::after {
             background-color: #a0a0a0;
         }
-
+        
         .pastel-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
         }
-
+        
         .pastel-theme .bg-blue-900 { background-color: var(--selected-color); }
         .pastel-theme .text-blue-300 { color: var(--text-primary); }
-
+        
         .pastel-theme .bg-green-900 { background-color: var(--selected-color); }
         .pastel-theme .text-green-300 { color: var(--text-primary); }
         .pastel-theme .text-green-200 { color: var(--text-primary); }
@@ -283,7 +315,7 @@
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
         }
-
+        
         .pastel-theme .raffle-container {
             background: rgba(255, 240, 243, 0.9);
             color: var(--text-primary);
@@ -309,12 +341,15 @@
             --text-primary: #e0e0e0;
             --text-secondary: #a0a0a0;
             --border-color: #2c2c2c;
-            --accent-color: #8c7ae6; /* Púrpura */
+            --accent-color: #8c7ae6;
             --hover-color: #2c2c2c;
             --selected-color: #5d48a0;
             --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             --theme-selector-bg: #1a1a1a;
             --theme-selector-text: #e0e0e0;
+            --footer-bg: #1a1a1a;
+            --footer-text: #a0a0a0;
+            --logo-filter: brightness(0.9);
         }
 
         body.elegance-theme {
@@ -327,7 +362,7 @@
             font-family: 'Playfair Display', serif;
             font-weight: 700;
         }
-
+        
         .elegance-theme .text-blue-400, .elegance-theme .text-green-400, .elegance-theme .text-purple-400, .elegance-theme .text-yellow-400 {
             color: var(--accent-color);
         }
@@ -360,12 +395,12 @@
             border-color: var(--accent-color);
             position: relative;
         }
-
+        
         .elegance-theme .number-cell.assigned::before,
         .elegance-theme .number-cell.assigned::after {
             content: '';
             position: absolute;
-            background-color: red; /* La X es roja */
+            background-color: red;
             height: 2px;
             width: 80%;
             top: 50%;
@@ -376,7 +411,7 @@
         .elegance-theme .number-cell.assigned::after {
             transform: translate(-50%, -50%) rotate(-45deg);
         }
-
+        
         .elegance-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
@@ -406,20 +441,23 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-primary);
         }
-
-        /* --- NUEVO TEMA: BVB --- */
+        
+        /* --- TEMA BVB --- */
         .bvb-theme {
             --bg-primary: #000;
             --bg-secondary: #1a1a1a;
             --text-primary: #fff;
             --text-secondary: #aaa;
             --border-color: #fde100;
-            --accent-color: #fde100; /* Amarillo BVB */
+            --accent-color: #fde100;
             --hover-color: #333;
             --selected-color: #fde100;
             --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
             --theme-selector-bg: #fde100;
             --theme-selector-text: #000;
+            --footer-bg: #1a1a1a;
+            --footer-text: #fde100;
+            --logo-filter: brightness(1.2);
         }
 
         body.bvb-theme {
@@ -437,9 +475,8 @@
 
         .bvb-theme .bg-gray-800 { background-color: var(--bg-secondary); }
         .bvb-theme .bg-gray-900 { background-color: var(--bg-secondary); }
-        .bvb-theme .bg-gray-700 { background-color: var(--hover-color); }
         .bvb-theme .border-gray-600 { border-color: var(--border-color); }
-
+        
         .bvb-theme .number-cell {
             background-color: var(--bg-secondary);
             color: var(--text-primary);
@@ -450,21 +487,21 @@
         }
         .bvb-theme .number-cell.selected {
             background-color: var(--accent-color);
-            color: #000; /* Texto NEGRO cuando se selecciona */
+            color: #000;
             border-color: var(--accent-color);
         }
         .bvb-theme .number-cell.assigned {
             background-color: var(--selected-color);
-            color: #000; /* Texto NEGRO para los asignados */
+            color: #000;
             border-color: var(--accent-color);
             position: relative;
         }
-
+        
         .bvb-theme .number-cell.assigned::before,
         .bvb-theme .number-cell.assigned::after {
             content: '';
             position: absolute;
-            background-color: red; /* La X es roja */
+            background-color: red;
             height: 2px;
             width: 80%;
             top: 50%;
@@ -475,7 +512,7 @@
         .bvb-theme .number-cell.assigned::after {
             transform: translate(-50%, -50%) rotate(-45deg);
         }
-
+        
         .bvb-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
@@ -486,11 +523,11 @@
         .bvb-theme .bg-green-900 { background-color: var(--selected-color); }
         .bvb-theme .text-green-300 { color: #000; }
         .bvb-theme .text-green-200 { color: var(--text-secondary); }
-
+        
         .bvb-theme .text-blue-400, .bvb-theme .text-green-400, .bvb-theme .text-purple-400, .bvb-theme .text-yellow-400 {
             color: var(--accent-color);
         }
-
+        
         .bvb-theme .bg-blue-600 { background-color: var(--accent-color); color: #000; }
         .bvb-theme .hover\:bg-blue-700:hover { background-color: #e0d000; }
         .bvb-theme .bg-red-600 { background-color: #000; color: var(--accent-color); border: 2px solid var(--accent-color); }
@@ -499,35 +536,33 @@
         .bvb-theme .hover\:bg-green-700:hover { background-color: var(--accent-color); color: #000; }
 
         .bvb-theme .bg-gradient-to-r {
-            background-image: linear-gradient(to right, #fde100, #000); /* DIFUMINADO AMARILLO A NEGRO */
+            background-image: linear-gradient(to right, #fde100, #000);
             color: #fff;
         }
         .bvb-theme .hover\:from-yellow-600:hover {
             background-image: linear-gradient(to right, #e0d000, #000);
         }
-
-        /* Estilos del Sorteo en vivo para el tema BVB */
+        
         .bvb-theme .raffle-container {
             background: rgba(0, 0, 0, 0.95);
             color: var(--text-primary);
         }
         .bvb-theme .raffle-number {
             font-family: 'Montserrat', sans-serif;
-            color: var(--accent-color); /* Números de sorteo en amarillo */
-            text-shadow: 0 0 5px #fff, 0 0 15px #fff; /* Brillo blanco */
+            color: var(--accent-color);
+            text-shadow: 0 0 5px #fff, 0 0 15px #fff;
         }
         .bvb-theme .winner-display {
             font-family: 'Montserrat', sans-serif;
             color: var(--text-primary);
         }
-
+        
         .bvb-theme .modal-content {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
             box-shadow: var(--card-shadow);
         }
 
-        /* Corrección para que el texto de los selectores de tema sea legible */
         .theme-selector {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -544,28 +579,23 @@
             background-color: #fff;
             color: #000;
         }
-
-        /* Estilos para las etiquetas de estadísticas en negro para tema BVB */
+        
         .bvb-theme .stats-label {
             color: #000;
         }
-
-        /* Estilos del bloque de ganador del sorteo para el tema BVB */
+        
         .bvb-theme #raffleResult h3 {
-            color: #fde100; /* Título "Ganador del Sorteo" en amarillo */
+            color: #fde100;
         }
         .bvb-theme #winnerInfo div {
-            background-image: linear-gradient(to right, #fde100, #000); /* DIFUMINADO AMARILLO A NEGRO */
-            color: #fff; /* Texto del ganador y número en blanco */
+            background-image: linear-gradient(to right, #fde100, #000);
+            color: #fff;
         }
     </style>
 </head>
 <body>
     <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
-        <div class="flex items-center">
-            <img src="logo.png" alt="Logo de RED PILAR" class="h-8 mr-2">
-            <h1 class="text-xl font-bold text-white">SORTEO RED PILAR</h1>
-        </div>
+        <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
         <div class="flex items-center">
             <label for="theme-selector-mobile" class="mr-2 text-sm text-gray-400">Tema:</label>
             <select id="theme-selector-mobile" class="theme-selector" onchange="changeTheme()">
@@ -576,17 +606,14 @@
             </select>
         </div>
     </div>
-
+    
     <div class="min-h-screen py-8 px-4 flex flex-col justify-start items-center md:pt-20">
         <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
             <div class="flex-1 space-y-6">
                 <div class="text-center mb-6 hidden md:block">
                     <div class="flex items-center justify-center mb-2">
-                        <img src="logo.png" alt="Logo de RED PILAR" class="h-10 mr-4">
-                        <h1 class="text-4xl font-bold text-white">
-                            <i class="fas fa-ticket-alt text-blue-400 mr-3"></i>
-                            SORTEO RED PILAR
-                        </h1>
+                        <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo mr-3">
+                        <h1 class="text-4xl font-bold text-white">SORTEO RED PILAR</h1>
                     </div>
                     <p class="text-lg text-gray-400">
                         Organiza sorteos de forma elegante y confiable
@@ -601,7 +628,7 @@
                         </select>
                     </div>
                 </div>
-
+                
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
                         <i class="fas fa-sliders-h text-blue-400 mr-2"></i>
@@ -615,423 +642,656 @@
                             <i class="fas fa-plus mr-2"></i> Agregar 10 números
                         </button>
                     </div>
-                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4">
-                        <div class="flex-1">
-                            <label for="startNumber" class="block text-sm text-gray-400 mb-1">Desde:</label>
-                            <input type="number" id="startNumber" value="1" min="1" max="9999" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
-                        </div>
-                        <div class="flex-1">
-                            <label for="endNumber" class="block text-sm text-gray-400 mb-1">Hasta:</label>
-                            <input type="number" id="endNumber" value="100" min="1" max="9999" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500">
+                    
+                    <div class="number-grid-container">
+                        <div class="number-grid">
                         </div>
                     </div>
-                    <button onclick="generateNumbers()" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-lg mt-4 transition-all">
-                        <i class="fas fa-sync-alt mr-2"></i> Generar Números
-                    </button>
                 </div>
-                
+
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
                         <i class="fas fa-user-plus text-green-400 mr-2"></i>
-                        Añadir Participante
+                        Agregar Participante
                     </h2>
-                    <div class="mb-4">
-                        <label for="participantName" class="block text-sm text-gray-400 mb-1">Nombre:</label>
-                        <input type="text" id="participantName" placeholder="Escribe el nombre del participante" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
+                    <div class="space-y-4">
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-gray-400">Nombre del participante</label>
+                            <input type="text" id="participantName" 
+                                class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
+                                placeholder="Ingresa el nombre">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2 text-gray-400">Números seleccionados</label>
+                            <div id="selectedNumbers" class="min-h-12 p-3 border border-gray-600 rounded-lg bg-gray-700">
+                                <span class="text-gray-500">Selecciona números en la cuadrícula</span>
+                            </div>
+                        </div>
+                        <button onclick="addParticipant()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-save mr-2"></i> Guardar Participante
+                        </button>
                     </div>
-                    <div class="mb-4">
-                        <label for="numbersToAssign" class="block text-sm text-gray-400 mb-1">Números a asignar (Separados por coma):</label>
-                        <input type="text" id="numbersToAssign" placeholder="Ej: 1, 5, 20" class="w-full bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
-                    </div>
-                    <button onclick="addParticipant()" class="w-full bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-lg transition-all">
-                        <i class="fas fa-plus mr-2"></i> Añadir Participante
-                    </button>
                 </div>
             </div>
 
             <div class="flex-1 space-y-6">
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-users text-purple-400 mr-2"></i>
-                        Lista de Participantes
+                        <i class="fas fa-database text-blue-400 mr-2"></i>
+                        Gestión de Datos
                     </h2>
-                    <div id="participantsList" class="overflow-y-auto max-h-96">
+                    <div class="flex space-x-4 mb-4">
+                        <button onclick="saveData()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-download mr-2"></i> Guardar Datos
+                        </button>
+                        <button onclick="document.getElementById('fileInput').click()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-upload mr-2"></i> Cargar Datos
+                        </button>
+                        <input type="file" id="fileInput" accept=".json" class="hidden" onchange="loadData(event)">
+                        <button onclick="clearData()" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-semibold transition-all">
+                            <i class="fas fa-trash-alt mr-2"></i> Borrar Todo
+                        </button>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <div class="flex justify-between items-center mb-4">
+                        <h2 class="text-xl font-semibold flex items-center text-white">
+                            <i class="fas fa-users text-purple-400 mr-2"></i>
+                            Participantes
+                        </h2>
+                        <span id="participantCount" class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
+                            0 participantes
+                        </span>
+                    </div>
+                    <div class="mb-4">
+                        <input type="text" id="participantSearch" onkeyup="filterParticipants()"
+                            class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
+                            placeholder="Buscar por nombre o número...">
+                    </div>
+                    <div id="participantsList" class="space-y-3 max-h-96 overflow-y-auto">
+                        <div class="text-center py-8 text-gray-500">
+                            <i class="fas fa-users-slash text-4xl mb-3"></i>
+                            <p>No hay participantes registrados</p>
                         </div>
+                    </div>
                 </div>
 
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-chart-bar text-yellow-400 mr-2"></i>
-                        Estadísticas
-                    </h2>
-                    <div class="grid grid-cols-2 gap-4 text-sm font-semibold">
-                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
-                            <span class="text-gray-400">Total de Números:</span>
-                            <span id="totalNumbers" class="text-white">0</span>
-                        </div>
-                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
-                            <span class="text-gray-400">Números Asignados:</span>
-                            <span id="assignedNumbers" class="text-white">0</span>
-                        </div>
-                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
-                            <span class="text-gray-400">Números Libres:</span>
-                            <span id="unassignedNumbers" class="text-white">0</span>
-                        </div>
-                        <div class="bg-gray-700 p-3 rounded-lg flex items-center justify-between">
-                            <span class="text-gray-400">Total de Participantes:</span>
-                            <span id="totalParticipants" class="text-white">0</span>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg text-center">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center justify-center text-white">
-                        <i class="fas fa-trophy text-yellow-400 mr-2"></i>
+                        <i class="fas fa-gift text-yellow-400 mr-2"></i>
                         Realizar Sorteo
                     </h2>
-                    <button onclick="startRaffle()" id="raffleButton" class="w-full bg-gradient-to-r from-yellow-500 to-red-600 hover:from-yellow-600 hover:to-red-700 text-white font-bold py-4 px-6 rounded-lg transition-all text-xl shadow-lg">
-                        <i class="fas fa-bullhorn mr-2"></i> ¡Comenzar Sorteo!
+                    <button onclick="startRaffle()" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white py-4 px-6 rounded-lg font-bold text-lg transition-all transform hover:scale-105">
+                        <i class="fas fa-random mr-2"></i> INICIAR SORTEO
                     </button>
-                    <p id="raffleMessage" class="mt-4 text-gray-400 italic" style="display:none;">¡Suerte para todos los participantes!</p>
+                    
+                    <div id="raffleResult" class="mt-6 p-4 bg-gray-900 rounded-lg hidden">
+                        <h3 class="text-lg font-semibold mb-2 text-white">🏆 Ganador del Sorteo</h3>
+                        <div id="winnerInfo" class="text-center"></div>
+                    </div>
                 </div>
 
-                <div id="raffleResult" class="bg-gray-800 rounded-xl p-6 shadow-lg text-center mt-6 hidden">
-                    <h3 class="text-2xl font-bold mb-4 text-blue-400">Ganador del Sorteo 🎉</h3>
-                    <div id="winnerInfo" class="bg-gray-900 text-white p-4 rounded-lg">
-                        <p class="text-sm text-gray-300">Número ganador:</p>
-                        <p id="winnerNumber" class="text-4xl font-bold mt-2 text-blue-300 animate-pulse"></p>
-                        <p class="text-sm text-gray-300 mt-4">Participante:</p>
-                        <p id="winnerName" class="text-2xl font-semibold mt-1 text-blue-300"></p>
+                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
+                        <i class="fas fa-chart-bar text-green-400 mr-2"></i>
+                        Estadísticas
+                    </h2>
+                    <div class="grid grid-cols-2 gap-4 text-center">
+                        <div class="p-3 bg-blue-900 rounded-lg">
+                            <div class="text-2xl font-bold text-blue-300" id="totalNumbers">0</div>
+                            <div class="text-sm text-blue-200 stats-label">Números Totales</div>
+                        </div>
+                        <div class="p-3 bg-green-900 rounded-lg">
+                            <div class="text-2xl font-bold text-green-300" id="assignedNumbers">0</div>
+                            <div class="text-sm text-green-200 stats-label">Números Asignados</div>
+                        </div>
                     </div>
-                    <button onclick="resetRaffle()" class="mt-4 bg-gray-700 hover:bg-gray-600 text-gray-200 font-bold py-2 px-4 rounded-lg transition-all">
-                        <i class="fas fa-undo mr-2"></i> Reiniciar Sorteo
-                    </button>
                 </div>
             </div>
         </div>
-        
-        <div id="editNumbersModal" class="modal">
-            <div class="modal-content">
-                <span class="close-btn" onclick="closeModal()">&times;</span>
-                <h3 class="text-2xl font-bold mb-4 text-white">Editar Números de <span id="modalParticipantName" class="text-blue-400"></span></h3>
-                <div class="flex items-center space-x-2 mb-4">
-                    <input type="text" id="addNumberInput" placeholder="Añadir un número..." class="flex-1 bg-gray-700 text-white py-2 px-4 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-green-500">
-                    <button onclick="addNumberToParticipant()" class="bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-all">
-                        <i class="fas fa-plus"></i>
-                    </button>
-                </div>
-                <div id="selectedNumbers" class="number-grid-container mt-4">
-                    </div>
-                <div class="text-center mt-4 text-sm text-gray-400">Haz clic en un número para eliminarlo.</div>
-                <button onclick="saveNumbers()" class="w-full mt-6 bg-blue-600 hover:bg-blue-700 text-white py-2 px-4 rounded-lg font-bold transition-all">
-                    <i class="fas fa-save mr-2"></i> Guardar Cambios
+    </div>
+
+    <div id="raffleOverlay" class="raffle-container hidden">
+        <div id="countdown" class="text-8xl font-bold mb-8"></div>
+        <div id="raffleDisplay" class="flex flex-col items-center">
+            <div id="liveNumber" class="raffle-number">--</div>
+            <div id="liveWinnerName" class="winner-display"></div>
+        </div>
+    </div>
+
+    <div id="editNumbersModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Editar Números</h2>
+            <p id="editModalName" class="text-lg text-gray-300 mb-4"></p>
+            <div class="number-grid-container h-80">
+                <div id="editNumberGrid" class="number-grid"></div>
+            </div>
+            <div class="mt-4">
+                <button onclick="saveEditedNumbers()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
+                    Guardar Cambios
                 </button>
             </div>
         </div>
-        
-        <footer class="mt-12 text-center text-sm text-gray-400">
-            <p>&copy; 2024 SORTEO RED PILAR. All Rights Reserved.</p>
-            <p>Design by Clau</p>
-        </footer>
-
     </div>
 
+    <footer>
+        <p>&copy; 2025 SORTEO RED PILAR. All Rights Reserved. Design by Clau</p>
+    </footer>
+
     <script>
-        let availableNumbers = [];
+        // Variables globales
         let participants = [];
-        let assignedNumbersMap = {};
-        let currentParticipantIndex = -1;
+        let selectedNumbers = [];
+        let currentNumbers = 100; // 00-99 por defecto
+        let raffleInterval;
+        let editingParticipantId = null;
+        let loadedFileName = 'sorteo_datos.json'; // Nombre por defecto
 
-        const startNumberInput = document.getElementById('startNumber');
-        const endNumberInput = document.getElementById('endNumber');
-        const participantsList = document.getElementById('participantsList');
-        const totalNumbersSpan = document.getElementById('totalNumbers');
-        const assignedNumbersSpan = document.getElementById('assignedNumbers');
-        const unassignedNumbersSpan = document.getElementById('unassignedNumbers');
-        const totalParticipantsSpan = document.getElementById('totalParticipants');
-        const raffleResultDiv = document.getElementById('raffleResult');
-        const winnerNumberP = document.getElementById('winnerNumber');
-        const winnerNameP = document.getElementById('winnerName');
-        const editModal = document.getElementById('editNumbersModal');
-        const modalParticipantName = document.getElementById('modalParticipantName');
-        const modalSelectedNumbers = document.getElementById('selectedNumbers');
-        const numbersToAssignInput = document.getElementById('numbersToAssign');
-        const participantNameInput = document.getElementById('participantName');
+        // Inicializar la aplicación
+        function initApp() {
+            loadFromLocalStorage();
+            loadTheme();
+            generateNumberGrid();
+            updateStatistics();
+        }
 
-        function generateNumbers() {
-            const start = parseInt(startNumberInput.value);
-            const end = parseInt(endNumberInput.value);
+        // Cargar datos desde localStorage
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('raffleData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    if (data.currentNumbers !== undefined && data.participants) {
+                        currentNumbers = data.currentNumbers;
+                        participants = data.participants;
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos de localStorage:', error);
+                }
+            }
+        }
 
-            if (isNaN(start) || isNaN(end) || start < 1 || end < start) {
-                alert('Por favor, ingresa un rango de números válido (Ej: 1 al 100).');
+        // Guardar datos en localStorage
+        function saveToLocalStorage() {
+            const data = {
+                currentNumbers: currentNumbers,
+                participants: participants
+            };
+            try {
+                localStorage.setItem('raffleData', JSON.stringify(data));
+            } catch (error) {
+                console.error('Error al guardar datos en localStorage:', error);
+            }
+        }
+
+        // --- Funcionalidad de Temas ---
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('raffleTheme') || 'dark';
+            const body = document.body;
+            const themeSelectors = document.querySelectorAll('.theme-selector');
+
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
+            if (savedTheme !== 'dark') {
+                body.classList.add(`${savedTheme}-theme`);
+            }
+
+            themeSelectors.forEach(selector => {
+                selector.value = savedTheme;
+            });
+        }
+
+        function changeTheme() {
+            const selectedTheme = event.target.value;
+            const body = document.body;
+
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
+            if (selectedTheme !== 'dark') {
+                body.classList.add(`${selectedTheme}-theme`);
+            }
+            
+            localStorage.setItem('raffleTheme', selectedTheme);
+            
+            // Sincronizar selectores
+            const otherSelector = document.querySelector(`.theme-selector:not([id='${event.target.id}'])`);
+            if (otherSelector) {
+                otherSelector.value = selectedTheme;
+            }
+        }
+
+        // Generar la cuadrícula de números
+        function generateNumberGrid() {
+            const grid = document.querySelector('.number-grid');
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < currentNumbers; i++) {
+                const number = i.toString().padStart(2, '0');
+                const cell = document.createElement('div');
+                cell.className = 'number-cell';
+                cell.textContent = number;
+                cell.setAttribute('data-number', number);
+                cell.onclick = () => toggleNumberSelection(number);
+                grid.appendChild(cell);
+            }
+            updateNumberAssignments();
+        }
+
+        // Seleccionar/deseleccionar número
+        function toggleNumberSelection(number) {
+            const index = selectedNumbers.indexOf(number);
+            const cell = document.querySelector(`[data-number="${number}"]`);
+            
+            if (index === -1) {
+                if (isNumberAssigned(number)) {
+                    alert('Este número ya ha sido asignado a otro participante.');
+                    return;
+                }
+                selectedNumbers.push(number);
+                cell.classList.add('selected');
+            } else {
+                selectedNumbers.splice(index, 1);
+                cell.classList.remove('selected');
+            }
+            
+            updateSelectedNumbersDisplay();
+        }
+
+        function isNumberAssigned(number) {
+            return participants.some(p => p.numbers.includes(number));
+        }
+
+        // Actualizar display de números seleccionados
+        function updateSelectedNumbersDisplay() {
+            const display = document.getElementById('selectedNumbers');
+            
+            if (selectedNumbers.length === 0) {
+                display.innerHTML = '<span class="text-gray-500">Selecciona números en la cuadrícula</span>';
+            } else {
+                display.innerHTML = selectedNumbers.map(num => 
+                    `<span class="inline-block bg-blue-900 text-blue-300 px-2 py-1 rounded mr-2 mb-2 text-xs">${num}</span>`
+                ).join('');
+            }
+        }
+
+        // Agregar participante
+        function addParticipant() {
+            const nameInput = document.getElementById('participantName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Por favor ingresa un nombre para el participante');
+                return;
+            }
+            
+            if (selectedNumbers.length === 0) {
+                alert('Por favor selecciona al menos un número');
+                return;
+            }
+            
+            const participant = {
+                id: Date.now(),
+                name: name,
+                numbers: [...selectedNumbers]
+            };
+            
+            participants.push(participant);
+            updateParticipantsList();
+            updateNumberAssignments();
+            clearForm();
+            updateStatistics();
+            saveToLocalStorage();
+        }
+
+        // Filtrar participantes
+        function filterParticipants() {
+            const searchTerm = document.getElementById('participantSearch').value.toLowerCase();
+            const filteredParticipants = participants.filter(p => {
+                const nameMatch = p.name.toLowerCase().includes(searchTerm);
+                const numberMatch = p.numbers.some(num => num.includes(searchTerm));
+                return nameMatch || numberMatch;
+            });
+            updateParticipantsList(filteredParticipants);
+        }
+
+        // Actualizar lista de participantes
+        function updateParticipantsList(filteredList = participants) {
+            const list = document.getElementById('participantsList');
+            const count = document.getElementById('participantCount');
+            
+            if (filteredList.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-users-slash text-4xl mb-3"></i>
+                        <p>No se encontraron participantes</p>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = filteredList.map(participant => `
+                    <div class="participant-card">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-semibold text-lg text-white">${participant.name}</h3>
+                            <div class="relative group">
+                                <button class="text-gray-500 hover:text-gray-300 focus:outline-none">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-md shadow-lg hidden group-hover:block z-10">
+                                    <a href="#" onclick="editParticipantName(${participant.id})" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"><i class="fas fa-edit mr-2"></i>Cambiar nombre</a>
+                                    <a href="#" onclick="openEditModal(${participant.id})" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"><i class="fas fa-pencil-alt mr-2"></i>Editar números</a>
+                                    <a href="#" onclick="removeParticipant(${participant.id})" class="block px-4 py-2 text-sm text-red-500 hover:bg-red-800"><i class="fas fa-trash-alt mr-2"></i>Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            ${participant.numbers.map(num => 
+                                `<span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs">${num}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            count.textContent = `${filteredList.length} participante${filteredList.length !== 1 ? 's' : ''}`;
+        }
+
+        function editParticipantName(id) {
+            const participant = participants.find(p => p.id === id);
+            if (!participant) return;
+
+            const newName = prompt("Ingresa el nuevo nombre para " + participant.name, participant.name);
+            if (newName && newName.trim() !== "") {
+                participant.name = newName.trim();
+                updateParticipantsList();
+                saveToLocalStorage();
+            }
+        }
+        
+        // Abrir modal de edición de números
+        function openEditModal(id) {
+            const participant = participants.find(p => p.id === id);
+            if (!participant) return;
+
+            editingParticipantId = id;
+            document.getElementById('editModalName').textContent = `Editando números para: ${participant.name}`;
+            const modalGrid = document.getElementById('editNumberGrid');
+            modalGrid.innerHTML = '';
+            
+            const participantNumbers = new Set(participant.numbers);
+            const otherAssignedNumbers = participants.filter(p => p.id !== id).flatMap(p => p.numbers);
+            const otherAssignedSet = new Set(otherAssignedNumbers);
+
+            for (let i = 0; i < currentNumbers; i++) {
+                const number = i.toString().padStart(2, '0');
+                const cell = document.createElement('div');
+                cell.className = 'number-cell';
+                cell.textContent = number;
+                cell.setAttribute('data-number', number);
+
+                if (otherAssignedSet.has(number)) {
+                    cell.classList.add('assigned');
+                    cell.onclick = () => alert('Este número ya está asignado a otro participante.');
+                } else {
+                    if (participantNumbers.has(number)) {
+                        cell.classList.add('selected');
+                    }
+                    cell.onclick = () => toggleModalNumberSelection(cell, number);
+                }
+                modalGrid.appendChild(cell);
+            }
+
+            document.getElementById('editNumbersModal').style.display = 'block';
+        }
+
+        function toggleModalNumberSelection(cell, number) {
+            cell.classList.toggle('selected');
+        }
+
+        function saveEditedNumbers() {
+            const participant = participants.find(p => p.id === editingParticipantId);
+            if (!participant) return;
+
+            const selectedCells = document.querySelectorAll('#editNumberGrid .number-cell.selected');
+            const newNumbers = Array.from(selectedCells).map(cell => cell.getAttribute('data-number'));
+            
+            participant.numbers = newNumbers;
+            updateParticipantsList();
+            updateNumberAssignments();
+            updateStatistics();
+            saveToLocalStorage();
+            closeEditModal();
+        }
+
+        function closeEditModal() {
+            document.getElementById('editNumbersModal').style.display = 'none';
+            editingParticipantId = null;
+        }
+
+        function removeParticipant(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
+                participants = participants.filter(p => p.id !== id);
+                updateParticipantsList();
+                updateNumberAssignments();
+                updateStatistics();
+                saveToLocalStorage();
+            }
+        }
+
+        function updateNumberAssignments() {
+            document.querySelectorAll('.number-cell').forEach(cell => {
+                cell.classList.remove('assigned');
+                cell.classList.remove('selected');
+            });
+            
+            participants.forEach(participant => {
+                participant.numbers.forEach(number => {
+                    const cell = document.querySelector(`[data-number="${number}"]`);
+                    if (cell) {
+                        cell.classList.add('assigned');
+                    }
+                });
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('participantName').value = '';
+            selectedNumbers = [];
+            updateSelectedNumbersDisplay();
+            document.querySelectorAll('.number-cell.selected').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+        }
+
+        function modifyNumbers(change) {
+            const newTotal = currentNumbers + change;
+            
+            if (newTotal < 10) {
+                alert('Mínimo 10 números requeridos');
+                return;
+            }
+            
+            if (newTotal > 200) {
+                alert('Máximo 200 números permitidos');
                 return;
             }
 
-            availableNumbers = [];
-            for (let i = start; i <= end; i++) {
-                availableNumbers.push(i);
+            if (change < 0) {
+                participants.forEach(participant => {
+                    participant.numbers = participant.numbers.filter(num => {
+                        const numValue = parseInt(num, 10);
+                        return numValue < newTotal;
+                    });
+                });
             }
 
-            participants = [];
-            assignedNumbersMap = {};
+            currentNumbers = newTotal;
+            generateNumberGrid();
+            updateParticipantsList();
             updateStatistics();
-            renderParticipants();
-            raffleResultDiv.classList.add('hidden');
-            document.getElementById('raffleMessage').style.display = 'none';
-        }
-
-        function modifyNumbers(amount) {
-            let end = parseInt(endNumberInput.value);
-            const newEnd = end + amount;
-            if (newEnd > 0 && newEnd <= 9999) {
-                endNumberInput.value = newEnd;
-                generateNumbers();
-            } else {
-                alert('El rango de números debe estar entre 1 y 9999.');
-            }
+            saveToLocalStorage();
         }
 
         function updateStatistics() {
-            totalNumbersSpan.textContent = availableNumbers.length;
-            assignedNumbersSpan.textContent = Object.keys(assignedNumbersMap).length;
-            unassignedNumbersSpan.textContent = availableNumbers.length - Object.keys(assignedNumbersMap).length;
-            totalParticipantsSpan.textContent = participants.length;
+            document.getElementById('totalNumbers').textContent = currentNumbers;
+            
+            const assignedNumbers = new Set();
+            participants.forEach(p => p.numbers.forEach(n => assignedNumbers.add(n)));
+            document.getElementById('assignedNumbers').textContent = assignedNumbers.size;
         }
 
-        function addParticipant() {
-            const name = participantNameInput.value.trim();
-            const numbersStr = numbersToAssignInput.value.trim();
+        function saveData() {
+            const data = {
+                currentNumbers: currentNumbers,
+                participants: participants
+            };
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const fileName = loadedFileName || 'sorteo_datos.json';
             
-            if (!name) {
-                alert('El nombre del participante no puede estar vacío.');
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            
+            alert(`Datos guardados exitosamente como '${fileName}'.`);
+        }
+
+        function loadData(event) {
+            const file = event.target.files[0];
+            if (!file) {
                 return;
             }
-
-            const newNumbers = parseNumbers(numbersStr);
-            const validNumbers = [];
-            const invalidNumbers = [];
-
-            newNumbers.forEach(num => {
-                if (num >= parseInt(startNumberInput.value) && num <= parseInt(endNumberInput.value) && !assignedNumbersMap[num]) {
-                    validNumbers.push(num);
-                    assignedNumbersMap[num] = { name: name, id: participants.length };
-                } else {
-                    invalidNumbers.push(num);
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.currentNumbers !== undefined && data.participants) {
+                        currentNumbers = data.currentNumbers;
+                        participants = data.participants;
+                        generateNumberGrid();
+                        updateParticipantsList();
+                        updateStatistics();
+                        saveToLocalStorage();
+                        loadedFileName = file.name;
+                        alert('Datos cargados exitosamente.');
+                    } else {
+                        alert('El archivo JSON no tiene el formato correcto.');
+                    }
+                } catch (error) {
+                    alert('Error al leer el archivo JSON: ' + error.message);
                 }
-            });
-
-            if (validNumbers.length > 0) {
-                const newParticipant = {
-                    name: name,
-                    numbers: validNumbers,
-                    id: participants.length
-                };
-                participants.push(newParticipant);
-                renderParticipants();
-                updateStatistics();
-
-                participantNameInput.value = '';
-                numbersToAssignInput.value = '';
-
-                if (invalidNumbers.length > 0) {
-                    alert(`Se asignaron ${validNumbers.length} números. Los siguientes números ya estaban asignados o están fuera del rango: ${invalidNumbers.join(', ')}`);
-                }
-            } else {
-                alert('No se pudo asignar ningún número. Verifica que los números no estén ya asignados o estén dentro del rango válido.');
-            }
-        }
-
-        function renderParticipants() {
-            participantsList.innerHTML = '';
-            if (participants.length === 0) {
-                participantsList.innerHTML = '<p class="text-center text-gray-500 italic">No hay participantes aún.</p>';
-            }
-            participants.forEach((p, index) => {
-                const card = document.createElement('div');
-                card.className = 'participant-card';
-                card.innerHTML = `
-                    <div class="flex justify-between items-start mb-2">
-                        <div class="flex-1">
-                            <p class="font-bold text-lg">${p.name}</p>
-                            <p class="text-sm text-gray-400 mt-1">Números: ${p.numbers.join(', ')}</p>
-                        </div>
-                        <div class="flex space-x-2">
-                            <button onclick="openModal(${index})" class="text-sm text-blue-400 hover:text-blue-200 transition-colors">
-                                <i class="fas fa-edit"></i>
-                            </button>
-                            <button onclick="removeParticipant(${index})" class="text-sm text-red-500 hover:text-red-300 transition-colors">
-                                <i class="fas fa-trash"></i>
-                            </button>
-                        </div>
-                    </div>
-                `;
-                participantsList.appendChild(card);
-            });
-        }
-
-        function removeParticipant(index) {
-            if (confirm(`¿Estás seguro de que quieres eliminar a ${participants[index].name}?`)) {
-                const numbersToRemove = participants[index].numbers;
-                numbersToRemove.forEach(num => {
-                    delete assignedNumbersMap[num];
-                });
-
-                participants.splice(index, 1);
-                updateStatistics();
-                renderParticipants();
-            }
-        }
-
-        function openModal(index) {
-            currentParticipantIndex = index;
-            const participant = participants[index];
-            modalParticipantName.textContent = participant.name;
-            renderModalNumbers(participant.numbers);
-            editModal.style.display = 'block';
-        }
-
-        function closeModal() {
-            editModal.style.display = 'none';
-            currentParticipantIndex = -1;
+            };
+            reader.readAsText(file);
         }
         
-        window.onclick = function(event) {
-            if (event.target == editModal) {
-                closeModal();
+        function clearData() {
+            if (confirm('¿Estás seguro de que quieres borrar todos los datos del sorteo? Esta acción es irreversible.')) {
+                participants = [];
+                currentNumbers = 100;
+                clearForm();
+                generateNumberGrid();
+                updateParticipantsList();
+                updateStatistics();
+                document.getElementById('raffleResult').classList.add('hidden');
+                loadedFileName = 'sorteo_datos.json';
+                localStorage.removeItem('raffleData');
+                alert('Todos los datos han sido borrados.');
             }
-        }
-
-        function renderModalNumbers(numbers) {
-            modalSelectedNumbers.innerHTML = '';
-            const numberGrid = document.createElement('div');
-            numberGrid.className = 'number-grid';
-            numbers.forEach(num => {
-                const cell = document.createElement('div');
-                cell.className = 'number-cell bg-blue-900 text-blue-300';
-                cell.textContent = num;
-                cell.onclick = () => removeNumberFromModal(num);
-                numberGrid.appendChild(cell);
-            });
-            modalSelectedNumbers.appendChild(numberGrid);
-        }
-
-        function addNumberToParticipant() {
-            const newNumberStr = document.getElementById('addNumberInput').value.trim();
-            const newNumber = parseInt(newNumberStr);
-
-            if (isNaN(newNumber) || newNumber < parseInt(startNumberInput.value) || newNumber > parseInt(endNumberInput.value)) {
-                alert('Por favor, introduce un número válido dentro del rango.');
-                return;
-            }
-
-            if (assignedNumbersMap[newNumber]) {
-                alert('Este número ya está asignado a otro participante.');
-                return;
-            }
-
-            const participant = participants[currentParticipantIndex];
-            if (!participant.numbers.includes(newNumber)) {
-                participant.numbers.push(newNumber);
-                assignedNumbersMap[newNumber] = { name: participant.name, id: participant.id };
-                renderModalNumbers(participant.numbers);
-                document.getElementById('addNumberInput').value = '';
-            } else {
-                alert('Este número ya lo tiene el participante.');
-            }
-        }
-
-        function removeNumberFromModal(number) {
-            const participant = participants[currentParticipantIndex];
-            const numberIndex = participant.numbers.indexOf(number);
-            if (numberIndex > -1) {
-                participant.numbers.splice(numberIndex, 1);
-                delete assignedNumbersMap[number];
-                renderModalNumbers(participant.numbers);
-            }
-        }
-
-        function saveNumbers() {
-            renderParticipants();
-            updateStatistics();
-            closeModal();
         }
 
         function startRaffle() {
-            const raffleMessage = document.getElementById('raffleMessage');
-            const raffleButton = document.getElementById('raffleButton');
-            
-            raffleButton.disabled = true;
-            raffleButton.textContent = '¡Girando...!';
-            raffleMessage.style.display = 'block';
-            
-            raffleResultDiv.classList.add('hidden');
-
-            const unassigned = availableNumbers.filter(num => !assignedNumbersMap[num]);
-            const raffleNumbers = [...Object.keys(assignedNumbersMap).map(Number), ...unassigned];
-
-            if (raffleNumbers.length === 0) {
-                alert('No hay números disponibles para el sorteo.');
-                raffleButton.disabled = false;
-                raffleButton.textContent = '¡Comenzar Sorteo!';
-                raffleMessage.style.display = 'none';
+            if (participants.length === 0) {
+                alert('No hay participantes para realizar el sorteo');
                 return;
             }
+            
+            const raffleOverlay = document.getElementById('raffleOverlay');
+            const countdown = document.getElementById('countdown');
+            const liveNumber = document.getElementById('liveNumber');
+            const liveWinnerName = document.getElementById('liveWinnerName');
 
-            // Simulación del sorteo
-            let spinCount = 0;
-            const spinInterval = setInterval(() => {
-                const randomIndex = Math.floor(Math.random() * raffleNumbers.length);
-                const winningNumber = raffleNumbers[randomIndex];
-                winnerNumberP.textContent = winningNumber;
-                spinCount++;
+            raffleOverlay.classList.remove('hidden');
+            liveNumber.textContent = '--';
+            liveWinnerName.textContent = '';
+            countdown.style.display = 'block';
 
-                if (spinCount > 50) { // Duración de la animación
-                    clearInterval(spinInterval);
-                    
-                    const winnerInfo = assignedNumbersMap[winningNumber];
-                    winnerNameP.textContent = winnerInfo ? winnerInfo.name : '¡Número libre!';
-                    
-                    raffleResultDiv.classList.remove('hidden');
-                    raffleButton.disabled = false;
-                    raffleButton.textContent = '¡Comenzar Sorteo!';
-                    raffleMessage.style.display = 'none';
+            let count = 3;
+            countdown.textContent = count;
+            const countdownInterval = setInterval(() => {
+                count--;
+                countdown.textContent = count;
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    countdown.style.display = 'none';
+                    startNumberAnimation();
+                }
+            }, 1000);
+        }
+
+        function startNumberAnimation() {
+            const liveNumber = document.getElementById('liveNumber');
+            const liveWinnerName = document.getElementById('liveWinnerName');
+
+            let animationCount = 0;
+            raffleInterval = setInterval(() => {
+                const randomNumber = Math.floor(Math.random() * currentNumbers).toString().padStart(2, '0');
+                liveNumber.textContent = randomNumber;
+                animationCount++;
+                if (animationCount > 50) {
+                    clearInterval(raffleInterval);
+                    determineWinner();
                 }
             }, 50);
         }
 
-        function resetRaffle() {
-            raffleResultDiv.classList.add('hidden');
-            winnerNumberP.textContent = '';
-            winnerNameP.textContent = '';
-        }
-
-        function parseNumbers(str) {
-            return str.split(',').map(n => parseInt(n.trim())).filter(n => !isNaN(n));
-        }
-
-        // Funcionalidad de cambio de tema
-        function changeTheme() {
-            const desktopSelector = document.getElementById('theme-selector-desktop');
-            const mobileSelector = document.getElementById('theme-selector-mobile');
-            const theme = desktopSelector.value || mobileSelector.value;
+        function determineWinner() {
+            const liveNumber = document.getElementById('liveNumber');
+            const liveWinnerName = document.getElementById('liveWinnerName');
+            const assignedNumbers = participants.flatMap(p => p.numbers);
             
-            document.body.classList.remove('pastel-theme', 'elegance-theme', 'bvb-theme');
-            if (theme !== 'dark') {
-                document.body.classList.add(`${theme}-theme`);
+            let winningNumber;
+            let winner;
+            let attempt = 0;
+
+            do {
+                const randomIndex = Math.floor(Math.random() * assignedNumbers.length);
+                winningNumber = assignedNumbers[randomIndex];
+                winner = participants.find(p => p.numbers.includes(winningNumber));
+                attempt++;
+            } while (!winner && attempt < 100);
+
+            if (!winner) {
+                winner = participants[Math.floor(Math.random() * participants.length)];
+                winningNumber = winner.numbers[Math.floor(Math.random() * winner.numbers.length)];
             }
-            
-            // Sincronizar selectores
-            if (desktopSelector.value !== theme) {
-                desktopSelector.value = theme;
-            }
-            if (mobileSelector.value !== theme) {
-                mobileSelector.value = theme;
-            }
+
+            liveNumber.textContent = winningNumber;
+            liveWinnerName.textContent = `¡El ganador es: ${winner.name}!`;
+            liveWinnerName.classList.add('winner-animation');
+
+            setTimeout(() => {
+                showRaffleResult(winner, winningNumber);
+            }, 3000);
         }
 
-        // Inicialización
-        generateNumbers();
-        changeTheme();
+        function showRaffleResult(winner, winningNumber) {
+            const raffleOverlay = document.getElementById('raffleOverlay');
+            raffleOverlay.classList.add('hidden');
+
+            const resultDiv = document.getElementById('raffleResult');
+            const winnerInfo = document.getElementById('winnerInfo');
+            
+            winnerInfo.innerHTML = `
+                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-6 rounded-lg text-white winner-animation">
+                    <div class="text-3xl font-bold mb-2">${winner.name}</div>
+                    <div class="text-xl">Número ganador: <span class="font-mono font-bold">${winningNumber}</span></div>
+                </div>
+            `;
+            
+            resultDiv.classList.remove('hidden');
+            saveToLocalStorage();
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp);
     </script>
 </body>
 </html>
