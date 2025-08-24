@@ -635,7 +635,17 @@
             color: var(--text-primary);
         }
         .matrix-theme .border-gray-600 { border-color: var(--border-color); }
-        .matrix-theme .bg-gray-700 { background-color: var(--hover-color); }
+        .matrix-theme .bg-gray-700 { background-color: rgba(10, 40, 10, 0.7); }
+        .matrix-theme .hover\:bg-gray-600:hover { background-color: rgba(10, 60, 10, 0.9); box-shadow: 0 0 5px #0f0; }
+
+        .matrix-theme input::placeholder {
+            color: rgba(0, 255, 0, 0.5);
+        }
+
+        .matrix-theme .focus\:ring-blue-400:focus {
+            --tw-ring-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
 
         .matrix-theme .number-cell {
             background-color: transparent;
