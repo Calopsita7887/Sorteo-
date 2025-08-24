@@ -486,125 +486,110 @@
             color: var(--text-primary);
         }
         
-        /* --- TEMA BVB --- */
-        .bvb-theme {
-            --bg-primary: #000;
-            --bg-secondary: #1a1a1a;
-            --text-primary: #fff;
-            --text-secondary: #aaa;
-            --border-color: #fde100;
-            --accent-color: #fde100;
-            --hover-color: #333;
-            --selected-color: #fde100;
-            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-            --theme-selector-bg: #fde100;
-            --theme-selector-text: #000;
-            --footer-bg: #1a1a1a;
-            --footer-text: #fde100;
-            --logo-filter: brightness(1.2);
+        /* --- TEMA AQUA MARINE --- */
+        .aqua-marine-theme {
+            --bg-primary: #f0f8ff;
+            --bg-secondary: #ffffff;
+            --text-primary: #0a4d68;
+            --text-secondary: #088395;
+            --border-color: #b0e0e6;
+            --accent-color: #05bfdb;
+            --hover-color: #e0f7fa;
+            --selected-color: #008080;
+            --card-shadow: 0 4px 15px rgba(176, 224, 230, 0.6);
+            --theme-selector-bg: #ffffff;
+            --theme-selector-text: #0a4d68;
+            --footer-bg: #ffffff;
+            --footer-text: #0a4d68;
+            --logo-filter: none;
         }
 
-        body.bvb-theme {
+        body.aqua-marine-theme {
             background-color: var(--bg-primary);
             color: var(--text-primary);
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Poppins', sans-serif;
         }
 
-        .bvb-theme .text-white { color: var(--text-primary); }
-        .bvb-theme .text-gray-400, .bvb-theme .text-gray-300 { color: var(--text-secondary); }
-        .bvb-theme .text-gray-500 { color: var(--text-secondary); }
-        .bvb-theme .text-gray-200 { color: var(--text-secondary); }
-        .bvb-theme .text-red-500 { color: var(--accent-color); }
-        .bvb-theme .hover\:bg-red-800:hover { background-color: var(--accent-color); color: #000; }
+        .aqua-marine-theme h1, .aqua-marine-theme h2, .aqua-marine-theme h3 {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+        }
 
-        .bvb-theme .bg-gray-800 { background-color: var(--bg-secondary); }
-        .bvb-theme .bg-gray-900 { background-color: var(--bg-secondary); }
-        .bvb-theme .border-gray-600 { border-color: var(--border-color); }
-        
-        .bvb-theme .number-cell {
-            background-color: var(--bg-secondary);
+        .aqua-marine-theme .bg-gray-800 { background-color: var(--bg-secondary); }
+        .aqua-marine-theme .text-white { color: var(--text-primary); }
+        .aqua-marine-theme .text-gray-400 { color: var(--text-secondary); }
+        .aqua-marine-theme .text-gray-500 { color: var(--text-secondary); }
+        .aqua-marine-theme .text-gray-300 { color: var(--text-secondary); }
+
+        .aqua-marine-theme .text-blue-400, .aqua-marine-theme .text-green-400, .aqua-marine-theme .text-purple-400, .aqua-marine-theme .text-yellow-400 {
+            color: var(--accent-color);
+        }
+
+        .aqua-marine-theme .border-gray-600 { border-color: var(--border-color); }
+        .aqua-marine-theme .bg-gray-700 { background-color: var(--hover-color); }
+        .aqua-marine-theme .number-cell {
+            background-color: #e0f7fa;
             color: var(--text-primary);
             border-color: var(--border-color);
         }
-        .bvb-theme .number-cell:hover {
+        .aqua-marine-theme .number-cell:hover {
             background-color: var(--hover-color);
+            transform: scale(1.05);
         }
-        .bvb-theme .number-cell.selected {
+        .aqua-marine-theme .number-cell.selected {
             background-color: var(--accent-color);
-            color: #000;
-            border-color: var(--accent-color);
-        }
-        .bvb-theme .number-cell.assigned {
-            background-color: var(--selected-color);
-            color: #000;
-            border-color: var(--accent-color);
-            position: relative;
-        }
-        
-        .bvb-theme .number-cell.assigned::before,
-        .bvb-theme .number-cell.assigned::after {
-            content: '';
-            position: absolute;
-            background-color: red;
-            height: 2px;
-            width: 80%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .bvb-theme .number-cell.assigned::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-        
-        .bvb-theme .participant-card {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
-            box-shadow: var(--card-shadow);
-        }
-        .bvb-theme .bg-blue-900 { background-color: var(--accent-color); }
-        .bvb-theme .text-blue-300 { color: #000; }
-        .bvb-theme .bg-green-900 { background-color: var(--selected-color); }
-        .bvb-theme .text-green-300 { color: #000; }
-        .bvb-theme .text-green-200 { color: var(--text-secondary); }
-        
-        .bvb-theme .text-blue-400, .bvb-theme .text-green-400, .bvb-theme .text-purple-400, .bvb-theme .text-yellow-400 {
-            color: var(--accent-color);
-        }
-        
-        .bvb-theme .bg-blue-600 { background-color: var(--accent-color); color: #000; }
-        .bvb-theme .hover\:bg-blue-700:hover { background-color: #e0d000; }
-        .bvb-theme .bg-red-600 { background-color: #000; color: var(--accent-color); border: 2px solid var(--accent-color); }
-        .bvb-theme .hover\:bg-red-700:hover { background-color: var(--accent-color); color: #000; }
-        .bvb-theme .bg-green-600 { background-color: #000; color: var(--accent-color); border: 2px solid var(--accent-color); }
-        .bvb-theme .hover\:bg-green-700:hover { background-color: var(--accent-color); color: #000; }
-
-        .bvb-theme .bg-gradient-to-r {
-            background-image: linear-gradient(to right, #fde100, #000);
             color: #fff;
+            border-color: var(--accent-color);
         }
-        .bvb-theme .hover\:from-yellow-600:hover {
-            background-image: linear-gradient(to right, #e0d000, #000);
+        .aqua-marine-theme .number-cell.assigned {
+            background-color: var(--selected-color);
+            color: #fff;
+            border-color: var(--accent-color);
         }
-        
-        .bvb-theme .raffle-container {
-            background: rgba(0, 0, 0, 0.95);
-            color: var(--text-primary);
+        .aqua-marine-theme .number-cell.assigned::before, .aqua-marine-theme .number-cell.assigned::after {
+            background-color: #fff;
         }
-        .bvb-theme .raffle-number {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--accent-color);
-            text-shadow: 0 0 5px #fff, 0 0 15px #fff;
-        }
-        .bvb-theme .winner-display {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-primary);
-        }
-        
-        .bvb-theme .modal-content {
+
+        .aqua-marine-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
             box-shadow: var(--card-shadow);
+        }
+        
+        .aqua-marine-theme .bg-blue-900 { background-color: var(--selected-color); }
+        .aqua-marine-theme .text-blue-300 { color: #fff; }
+        .aqua-marine-theme .bg-green-900 { background-color: var(--selected-color); }
+        .aqua-marine-theme .text-green-300 { color: #fff; }
+        .aqua-marine-theme .text-green-200 { color: var(--text-primary); }
+
+        .aqua-marine-theme .bg-blue-600 { background-color: var(--accent-color); }
+        .aqua-marine-theme .hover\:bg-blue-700:hover { background-color: #04a8c2; }
+        .aqua-marine-theme .bg-red-600 { background-color: #ff7f7f; }
+        .aqua-marine-theme .hover\:bg-red-700:hover { background-color: #ff6666; }
+        .aqua-marine-theme .bg-green-600 { background-color: #50c878; }
+        .aqua-marine-theme .hover\:bg-green-700:hover { background-color: #40a060; }
+
+        .aqua-marine-theme .bg-gradient-to-r {
+            background-image: linear-gradient(to right, #05bfdb, #088395);
+        }
+        .aqua-marine-theme .hover\:from-yellow-600:hover {
+            background-image: linear-gradient(to right, #04a8c2, #077080);
+        }
+
+        .aqua-marine-theme .bg-gray-900 { background-color: var(--bg-secondary); }
+        .aqua-marine-theme .modal-content {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+        }
+        .aqua-marine-theme .raffle-container {
+            background: rgba(240, 248, 255, 0.95);
+        }
+        .aqua-marine-theme .raffle-number {
+            color: var(--text-primary);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+        .aqua-marine-theme .winner-display {
+            color: var(--text-secondary);
         }
 
         .theme-selector {
@@ -648,7 +633,7 @@
                 <option value="dark">Oscuro</option>
                 <option value="pastel">Pastel Dreams</option>
                 <option value="elegance">Elegancia Nocturna</option>
-                <option value="bvb">BVB</option>
+                <option value="aqua-marine">Aqua Marine</option>
             </select>
         </div>
     </div>
@@ -670,7 +655,7 @@
                             <option value="dark">Oscuro</option>
                             <option value="pastel">Pastel Dreams</option>
                             <option value="elegance">Elegancia Nocturna</option>
-                            <option value="bvb">BVB</option>
+                            <option value="aqua-marine">Aqua Marine</option>
                         </select>
                     </div>
                 </div>
@@ -823,6 +808,7 @@
 
     <footer>
         <p>&copy; 2025 SORTEO RED PILAR. All Rights Reserved. Design by Clau</p>
+        <p id="visitCounter" class="text-sm mt-2"></p>
     </footer>
 
     <script>
@@ -840,6 +826,19 @@
             loadTheme();
             generateNumberGrid();
             updateStatistics();
+            updateVisitCount();
+        }
+
+        // --- Funcionalidad de Contador de Visitas ---
+        function updateVisitCount() {
+            let visitCount = localStorage.getItem('visitCount');
+            if (visitCount) {
+                visitCount = parseInt(visitCount) + 1;
+            } else {
+                visitCount = 1;
+            }
+            localStorage.setItem('visitCount', visitCount);
+            document.getElementById('visitCounter').textContent = `Visita #${visitCount}`;
         }
 
         // Cargar datos desde localStorage
@@ -877,7 +876,7 @@
             const body = document.body;
             const themeSelectors = document.querySelectorAll('.theme-selector');
 
-            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'aqua-marine-theme');
             if (savedTheme !== 'dark') {
                 body.classList.add(`${savedTheme}-theme`);
             }
@@ -891,7 +890,7 @@
             const selectedTheme = event.target.value;
             const body = document.body;
 
-            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'aqua-marine-theme');
             if (selectedTheme !== 'dark') {
                 body.classList.add(`${selectedTheme}-theme`);
             }
@@ -1216,9 +1215,9 @@
                         generateNumberGrid();
                         updateParticipantsList();
                         updateStatistics();
-                        saveToLocalStorage();
+                        saveToLocalStorage(); // <-- THIS IS THE FIX
                         loadedFileName = file.name;
-                        alert('Datos cargados exitosamente.');
+                        alert('Datos cargados y guardados en el navegador exitosamente.');
                     } else {
                         alert('El archivo JSON no tiene el formato correcto.');
                     }
