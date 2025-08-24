@@ -635,7 +635,23 @@
             color: var(--text-primary);
         }
         .matrix-theme .border-gray-600 { border-color: var(--border-color); }
-        .matrix-theme .bg-gray-700 { background-color: var(--hover-color); }
+        .matrix-theme .bg-gray-700 { background-color: rgba(10, 40, 10, 0.7); }
+        .matrix-theme .hover\:bg-gray-600:hover { background-color: rgba(10, 60, 10, 0.9); box-shadow: 0 0 5px #0f0; }
+
+        .matrix-theme input::placeholder {
+            color: rgba(0, 255, 0, 0.5);
+        }
+
+        .matrix-theme .focus\:ring-blue-400:focus {
+            --tw-ring-color: var(--accent-color);
+            box-shadow: 0 0 10px var(--accent-color);
+        }
+
+        .matrix-theme input[type="text"] {
+            background-color: #000 !important;
+            color: #0f0 !important;
+            border: 1px solid #0f0 !important;
+        }
 
         .matrix-theme .number-cell {
             background-color: transparent;
@@ -659,6 +675,7 @@
 
         .matrix-theme .bg-blue-900, .matrix-theme .bg-green-900 { background-color: var(--accent-color); }
         .matrix-theme .text-blue-300, .matrix-theme .text-green-300 { color: #000; }
+        .matrix-theme .stats-label { color: #000 !important; }
 
         .matrix-theme .bg-blue-600, .matrix-theme .bg-green-600, .matrix-theme .bg-red-600 {
             background-color: transparent;
