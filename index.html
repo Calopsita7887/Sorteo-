@@ -486,110 +486,193 @@
             color: var(--text-primary);
         }
         
-        /* --- TEMA AQUA MARINE --- */
-        .aqua-marine-theme {
-            --bg-primary: #f0f8ff;
-            --bg-secondary: #ffffff;
-            --text-primary: #0a4d68;
-            --text-secondary: #088395;
-            --border-color: #b0e0e6;
-            --accent-color: #05bfdb;
-            --hover-color: #e0f7fa;
-            --selected-color: #008080;
-            --card-shadow: 0 4px 15px rgba(176, 224, 230, 0.6);
-            --theme-selector-bg: #ffffff;
-            --theme-selector-text: #0a4d68;
-            --footer-bg: #ffffff;
-            --footer-text: #0a4d68;
-            --logo-filter: none;
+        /* --- TEMA MAR PROFUNDO --- */
+        .deep-sea-theme {
+            --bg-primary: #001f3f;
+            --bg-secondary: rgba(0, 31, 63, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #7FDBFF;
+            --border-color: #0074D9;
+            --accent-color: #39CCCC;
+            --hover-color: #0074D9;
+            --selected-color: #7FDBFF;
+            --card-shadow: 0 5px 20px rgba(127, 219, 255, 0.4);
+            --theme-selector-bg: rgba(0, 31, 63, 0.8);
+            --theme-selector-text: #7FDBFF;
+            --footer-bg: rgba(0, 31, 63, 0.8);
+            --footer-text: #7FDBFF;
+            --logo-filter: brightness(1.1);
         }
 
-        body.aqua-marine-theme {
-            background-color: var(--bg-primary);
+        body.deep-sea-theme {
+            background-image: url('https://images.unsplash.com/photo-1549074862-6173e20d02a8?fm=jpg&q=60&w=3000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             color: var(--text-primary);
-            font-family: 'Poppins', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
-        .aqua-marine-theme h1, .aqua-marine-theme h2, .aqua-marine-theme h3 {
-            font-family: 'Poppins', sans-serif;
-            font-weight: 600;
+        .deep-sea-theme .bg-gray-800, .deep-sea-theme .bg-gray-900, .deep-sea-theme .modal-content, .deep-sea-theme footer {
+            background-color: var(--bg-secondary);
+            backdrop-filter: blur(8px);
+            border: 1px solid var(--border-color);
         }
 
-        .aqua-marine-theme .bg-gray-800 { background-color: var(--bg-secondary); }
-        .aqua-marine-theme .text-white { color: var(--text-primary); }
-        .aqua-marine-theme .text-gray-400 { color: var(--text-secondary); }
-        .aqua-marine-theme .text-gray-500 { color: var(--text-secondary); }
-        .aqua-marine-theme .text-gray-300 { color: var(--text-secondary); }
+        .deep-sea-theme .text-white { color: var(--text-primary); }
+        .deep-sea-theme .text-gray-400, .deep-sea-theme .text-gray-300, .deep-sea-theme .text-gray-500 { color: var(--text-secondary); }
 
-        .aqua-marine-theme .text-blue-400, .aqua-marine-theme .text-green-400, .aqua-marine-theme .text-purple-400, .aqua-marine-theme .text-yellow-400 {
+        .deep-sea-theme .text-blue-400, .deep-sea-theme .text-green-400, .deep-sea-theme .text-purple-400, .deep-sea-theme .text-yellow-400 {
             color: var(--accent-color);
+            text-shadow: 0 0 5px var(--accent-color);
         }
 
-        .aqua-marine-theme .border-gray-600 { border-color: var(--border-color); }
-        .aqua-marine-theme .bg-gray-700 { background-color: var(--hover-color); }
-        .aqua-marine-theme .number-cell {
-            background-color: #e0f7fa;
+        .deep-sea-theme .border-gray-600 { border-color: var(--border-color); }
+        .deep-sea-theme .bg-gray-700 { background-color: rgba(0, 116, 217, 0.3); }
+
+        .deep-sea-theme .number-cell {
+            background-color: rgba(0, 116, 217, 0.2);
+            border: 2px solid var(--border-color);
             color: var(--text-primary);
-            border-color: var(--border-color);
+            transition: all 0.3s ease;
         }
-        .aqua-marine-theme .number-cell:hover {
+        .deep-sea-theme .number-cell:hover {
             background-color: var(--hover-color);
-            transform: scale(1.05);
+            color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--accent-color);
         }
-        .aqua-marine-theme .number-cell.selected {
+        .deep-sea-theme .number-cell.selected {
+            background-color: var(--selected-color);
+            color: #001f3f;
+            border-color: var(--selected-color);
+            box-shadow: 0 0 15px var(--selected-color);
+        }
+        .deep-sea-theme .number-cell.assigned {
             background-color: var(--accent-color);
             color: #fff;
             border-color: var(--accent-color);
-        }
-        .aqua-marine-theme .number-cell.assigned {
-            background-color: var(--selected-color);
-            color: #fff;
-            border-color: var(--accent-color);
-        }
-        .aqua-marine-theme .number-cell.assigned::before, .aqua-marine-theme .number-cell.assigned::after {
-            background-color: #fff;
+            opacity: 0.7;
         }
 
-        .aqua-marine-theme .participant-card {
+        .deep-sea-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
             box-shadow: var(--card-shadow);
+            transition: all 0.3s ease;
+        }
+        .deep-sea-theme .participant-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
         }
         
-        .aqua-marine-theme .bg-blue-900 { background-color: var(--selected-color); }
-        .aqua-marine-theme .text-blue-300 { color: #fff; }
-        .aqua-marine-theme .bg-green-900 { background-color: var(--selected-color); }
-        .aqua-marine-theme .text-green-300 { color: #fff; }
-        .aqua-marine-theme .text-green-200 { color: var(--text-primary); }
-
-        .aqua-marine-theme .bg-blue-600 { background-color: var(--accent-color); }
-        .aqua-marine-theme .hover\:bg-blue-700:hover { background-color: #04a8c2; }
-        .aqua-marine-theme .bg-red-600 { background-color: #ff7f7f; }
-        .aqua-marine-theme .hover\:bg-red-700:hover { background-color: #ff6666; }
-        .aqua-marine-theme .bg-green-600 { background-color: #50c878; }
-        .aqua-marine-theme .hover\:bg-green-700:hover { background-color: #40a060; }
-
-        .aqua-marine-theme .bg-gradient-to-r {
-            background-image: linear-gradient(to right, #05bfdb, #088395);
+        .deep-sea-theme .bg-blue-900, .deep-sea-theme .bg-green-900 {
+            background-color: var(--accent-color);
+            color: #001f3f;
         }
-        .aqua-marine-theme .hover\:from-yellow-600:hover {
-            background-image: linear-gradient(to right, #04a8c2, #077080);
+        .deep-sea-theme .text-blue-300, .deep-sea-theme .text-green-300 { color: #001f3f; }
+
+        .deep-sea-theme .bg-blue-600, .deep-sea-theme .bg-red-600, .deep-sea-theme .bg-green-600 {
+            border: 1px solid var(--accent-color);
+            background-color: transparent;
+            transition: all 0.3s ease;
+        }
+        .deep-sea-theme .hover\:bg-blue-700:hover, .deep-sea-theme .hover\:bg-red-700:hover, .deep-sea-theme .hover\:bg-green-700:hover {
+            background-color: var(--accent-color);
+            color: #001f3f;
+            box-shadow: 0 0 10px var(--accent-color);
         }
 
-        .aqua-marine-theme .bg-gray-900 { background-color: var(--bg-secondary); }
-        .aqua-marine-theme .modal-content {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
+        .deep-sea-theme .bg-gradient-to-r {
+            background-image: linear-gradient(to right, #7FDBFF, #39CCCC);
+            color: #001f3f;
+            border: none;
         }
-        .aqua-marine-theme .raffle-container {
-            background: rgba(240, 248, 255, 0.95);
+        .deep-sea-theme .hover\:from-yellow-600:hover {
+            box-shadow: 0 0 15px #fff;
         }
-        .aqua-marine-theme .raffle-number {
+
+        .deep-sea-theme .raffle-container {
+            background: rgba(0, 31, 63, 0.95);
+        }
+        .deep-sea-theme .raffle-number {
+            color: #fff;
+            text-shadow: 0 0 20px #7FDBFF, 0 0 40px #7FDBFF;
+        }
+        .deep-sea-theme .winner-display {
+            color: var(--accent-color);
+        }
+
+        /* --- TEMA MATRIX --- */
+        .matrix-theme {
+            --bg-primary: #000;
+            --bg-secondary: rgba(10, 25, 10, 0.5);
+            --text-primary: #0f0;
+            --text-secondary: #0c0;
+            --border-color: #0f0;
+            --accent-color: #0f0;
+            --hover-color: #0a0;
+            --selected-color: #0f0;
+            --card-shadow: 0 0 15px #0f0;
+            --theme-selector-bg: #000;
+            --theme-selector-text: #0f0;
+            --footer-bg: rgba(10, 25, 10, 0.5);
+            --footer-text: #0f0;
+            --logo-filter: hue-rotate(120deg) brightness(1.5);
+        }
+
+        body.matrix-theme {
+            background-color: var(--bg-primary);
             color: var(--text-primary);
-            text-shadow: 0 0 10px var(--accent-color);
+            font-family: 'Courier New', Courier, monospace;
         }
-        .aqua-marine-theme .winner-display {
-            color: var(--text-secondary);
+
+        .matrix-theme .bg-gray-800, .matrix-theme .bg-gray-900 {
+            background-color: var(--bg-secondary);
+            backdrop-filter: blur(5px);
+        }
+        .matrix-theme .text-white, .matrix-theme .text-gray-200, .matrix-theme .text-gray-300, .matrix-theme .text-gray-400, .matrix-theme .text-gray-500 {
+            color: var(--text-primary);
+        }
+        .matrix-theme .border-gray-600 { border-color: var(--border-color); }
+        .matrix-theme .bg-gray-700 { background-color: var(--hover-color); }
+
+        .matrix-theme .number-cell {
+            background-color: transparent;
+            border-color: var(--border-color);
+            color: var(--text-primary);
+        }
+        .matrix-theme .number-cell:hover {
+            background-color: var(--hover-color);
+            color: #000;
+        }
+        .matrix-theme .number-cell.selected, .matrix-theme .number-cell.assigned {
+            background-color: var(--selected-color);
+            color: #000;
+        }
+
+        .matrix-theme .participant-card, .matrix-theme .modal-content {
+            background-color: rgba(10, 25, 10, 0.6);
+            border-color: var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
+        .matrix-theme .bg-blue-900, .matrix-theme .bg-green-900 { background-color: var(--accent-color); }
+        .matrix-theme .text-blue-300, .matrix-theme .text-green-300 { color: #000; }
+
+        .matrix-theme .bg-blue-600, .matrix-theme .bg-green-600, .matrix-theme .bg-red-600 {
+            background-color: transparent;
+            border: 1px solid var(--border-color);
+        }
+        .matrix-theme .hover\:bg-blue-700:hover, .matrix-theme .hover\:bg-green-700:hover, .matrix-theme .hover\:bg-red-700:hover {
+            background-color: var(--hover-color);
+            color: #000;
+        }
+
+        .matrix-theme .bg-gradient-to-r {
+            background-image: none;
+            background-color: var(--accent-color);
+            color: #000;
         }
 
         .theme-selector {
@@ -623,6 +706,7 @@
     </style>
 </head>
 <body>
+    <canvas id="matrix-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: none;"></canvas>
     <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
         <div class="flex items-center">
             <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
@@ -633,7 +717,8 @@
                 <option value="dark">Oscuro</option>
                 <option value="pastel">Pastel Dreams</option>
                 <option value="elegance">Elegancia Nocturna</option>
-                <option value="aqua-marine">Aqua Marine</option>
+                <option value="deep-sea">Mar Profundo</option>
+                <option value="matrix">Hacker Matrix</option>
             </select>
         </div>
     </div>
@@ -655,7 +740,8 @@
                             <option value="dark">Oscuro</option>
                             <option value="pastel">Pastel Dreams</option>
                             <option value="elegance">Elegancia Nocturna</option>
-                            <option value="aqua-marine">Aqua Marine</option>
+                            <option value="deep-sea">Mar Profundo</option>
+                            <option value="matrix">Hacker Matrix</option>
                         </select>
                     </div>
                 </div>
@@ -812,6 +898,66 @@
     </footer>
 
     <script>
+        // --- Funcionalidad de Animación Matrix ---
+        let matrixInterval;
+
+        function startMatrixAnimation() {
+            const canvas = document.getElementById('matrix-canvas');
+            if (!canvas) return;
+
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+[]{}|;:",./<>?';
+            const fontSize = 16;
+            const columns = canvas.width / fontSize;
+            const drops = [];
+
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+
+            function draw() {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = '#0f0';
+                ctx.font = `${fontSize}px arial`;
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters[Math.floor(Math.random() * letters.length)];
+                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            if (matrixInterval) clearInterval(matrixInterval);
+            matrixInterval = setInterval(draw, 33);
+
+            window.addEventListener('resize', () => {
+                if (matrixInterval) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+            });
+        }
+
+        function stopMatrixAnimation() {
+            const canvas = document.getElementById('matrix-canvas');
+            if (canvas) {
+                canvas.style.display = 'none';
+            }
+            if (matrixInterval) {
+                clearInterval(matrixInterval);
+                matrixInterval = null;
+            }
+        }
+
         // Variables globales
         let participants = [];
         let selectedNumbers = [];
@@ -876,9 +1022,15 @@
             const body = document.body;
             const themeSelectors = document.querySelectorAll('.theme-selector');
 
-            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'aqua-marine-theme');
+            body.className = ''; // Limpiar todas las clases de tema
             if (savedTheme !== 'dark') {
                 body.classList.add(`${savedTheme}-theme`);
+            }
+
+            if (savedTheme === 'matrix') {
+                startMatrixAnimation();
+            } else {
+                stopMatrixAnimation();
             }
 
             themeSelectors.forEach(selector => {
@@ -890,11 +1042,17 @@
             const selectedTheme = event.target.value;
             const body = document.body;
 
-            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'aqua-marine-theme');
+            body.className = ''; // Limpiar todas las clases de tema
             if (selectedTheme !== 'dark') {
                 body.classList.add(`${selectedTheme}-theme`);
             }
             
+            if (selectedTheme === 'matrix') {
+                startMatrixAnimation();
+            } else {
+                stopMatrixAnimation();
+            }
+
             localStorage.setItem('raffleTheme', selectedTheme);
             
             // Sincronizar selectores
