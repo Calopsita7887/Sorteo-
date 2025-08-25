@@ -231,6 +231,70 @@
             }
         }
 
+        // --- Funcionalidad de Animación Mar Profundo ---
+        let deepSeaInterval;
+        let bubbles = [];
+
+        function startDeepSeaAnimation() {
+            const canvas = document.getElementById('deep-sea-canvas');
+            if (!canvas) return;
+
+            canvas.style.display = 'block';
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            if (bubbles.length === 0) {
+                for (let i = 0; i < 50; i++) {
+                    bubbles.push({
+                        x: Math.random() * canvas.width,
+                        y: Math.random() * canvas.height,
+                        r: Math.random() * 3 + 1,
+                        speed: Math.random() * 0.5 + 0.2
+                    });
+                }
+            }
+
+            function drawBubbles() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
+
+                for (let i = 0; i < bubbles.length; i++) {
+                    let b = bubbles[i];
+                    ctx.beginPath();
+                    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                    ctx.fill();
+
+                    b.y -= b.speed;
+                    if (b.y < -b.r) {
+                        b.y = canvas.height + b.r;
+                        b.x = Math.random() * canvas.width;
+                    }
+                }
+            }
+
+            if (deepSeaInterval) clearInterval(deepSeaInterval);
+            deepSeaInterval = setInterval(drawBubbles, 33);
+
+             window.addEventListener('resize', () => {
+                if (deepSeaInterval) {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                }
+            });
+        }
+
+        function stopDeepSeaAnimation() {
+            const canvas = document.getElementById('deep-sea-canvas');
+            if (canvas) {
+                canvas.style.display = 'none';
+            }
+            if (deepSeaInterval) {
+                clearInterval(deepSeaInterval);
+                deepSeaInterval = null;
+            }
+        }
+
         @media (max-width: 480px) {
             .logo {
                 max-width: 120px; /* Más pequeño en móviles pequeños */
@@ -724,6 +788,7 @@
 </head>
 <body>
     <canvas id="matrix-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: none;"></canvas>
+    <canvas id="deep-sea-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; display: none;"></canvas>
     <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
         <div class="flex items-center">
             <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
@@ -1045,9 +1110,14 @@
             }
 
             if (savedTheme === 'matrix') {
+                stopDeepSeaAnimation();
                 startMatrixAnimation();
+            } else if (savedTheme === 'deep-sea') {
+                stopMatrixAnimation();
+                startDeepSeaAnimation();
             } else {
                 stopMatrixAnimation();
+                stopDeepSeaAnimation();
             }
 
             themeSelectors.forEach(selector => {
@@ -1065,9 +1135,14 @@
             }
             
             if (selectedTheme === 'matrix') {
+                stopDeepSeaAnimation();
                 startMatrixAnimation();
+            } else if (selectedTheme === 'deep-sea') {
+                stopMatrixAnimation();
+                startDeepSeaAnimation();
             } else {
                 stopMatrixAnimation();
+                stopDeepSeaAnimation();
             }
 
             localStorage.setItem('raffleTheme', selectedTheme);
@@ -1178,16 +1253,25 @@
             const list = document.getElementById('participantsList');
             const count = document.getElementById('participantCount');
             
+            // Limpiar lista anterior
+            list.innerHTML = '';
+
             if (filteredList.length === 0) {
-                list.innerHTML = `
-                    <div class="text-center py-8 text-gray-500">
-                        <i class="fas fa-users-slash text-4xl mb-3"></i>
-                        <p>No se encontraron participantes</p>
-                    </div>
+                const emptyMessage = document.createElement('div');
+                emptyMessage.className = 'text-center py-8 text-gray-500';
+                emptyMessage.innerHTML = `
+                    <i class="fas fa-users-slash text-4xl mb-3"></i>
+                    <p>No hay participantes registrados</p>
                 `;
+                list.appendChild(emptyMessage);
             } else {
-                list.innerHTML = filteredList.map(participant => `
-                    <div class="participant-card">
+                filteredList.forEach(participant => {
+                    // Crear tarjeta principal
+                    const card = document.createElement('div');
+                    card.className = 'participant-card';
+
+                    // Contenido de la tarjeta
+                    const cardContent = `
                         <div class="flex justify-between items-start mb-2">
                             <h3 class="font-semibold text-lg text-white">${participant.name}</h3>
                             <div class="relative group">
@@ -1206,8 +1290,10 @@
                                 `<span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs">${num}</span>`
                             ).join('')}
                         </div>
-                    </div>
-                `).join('');
+                    `;
+                    card.innerHTML = cardContent;
+                    list.appendChild(card);
+                });
             }
             
             count.textContent = `${filteredList.length} participante${filteredList.length !== 1 ? 's' : ''}`;
