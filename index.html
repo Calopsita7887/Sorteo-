@@ -234,6 +234,7 @@
         // --- Funcionalidad de Animación Mar Profundo ---
         let deepSeaInterval;
         let bubbles = [];
+        let lightRays = [];
 
         function startDeepSeaAnimation() {
             const canvas = document.getElementById('deep-sea-canvas');
@@ -241,26 +242,51 @@
 
             canvas.style.display = 'block';
             const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
 
-            if (bubbles.length === 0) {
-                for (let i = 0; i < 50; i++) {
+            const setup = () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                bubbles = [];
+                lightRays = [];
+
+                // Create bubbles
+                for (let i = 0; i < 40; i++) {
                     bubbles.push({
                         x: Math.random() * canvas.width,
-                        y: Math.random() * canvas.height,
-                        r: Math.random() * 3 + 1,
-                        speed: Math.random() * 0.5 + 0.2
+                        y: canvas.height + Math.random() * 100,
+                        r: Math.random() * 4 + 1, // larger radius
+                        speed: Math.random() * 0.8 + 0.2,
+                        opacity: Math.random() * 0.5 + 0.2
                     });
                 }
-            }
+                // Create light rays
+                for (let i = 0; i < 10; i++) {
+                    lightRays.push({
+                        x: Math.random() * canvas.width,
+                        y: 0,
+                        height: canvas.height,
+                        width: Math.random() * 15 + 5,
+                        speed: Math.random() * 0.1 - 0.05 // slow drift
+                    });
+                }
+            };
 
-            function drawBubbles() {
+            const drawDeepSea = () => {
                 ctx.clearRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = 'rgba(255, 255, 255, 0.2)';
 
-                for (let i = 0; i < bubbles.length; i++) {
-                    let b = bubbles[i];
+                // Draw light rays (caustics)
+                lightRays.forEach(ray => {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.03 + 0.02})`;
+                    ctx.fillRect(ray.x, ray.y, ray.width, ray.height);
+                    ray.x += ray.speed;
+                    if (ray.x > canvas.width + ray.width || ray.x < -ray.width) {
+                        ray.x = Math.random() * canvas.width;
+                    }
+                });
+
+                // Draw bubbles
+                bubbles.forEach(b => {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${b.opacity})`;
                     ctx.beginPath();
                     ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
                     ctx.fill();
@@ -270,16 +296,16 @@
                         b.y = canvas.height + b.r;
                         b.x = Math.random() * canvas.width;
                     }
-                }
-            }
+                });
+            };
 
+            setup();
             if (deepSeaInterval) clearInterval(deepSeaInterval);
-            deepSeaInterval = setInterval(drawBubbles, 33);
+            deepSeaInterval = setInterval(drawDeepSea, 33);
 
-             window.addEventListener('resize', () => {
+            window.addEventListener('resize', () => {
                 if (deepSeaInterval) {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
+                    setup();
                 }
             });
         }
