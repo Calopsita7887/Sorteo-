@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Playfair+Display:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* --- TEMA OSCURO (POR DEFECTO) --- */
+        /* --- Tema Oscuro (por defecto) --- */
         :root {
             --bg-primary: #1e293b;
             --bg-secondary: #334155;
@@ -21,12 +21,64 @@
             --accent-color: #60a5fa;
             --hover-color: #475569;
             --selected-color: #1e40af;
-            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1-px rgba(0, 0, 0, 0.2);
-            --theme-selector-bg: #334155;
-            --theme-selector-text: #f1f5f9;
-            --footer-bg: #1e293b;
-            --footer-text: #94a3b8;
+            --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
             --logo-filter: none;
+        }
+
+        /* --- Tema Pastel Dreams --- */
+        .pastel-theme {
+            --bg-primary: #f7e1e6;
+            --bg-secondary: #fff0f3;
+            --text-primary: #5e548e;
+            --text-secondary: #9381ff;
+            --border-color: #b57edc;
+            --accent-color: #ff66a4;
+            --hover-color: #f0e1ff;
+            --selected-color: #c7b3e6;
+            --card-shadow: 0 4px 15px rgba(181, 126, 220, 0.4);
+            --logo-filter: none;
+        }
+
+        /* --- Tema Elegancia Nocturna --- */
+        .elegance-theme {
+            --bg-primary: #121212;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --border-color: #2c2c2c;
+            --accent-color: #8c7ae6;
+            --hover-color: #2c2c2c;
+            --selected-color: #5d48a0;
+            --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            --logo-filter: brightness(0.9);
+        }
+
+        /* --- Tema Mar Profundo --- */
+        .deep-sea-theme {
+            --bg-primary: #001f3f;
+            --bg-secondary: rgba(0, 31, 63, 0.8);
+            --text-primary: #ffffff;
+            --text-secondary: #7FDBFF;
+            --border-color: #0074D9;
+            --accent-color: #39CCCC;
+            --hover-color: #0074D9;
+            --selected-color: #7FDBFF;
+            --card-shadow: 0 5px 20px rgba(127, 219, 255, 0.4);
+            --logo-filter: brightness(1.1);
+        }
+
+        /* --- Tema Hacker Matrix --- */
+        .matrix-theme {
+            --bg-primary: #000;
+            --bg-secondary: rgba(10, 25, 10, 0.5);
+            --text-primary: #0f0;
+            --text-secondary: #0c0;
+            --border-color: #0f0;
+            --accent-color: #0f0;
+            --hover-color: #0a0;
+            --selected-color: #0f0;
+            --card-shadow: 0 0 15px #0f0;
+            --logo-filter: hue-rotate(120deg) brightness(1.5);
         }
 
         body {
@@ -39,799 +91,141 @@
             flex-direction: column;
         }
 
-        .number-grid-container {
-            max-height: 300px;
-            overflow-y: auto;
-            -webkit-overflow-scrolling: touch;
-            padding-right: 8px;
-            border: 2px solid var(--border-color);
-            border-radius: 12px;
-            padding: 1rem;
-        }
-
-        .number-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(45px, 1fr));
-            gap: 8px;
-        }
-
-        .number-cell {
-            width: 100%;
-            height: 45px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid var(--border-color);
-            border-radius: 8px;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            font-weight: 600;
-        }
-
-        .number-cell:hover {
-            background-color: var(--hover-color);
-            transform: translateY(-2px);
-        }
-
-        .number-cell.selected {
-            background-color: var(--accent-color);
-            color: white;
-            border-color: var(--accent-color);
-        }
-
-        .number-cell.assigned {
-            background-color: var(--selected-color);
-            color: var(--text-secondary);
-            border-color: var(--accent-color);
-            cursor: not-allowed;
-            position: relative;
-        }
-        
-        .number-cell.assigned::before,
-        .number-cell.assigned::after {
-            content: '';
-            position: absolute;
-            background-color: red;
-            height: 2px;
-            width: 80%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .number-cell.assigned::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-
-        .participant-card {
-            background-color: var(--bg-secondary);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 16px;
-            margin-bottom: 12px;
-            transition: all 0.2s ease;
-        }
-
-        .participant-card:hover {
-            transform: translateX(4px);
-            box-shadow: var(--card-shadow);
-        }
-    
-        .winner-animation {
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-        }
-
-        .raffle-container {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 2000;
-            color: white;
-        }
-
-        .raffle-number {
-            font-size: 8rem;
-            font-weight: bold;
-            font-family: 'Courier New', Courier, monospace;
-            text-shadow: 0 0 10px #60a5fa, 0 0 20px #60a5fa;
-        }
-
-        .winner-display {
-            font-size: 2rem;
-            font-weight: 600;
-            margin-top: 1rem;
-            text-align: center;
-        }
-
-        /* Estilo para el modal de edición de números */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 3000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            overflow: auto;
-            background-color: rgba(0,0,0,0.6);
-            padding-top: 60px;
-        }
-
-        .modal-content {
-            background-color: var(--bg-secondary);
-            margin: 5% auto;
-            padding: 2rem;
-            border: 1px solid var(--border-color);
-            width: 90%;
-            max-width: 600px;
-            border-radius: 12px;
-            box-shadow: var(--card-shadow);
-            position: relative;
-        }
-
-        .close-btn {
-            color: var(--text-secondary);
-            float: right;
-            font-size: 2rem;
-            font-weight: bold;
-        }
-
-        .close-btn:hover, .close-btn:focus {
-            color: var(--text-primary);
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        /* Estilo para el footer */
-        footer {
-            background-color: var(--footer-bg);
-            color: var(--footer-text);
-            text-align: center;
-            padding: 1rem;
-            margin-top: auto;
-            width: 100%;
-        }
-
-        /* Estilo para el logo */
-        .logo {
-            max-width: 250px; /* Tamaño base ajustado para escritorio */
-            height: auto;
-            transition: all 0.3s ease;
-            filter: var(--logo-filter);
-            padding: 5px; /* Espaciado adicional */
-        }
-
-        @media (max-width: 768px) {
-            .logo {
-                max-width: 180px; /* Tamaño para móviles */
-            }
-            .number-grid-container {
-                max-height: 200px; /* Reducido para móviles */
-            }
-            h1 {
-                font-size: 2rem; /* Texto más pequeño en móvil */
-            }
-            .text-lg {
-                font-size: 1rem; /* Ajuste de texto */
-            }
-            .p-6 {
-                padding: 1rem; /* Padding reducido */
-            }
-        }
-
-        // --- Funcionalidad de Animación Mar Profundo ---
-        let deepSeaInterval;
-        let bubbles = [];
-        let lightRays = [];
-
-        function startDeepSeaAnimation() {
-            const canvas = document.getElementById('deep-sea-canvas');
-            if (!canvas) return;
-
-            canvas.style.display = 'block';
-            const ctx = canvas.getContext('2d');
-
-            const setup = () => {
-                canvas.width = window.innerWidth;
-                canvas.height = window.innerHeight;
-                bubbles = [];
-                lightRays = [];
-
-                // Create bubbles
-                for (let i = 0; i < 40; i++) {
-                    bubbles.push({
-                        x: Math.random() * canvas.width,
-                        y: canvas.height + Math.random() * 100,
-                        r: Math.random() * 4 + 1, // larger radius
-                        speed: Math.random() * 0.8 + 0.2,
-                        opacity: Math.random() * 0.5 + 0.2
-                    });
-                }
-                // Create light rays
-                for (let i = 0; i < 10; i++) {
-                    lightRays.push({
-                        x: Math.random() * canvas.width,
-                        y: 0,
-                        height: canvas.height,
-                        width: Math.random() * 15 + 5,
-                        speed: Math.random() * 0.1 - 0.05 // slow drift
-                    });
-                }
-            };
-
-            const drawDeepSea = () => {
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-                // Draw light rays (caustics)
-                lightRays.forEach(ray => {
-                    ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.03 + 0.02})`;
-                    ctx.fillRect(ray.x, ray.y, ray.width, ray.height);
-                    ray.x += ray.speed;
-                    if (ray.x > canvas.width + ray.width || ray.x < -ray.width) {
-                        ray.x = Math.random() * canvas.width;
-                    }
-                });
-
-                // Draw bubbles
-                bubbles.forEach(b => {
-                    ctx.fillStyle = `rgba(255, 255, 255, ${b.opacity})`;
-                    ctx.beginPath();
-                    ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
-                    ctx.fill();
-
-                    b.y -= b.speed;
-                    if (b.y < -b.r) {
-                        b.y = canvas.height + b.r;
-                        b.x = Math.random() * canvas.width;
-                    }
-                });
-            };
-
-            setup();
-            if (deepSeaInterval) clearInterval(deepSeaInterval);
-            deepSeaInterval = setInterval(drawDeepSea, 33);
-
-            window.addEventListener('resize', () => {
-                if (deepSeaInterval) {
-                    setup();
-                }
-            });
-        }
-
-        function stopDeepSeaAnimation() {
-            const canvas = document.getElementById('deep-sea-canvas');
-            if (canvas) {
-                canvas.style.display = 'none';
-            }
-            if (deepSeaInterval) {
-                clearInterval(deepSeaInterval);
-                deepSeaInterval = null;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .logo {
-                max-width: 120px; /* Más pequeño en móviles pequeños */
-            }
-            .flex-row {
-                flex-direction: column; /* Apilar columnas en móviles pequeños */
-            }
-            .w-full {
-                width: 100%; /* Asegurar ancho completo */
-            }
-            .number-cell {
-                height: 35px; /* Números más compactos */
-                font-size: 0.9rem;
-            }
-            .participant-card {
-                padding: 8px; /* Padding reducido */
-            }
-            footer {
-                padding: 0.5rem; /* Footer más compacto */
-            }
-        }
-
-        @media (min-width: 1024px) {
-            .max-w-6xl {
-                max-width: 80%; /* Ancho más amplio en escritorio */
-            }
-            .logo {
-                max-width: 300px; /* Tamaño opcional más grande en pantallas anchas */
-            }
-        }
-
-        /* --- ESTILOS TEMA PASTEL DREAMS --- */
-        .pastel-theme {
-            --bg-primary: #f7e1e6;
-            --bg-secondary: #fff0f3;
-            --text-primary: #5e548e;
-            --text-secondary: #9381ff;
-            --border-color: #b57edc;
-            --accent-color: #ff66a4;
-            --hover-color: #f0e1ff;
-            --selected-color: #c7b3e6;
-            --card-shadow: 0 4px 15px rgba(181, 126, 220, 0.4);
-            --theme-selector-bg: #f0e1ff;
-            --theme-selector-text: #5e548e;
-            --footer-bg: #f0e1ff;
-            --footer-text: #5e548e;
-            --logo-filter: none;
-        }
-        
-        body.pastel-theme {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Comic Sans MS', cursive, sans-serif;
-        }
-        
-        .pastel-theme .bg-gray-800 { background-color: var(--bg-secondary); }
-        .pastel-theme .text-white { color: var(--text-primary); }
-        .pastel-theme .text-gray-400 { color: var(--text-secondary); }
-        .pastel-theme h1 {
-            color: var(--text-primary);
-        }
-        .pastel-theme h1, .pastel-theme h2, .pastel-theme h3 {
-            font-style: italic;
-        }
-        .pastel-theme .text-blue-400, .pastel-theme .text-green-400, .pastel-theme .text-purple-400, .pastel-theme .text-yellow-400 {
-            color: var(--accent-color);
-        }
-        .pastel-theme .border-gray-600 { border-color: var(--border-color); }
-        .pastel-theme .bg-gray-700 { background-color: var(--hover-color); }
-        .pastel-theme .text-gray-500 { color: var(--text-secondary); }
-
-        /* Colores de los botones de control de números (-10, +10) */
-        .pastel-theme .bg-red-600 { background-color: #b57edc; }
-        .pastel-theme .hover\:bg-red-700:hover { background-color: #a06ac9; }
-        .pastel-theme .bg-green-600 { background-color: #60d2bc; }
-        .pastel-theme .hover\:bg-green-700:hover { background-color: #4cc7b0; }
-        .pastel-theme .bg-blue-600 { background-color: #b57edc; }
-        .pastel-theme .hover\:bg-blue-700:hover { background-color: #a06ac9; }
-        
-        /* Números y texto */
-        .pastel-theme .number-cell, .pastel-theme .raffle-number, .pastel-theme .participant-card, .pastel-theme #selectedNumbers, .pastel-theme #editNumbersModal, .pastel-theme #raffleResult {
-            font-style: italic;
-        }
-        .pastel-theme .number-cell {
-            background-color: #f0e1ff;
-            color: var(--text-primary);
-            border-color: var(--border-color);
-        }
-        .pastel-theme .number-cell:hover {
-            background-color: var(--hover-color);
-        }
-        .pastel-theme .number-cell.selected {
-            background-color: var(--accent-color);
-            color: #fff;
-            border-color: var(--accent-color);
-        }
-        .pastel-theme .number-cell.assigned {
-            background-color: #e0e0e0;
-            color: #a0a0a0;
-            border-color: #a0a0a0;
-        }
-        .pastel-theme .number-cell.assigned::before, .pastel-theme .number-cell.assigned::after {
-            background-color: #a0a0a0;
-        }
-        
-        .pastel-theme .participant-card {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
-        }
-        
-        .pastel-theme .bg-blue-900 { background-color: var(--selected-color); }
-        .pastel-theme .text-blue-300 { color: var(--text-primary); }
-        
-        .pastel-theme .bg-green-900 { background-color: var(--selected-color); }
-        .pastel-theme .text-green-300 { color: var(--text-primary); }
-        .pastel-theme .text-green-200 { color: var(--text-primary); }
-
-        .pastel-theme .bg-gradient-to-r {
-            background-image: linear-gradient(to right, #ff66a4, #b57edc);
-        }
-        .pastel-theme .hover\:from-yellow-600:hover { background-image: linear-gradient(to right, #e65c92, #a06ac9); }
-
-        .pastel-theme .bg-gray-900 { background-color: var(--bg-secondary); }
-        .pastel-theme .text-gray-300 { color: var(--text-secondary); }
-        .pastel-theme .modal-content {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
-        }
-        
-        .pastel-theme .raffle-container {
-            background: rgba(255, 240, 243, 0.9);
-            color: var(--text-primary);
-        }
-        .pastel-theme .raffle-number {
-            text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
-        }
-        .pastel-theme .winner-display {
-            color: var(--text-secondary);
-        }
-
-        .pastel-theme .close-btn { color: var(--text-secondary); }
-        .pastel-theme .hover\:bg-gray-600:hover { background-color: #e0c8ee; }
-        .pastel-theme .text-gray-200 { color: var(--text-primary); }
-        .pastel-theme .text-red-500 { color: var(--accent-color); }
-        .pastel-theme .hover\:bg-red-800:hover { background-color: var(--accent-color); color: #fff; }
-        .pastel-theme .text-sm { color: var(--text-primary); }
-
-        /* --- TEMA ELEGANCIA NOCTURNA --- */
-        .elegance-theme {
-            --bg-primary: #121212;
-            --bg-secondary: #1a1a1a;
-            --text-primary: #e0e0e0;
-            --text-secondary: #a0a0a0;
-            --border-color: #2c2c2c;
-            --accent-color: #8c7ae6;
-            --hover-color: #2c2c2c;
-            --selected-color: #5d48a0;
-            --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-            --theme-selector-bg: #1a1a1a;
-            --theme-selector-text: #e0e0e0;
-            --footer-bg: #1a1a1a;
-            --footer-text: #a0a0a0;
-            --logo-filter: brightness(0.9);
-        }
-
-        body.elegance-theme {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+        body.pastel-theme { font-family: 'Comic Sans MS', cursive, sans-serif; }
+        body.elegance-theme { font-family: 'Montserrat', sans-serif; }
+        body.deep-sea-theme { 
             font-family: 'Montserrat', sans-serif;
-        }
-
-        .elegance-theme h1, .elegance-theme h2, .elegance-theme h3 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-        }
-        
-        .elegance-theme .text-blue-400, .elegance-theme .text-green-400, .elegance-theme .text-purple-400, .elegance-theme .text-yellow-400 {
-            color: var(--accent-color);
-        }
-        .elegance-theme .bg-gray-800 { background-color: var(--bg-secondary); }
-        .elegance-theme .bg-gray-700 { background-color: var(--hover-color); }
-        .elegance-theme .border-gray-600 { border-color: var(--border-color); }
-        .elegance-theme .text-gray-400 { color: var(--text-secondary); }
-        .elegance-theme .text-gray-500 { color: var(--text-secondary); }
-        .elegance-theme .text-gray-300 { color: var(--text-secondary); }
-        .elegance-theme .text-white { color: var(--text-primary); }
-        .elegance-theme .text-red-500 { color: var(--accent-color); }
-        .elegance-theme .hover\:bg-red-800:hover { background-color: var(--selected-color); }
-
-        .elegance-theme .number-cell {
-            background-color: var(--bg-secondary);
-            color: var(--text-primary);
-            border-color: var(--border-color);
-        }
-        .elegance-theme .number-cell:hover {
-            background-color: var(--hover-color);
-        }
-        .elegance-theme .number-cell.selected {
-            background-color: var(--accent-color);
-            color: #fff;
-            border-color: var(--accent-color);
-        }
-        .elegance-theme .number-cell.assigned {
-            background-color: var(--selected-color);
-            color: var(--text-secondary);
-            border-color: var(--accent-color);
-            position: relative;
-        }
-        
-        .elegance-theme .number-cell.assigned::before,
-        .elegance-theme .number-cell.assigned::after {
-            content: '';
-            position: absolute;
-            background-color: red;
-            height: 2px;
-            width: 80%;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) rotate(45deg);
-        }
-
-        .elegance-theme .number-cell.assigned::after {
-            transform: translate(-50%, -50%) rotate(-45deg);
-        }
-        
-        .elegance-theme .participant-card {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
-        }
-        .elegance-theme .bg-blue-900 { background-color: var(--selected-color); }
-        .elegance-theme .text-blue-300 { color: var(--text-primary); }
-        .elegance-theme .bg-green-900 { background-color: var(--selected-color); }
-        .elegance-theme .text-green-300 { color: var(--text-primary); }
-        .elegance-theme .text-green-200 { color: var(--text-primary); }
-        .elegance-theme .bg-blue-600 { background-color: var(--accent-color); }
-        .elegance-theme .hover\:bg-blue-700:hover { background-color: #6a57c8; }
-        .elegance-theme .bg-red-600 { background-color: #2c2c2c; }
-        .elegance-theme .hover\:bg-red-700:hover { background-color: #383838; }
-        .elegance-theme .bg-green-600 { background-color: #2c2c2c; }
-        .elegance-theme .hover\:bg-green-700:hover { background-color: #383838; }
-        .elegance-theme .bg-gradient-to-r {
-            background-image: linear-gradient(to right, #8c7ae6, #d291bc);
-        }
-        .elegance-theme .hover\:from-yellow-600:hover {
-            background-image: linear-gradient(to right, #7a63d9, #c77ab4);
-        }
-        .elegance-theme .raffle-number {
-            font-family: 'Playfair Display', serif;
-            text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
-        }
-        .elegance-theme .winner-display {
-            font-family: 'Montserrat', sans-serif;
-            color: var(--text-primary);
-        }
-        
-        /* --- TEMA MAR PROFUNDO --- */
-        .deep-sea-theme {
-            --bg-primary: #001f3f;
-            --bg-secondary: rgba(0, 31, 63, 0.8);
-            --text-primary: #ffffff;
-            --text-secondary: #7FDBFF;
-            --border-color: #0074D9;
-            --accent-color: #39CCCC;
-            --hover-color: #0074D9;
-            --selected-color: #7FDBFF;
-            --card-shadow: 0 5px 20px rgba(127, 219, 255, 0.4);
-            --theme-selector-bg: rgba(0, 31, 63, 0.8);
-            --theme-selector-text: #7FDBFF;
-            --footer-bg: rgba(0, 31, 63, 0.8);
-            --footer-text: #7FDBFF;
-            --logo-filter: brightness(1.1);
-        }
-
-        body.deep-sea-theme {
             background-image: url('https://images.unsplash.com/photo-1549074862-6173e20d02a8?fm=jpg&q=60&w=3000');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: var(--text-primary);
-            font-family: 'Montserrat', sans-serif;
         }
+        body.matrix-theme { font-family: 'Courier New', Courier, monospace; }
 
-        .deep-sea-theme .bg-gray-800, .deep-sea-theme .bg-gray-900, .deep-sea-theme .modal-content, .deep-sea-theme footer {
-            background-color: var(--bg-secondary);
-            backdrop-filter: blur(8px);
-            border: 1px solid var(--border-color);
-        }
+        h1, h2, h3 { color: var(--text-primary); }
+        .elegance-theme h1, .elegance-theme h2, .elegance-theme h3, .elegance-theme .raffle-number { font-family: 'Playfair Display', serif; font-weight: 700; }
+        .pastel-theme h1, .pastel-theme h2, .pastel-theme h3, .pastel-theme .number-cell, .pastel-theme .raffle-number, .pastel-theme .participant-card { font-style: italic; }
 
-        .deep-sea-theme .text-white { color: var(--text-primary); }
-        .deep-sea-theme .text-gray-400, .deep-sea-theme .text-gray-300, .deep-sea-theme .text-gray-500 { color: var(--text-secondary); }
-
-        .deep-sea-theme .text-blue-400, .deep-sea-theme .text-green-400, .deep-sea-theme .text-purple-400, .deep-sea-theme .text-yellow-400 {
-            color: var(--accent-color);
-            text-shadow: 0 0 5px var(--accent-color);
+        .raffle-container {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.9); z-index: 2000; color: white;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
         }
-
-        .deep-sea-theme .border-gray-600 { border-color: var(--border-color); }
-        .deep-sea-theme .bg-gray-700 { background-color: rgba(0, 116, 217, 0.3); }
-
-        .deep-sea-theme .number-cell {
-            background-color: rgba(0, 116, 217, 0.2);
-            border: 2px solid var(--border-color);
-            color: var(--text-primary);
-            transition: all 0.3s ease;
-        }
-        .deep-sea-theme .number-cell:hover {
-            background-color: var(--hover-color);
-            color: #fff;
-            transform: scale(1.1);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-        .deep-sea-theme .number-cell.selected {
-            background-color: var(--selected-color);
-            color: #001f3f;
-            border-color: var(--selected-color);
-            box-shadow: 0 0 15px var(--selected-color);
-        }
-        .deep-sea-theme .number-cell.assigned {
-            background-color: var(--accent-color);
-            color: #fff;
-            border-color: var(--accent-color);
-            opacity: 0.7;
-        }
-
-        .deep-sea-theme .participant-card {
-            background-color: var(--bg-secondary);
-            border-color: var(--border-color);
-            box-shadow: var(--card-shadow);
-            transition: all 0.3s ease;
-        }
-        .deep-sea-theme .participant-card:hover {
-            border-color: var(--accent-color);
-            transform: translateY(-5px);
-        }
-        
-        .deep-sea-theme .bg-blue-900, .deep-sea-theme .bg-green-900 {
-            background-color: var(--accent-color);
-            color: #001f3f;
-        }
-        .deep-sea-theme .text-blue-300, .deep-sea-theme .text-green-300 { color: #001f3f; }
-
-        .deep-sea-theme .bg-blue-600, .deep-sea-theme .bg-red-600, .deep-sea-theme .bg-green-600 {
-            border: 1px solid var(--accent-color);
-            background-color: transparent;
-            transition: all 0.3s ease;
-        }
-        .deep-sea-theme .hover\:bg-blue-700:hover, .deep-sea-theme .hover\:bg-red-700:hover, .deep-sea-theme .hover\:bg-green-700:hover {
-            background-color: var(--accent-color);
-            color: #001f3f;
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .deep-sea-theme .bg-gradient-to-r {
-            background-image: linear-gradient(to right, #7FDBFF, #39CCCC);
-            color: #001f3f;
-            border: none;
-        }
-        .deep-sea-theme .hover\:from-yellow-600:hover {
-            box-shadow: 0 0 15px #fff;
-        }
-
-        .deep-sea-theme .raffle-container {
-            background: rgba(0, 31, 63, 0.95);
-        }
-        .deep-sea-theme .raffle-number {
-            color: #fff;
-            text-shadow: 0 0 20px #7FDBFF, 0 0 40px #7FDBFF;
-        }
-        .deep-sea-theme .winner-display {
-            color: var(--accent-color);
-        }
-
-        /* --- TEMA MATRIX --- */
-        .matrix-theme {
-            --bg-primary: #000;
-            --bg-secondary: rgba(10, 25, 10, 0.5);
-            --text-primary: #0f0;
-            --text-secondary: #0c0;
-            --border-color: #0f0;
-            --accent-color: #0f0;
-            --hover-color: #0a0;
-            --selected-color: #0f0;
-            --card-shadow: 0 0 15px #0f0;
-            --theme-selector-bg: #000;
-            --theme-selector-text: #0f0;
-            --footer-bg: rgba(10, 25, 10, 0.5);
-            --footer-text: #0f0;
-            --logo-filter: hue-rotate(120deg) brightness(1.5);
-        }
-
-        body.matrix-theme {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
+        .raffle-number {
+            font-size: 8rem; font-weight: bold;
             font-family: 'Courier New', Courier, monospace;
+            text-shadow: 0 0 10px var(--accent-color), 0 0 20px var(--accent-color);
         }
+        .winner-display { font-size: 2rem; font-weight: 600; margin-top: 1rem; text-align: center; }
+        .winner-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.05); } }
 
-        .matrix-theme .bg-gray-800, .matrix-theme .bg-gray-900 {
-            background-color: var(--bg-secondary);
-            backdrop-filter: blur(5px);
+        .number-grid-container {
+            max-height: 300px; overflow-y: auto; -webkit-overflow-scrolling: touch;
+            padding-right: 8px; border: 2px solid var(--border-color); border-radius: 12px; padding: 1rem;
         }
-        .matrix-theme .text-white, .matrix-theme .text-gray-200, .matrix-theme .text-gray-300, .matrix-theme .text-gray-400, .matrix-theme .text-gray-500 {
-            color: var(--text-primary);
+        .number-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(45px, 1fr)); gap: 8px;
         }
-        .matrix-theme .border-gray-600 { border-color: var(--border-color); }
-        .matrix-theme .bg-gray-700 { background-color: rgba(10, 40, 10, 0.7); }
-        .matrix-theme .hover\:bg-gray-600:hover { background-color: rgba(10, 60, 10, 0.9); box-shadow: 0 0 5px #0f0; }
+        .number-cell {
+            width: 100%; height: 45px; display: flex; align-items: center; justify-content: center;
+            border: 2px solid var(--border-color); border-radius: 8px; cursor: pointer;
+            transition: all 0.2s ease; font-weight: 600;
+            background-color: var(--bg-secondary); color: var(--text-primary);
+        }
+        .number-cell:hover { background-color: var(--hover-color); transform: translateY(-2px); }
+        .number-cell.selected { background-color: var(--accent-color); color: white; border-color: var(--accent-color); }
+        .number-cell.assigned { background-color: var(--selected-color); color: var(--text-secondary); border-color: var(--accent-color); cursor: not-allowed; position: relative; }
+        .number-cell.assigned::before, .number-cell.assigned::after {
+            content: ''; position: absolute; background-color: red; height: 2px; width: 80%;
+            top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(45deg);
+        }
+        .number-cell.assigned::after { transform: translate(-50%, -50%) rotate(-45deg); }
 
-        .matrix-theme input::placeholder {
-            color: rgba(0, 255, 0, 0.5);
-        }
-
-        .matrix-theme .focus\:ring-blue-400:focus {
-            --tw-ring-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .matrix-theme input[type="text"] {
-            background-color: #000 !important;
-            color: #0f0 !important;
-            border: 1px solid #0f0 !important;
-        }
-
-        .matrix-theme .number-cell {
-            background-color: transparent;
-            border-color: var(--border-color);
-            color: var(--text-primary);
-        }
-        .matrix-theme .number-cell:hover {
-            background-color: var(--hover-color);
-            color: #000;
-        }
-        .matrix-theme .number-cell.selected, .matrix-theme .number-cell.assigned {
-            background-color: var(--selected-color);
-            color: #000;
-        }
-
-        .matrix-theme .participant-card, .matrix-theme .modal-content {
-            background-color: rgba(10, 25, 10, 0.85);
-            border-color: var(--border-color);
+        .participant-card {
+            background-color: var(--bg-secondary); border: 1px solid var(--border-color);
+            border-radius: 12px; padding: 16px; margin-bottom: 12px; transition: all 0.2s ease;
             box-shadow: var(--card-shadow);
         }
+        .participant-card:hover { transform: translateX(4px); box-shadow: var(--card-shadow); }
 
-        .matrix-theme .bg-blue-900, .matrix-theme .bg-green-900 { background-color: var(--accent-color); }
-        .matrix-theme .text-blue-300, .matrix-theme .text-green-300 { color: #000; }
-        .matrix-theme .stats-label { color: #000 !important; }
+        .logo { max-width: 250px; height: auto; transition: all 0.3s ease; filter: var(--logo-filter); padding: 5px; }
 
-        .matrix-theme .bg-blue-600, .matrix-theme .bg-green-600, .matrix-theme .bg-red-600 {
-            background-color: transparent;
+        .modal {
+            display: none; position: fixed; z-index: 3000; left: 0; top: 0; width: 100%; height: 100%;
+            overflow: auto; background-color: rgba(0,0,0,0.6); padding-top: 60px;
+        }
+        .modal-content {
+            background-color: var(--bg-secondary); margin: 5% auto; padding: 2rem;
+            border: 1px solid var(--border-color); width: 90%; max-width: 600px;
+            border-radius: 12px; box-shadow: var(--card-shadow); position: relative;
+        }
+        .close-btn { color: var(--text-secondary); float: right; font-size: 2rem; font-weight: bold; }
+        .close-btn:hover, .close-btn:focus { color: var(--text-primary); text-decoration: none; cursor: pointer; }
+
+        footer { background-color: var(--bg-secondary); color: var(--text-secondary); text-align: center; padding: 1rem; margin-top: auto; width: 100%; }
+
+        /* Estilos de botones y otros elementos para todos los temas */
+        .btn-primary { background-color: var(--accent-color); color: white; }
+        .btn-primary:hover { opacity: 0.9; }
+        .btn-secondary { background-color: var(--border-color); color: var(--text-primary); }
+        .btn-secondary:hover { opacity: 0.9; }
+        .input-text {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
             border: 1px solid var(--border-color);
         }
-        .matrix-theme .hover\:bg-blue-700:hover, .matrix-theme .hover\:bg-green-700:hover, .matrix-theme .hover\:bg-red-700:hover {
-            background-color: var(--hover-color);
-            color: #000;
-        }
 
-        .matrix-theme .bg-gradient-to-r {
-            background-image: none;
-            background-color: var(--accent-color);
-            color: #000;
+        .matrix-theme .input-text, .matrix-theme .theme-selector {
+            background-color: #000 !important; color: #0f0 !important; border: 1px solid #0f0 !important;
         }
+        .matrix-theme input::placeholder { color: rgba(0, 255, 0, 0.5); }
+        .matrix-theme .stats-label { color: #000; }
 
-        .theme-selector {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: var(--theme-selector-bg);
-            color: var(--theme-selector-text);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 8px;
-            transition: all 0.3s ease;
-        }
+        .deep-sea-theme .raffle-number { text-shadow: 0 0 20px #7FDBFF, 0 0 40px #7FDBFF; }
+        .deep-sea-theme .participant-card, .deep-sea-theme .modal-content, .deep-sea-theme footer { backdrop-filter: blur(8px); }
 
-        .theme-selector option {
-            background-color: #fff;
-            color: #000;
+        /* Media Queries */
+        @media (max-width: 768px) {
+            .logo { max-width: 180px; }
+            .number-grid-container { max-height: 200px; }
+            h1 { font-size: 2rem; }
+            .p-6 { padding: 1rem; }
+            .flex-row { flex-direction: column; }
         }
-        
-        .bvb-theme .stats-label {
-            color: #000;
+        @media (max-width: 480px) {
+            .logo { max-width: 120px; }
+            .number-cell { height: 35px; font-size: 0.9rem; }
+            .participant-card { padding: 8px; }
+            footer { padding: 0.5rem; }
         }
-        
-        .bvb-theme #raffleResult h3 {
-            color: #fde100;
-        }
-        .bvb-theme #winnerInfo div {
-            background-image: linear-gradient(to right, #fde100, #000);
-            color: #fff;
+        @media (min-width: 1024px) {
+            .max-w-6xl { max-width: 80%; }
+            .logo { max-width: 300px; }
         }
     </style>
 </head>
 <body>
     <canvas id="matrix-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: none;"></canvas>
     <canvas id="deep-sea-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -2; display: none;"></canvas>
-    <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
-        <div class="flex items-center">
-            <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
-        </div>
-        <div class="flex items-center">
-            <label for="theme-selector-mobile" class="mr-2 text-sm text-gray-400">Tema:</label>
-            <select id="theme-selector-mobile" class="theme-selector" onchange="changeTheme()">
-                <option value="dark">Oscuro</option>
-                <option value="pastel">Pastel Dreams</option>
-                <option value="elegance">Elegancia Nocturna</option>
-                <option value="deep-sea">Mar Profundo</option>
-                <option value="matrix">Hacker Matrix</option>
-            </select>
-        </div>
-    </div>
-    
+
     <div class="min-h-screen py-8 px-4 flex flex-col justify-start items-center md:pt-20">
+        <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
+            <div class="flex items-center">
+                <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
+            </div>
+            <div class="flex items-center">
+                <label for="theme-selector-mobile" class="mr-2 text-sm text-gray-400">Tema:</label>
+                <select id="theme-selector-mobile" class="theme-selector p-2 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400" onchange="changeTheme()">
+                    <option value="dark">Oscuro</option>
+                    <option value="pastel">Pastel Dreams</option>
+                    <option value="elegance">Elegancia Nocturna</option>
+                    <option value="deep-sea">Mar Profundo</option>
+                    <option value="matrix">Hacker Matrix</option>
+                </select>
+            </div>
+        </div>
+
         <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
             <div class="flex-1 space-y-6">
                 <div class="text-center mb-6 hidden md:block">
@@ -839,12 +233,10 @@
                         <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo mr-3">
                         <h1 class="text-4xl font-bold text-white">SORTEO RED PILAR</h1>
                     </div>
-                    <p class="text-lg text-gray-400">
-                        Organiza sorteos de forma elegante y confiable
-                    </p>
+                    <p class="text-lg text-gray-400">Organiza sorteos de forma elegante y confiable</p>
                     <div class="mt-4 flex justify-center items-center">
                         <label for="theme-selector-desktop" class="mr-2 text-sm text-gray-400">Tema:</label>
-                        <select id="theme-selector-desktop" class="theme-selector" onchange="changeTheme()">
+                        <select id="theme-selector-desktop" class="theme-selector p-2 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-400" onchange="changeTheme()">
                             <option value="dark">Oscuro</option>
                             <option value="pastel">Pastel Dreams</option>
                             <option value="elegance">Elegancia Nocturna</option>
@@ -853,777 +245,543 @@
                         </select>
                     </div>
                 </div>
-                
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-sliders-h text-blue-400 mr-2"></i>
-                        Control de Números
+
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-600">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-list-ol mr-3 text-blue-400"></i>
+                        Selección de Números
                     </h2>
-                    <div class="flex space-x-4 mb-6">
-                        <button onclick="modifyNumbers(-10)" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg transition-all">
-                            <i class="fas fa-minus mr-2"></i> Quitar 10 números
-                        </button>
-                        <button onclick="modifyNumbers(10)" class="flex-1 bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded-lg transition-all">
-                            <i class="fas fa-plus mr-2"></i> Agregar 10 números
-                        </button>
-                    </div>
-                    
-                    <div class="number-grid-container">
-                        <div class="number-grid">
+                    <div class="mb-4 flex flex-col md:flex-row items-center space-y-2 md:space-y-0 md:space-x-4">
+                        <div class="flex-grow w-full md:w-auto">
+                            <label for="numRange" class="block text-sm font-medium text-gray-400">Rango de números:</label>
+                            <div class="flex mt-1">
+                                <input type="number" id="minNum" value="1" min="1" class="input-text w-1/2 p-2 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Inicio">
+                                <input type="number" id="maxNum" value="100" min="1" class="input-text w-1/2 p-2 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-blue-400" placeholder="Fin">
+                            </div>
                         </div>
+                        <div class="flex space-x-2 mt-2 md:mt-0">
+                            <button id="updateRangeBtn" class="w-full md:w-auto px-4 py-2 bg-blue-600 text-white rounded-lg shadow-md hover:bg-blue-700 transition-colors">
+                                <i class="fas fa-sync-alt mr-2"></i>Aplicar
+                            </button>
+                            <button id="editNumbersBtn" class="w-full md:w-auto px-4 py-2 bg-gray-700 text-gray-200 rounded-lg shadow-md hover:bg-gray-600 transition-colors">
+                                <i class="fas fa-edit mr-2"></i>Editar
+                            </button>
+                        </div>
+                    </div>
+
+                    <p class="text-sm text-gray-400 mb-4">Números Seleccionados (<span id="selectedCount">0</span>): <span id="selectedNumbers" class="font-semibold text-white"></span></p>
+
+                    <div id="numberGridContainer" class="number-grid-container">
+                        <div id="numberGrid" class="number-grid"></div>
                     </div>
                 </div>
 
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-user-plus text-green-400 mr-2"></i>
-                        Agregar Participante
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-600">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-users mr-3 text-green-400"></i>
+                        Añadir Participante
                     </h2>
-                    <div class="space-y-4">
-                        <div>
-                            <label class="block text-sm font-medium mb-2 text-gray-400">Nombre del participante</label>
-                            <input type="text" id="participantName" 
-                                class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
-                                placeholder="Ingresa el nombre">
-                        </div>
-                        <div>
-                            <label class="block text-sm font-medium mb-2 text-gray-400">Números seleccionados</label>
-                            <div id="selectedNumbers" class="min-h-12 p-3 border border-gray-600 rounded-lg bg-gray-700">
-                                <span class="text-gray-500">Selecciona números en la cuadrícula</span>
-                            </div>
-                        </div>
-                        <button onclick="addParticipant()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
-                            <i class="fas fa-save mr-2"></i> Guardar Participante
+                    <div class="flex flex-col md:flex-row space-y-4 md:space-y-0 md:space-x-4 mb-4">
+                        <input type="text" id="participantName" class="input-text flex-1 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Nombre del participante">
+                        <input type="number" id="participantNumber" class="input-text w-full md:w-28 p-3 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-400" placeholder="Número">
+                        <button id="addParticipantBtn" class="w-full md:w-auto px-6 py-3 bg-green-600 text-white rounded-lg shadow-md hover:bg-green-700 transition-colors">
+                            <i class="fas fa-plus-circle mr-2"></i>Añadir
                         </button>
+                    </div>
+                    <div id="participantError" class="text-red-500 text-sm mt-2 hidden"></div>
+                </div>
+
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-600">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-trophy mr-3 text-yellow-400"></i>
+                        Lista de Participantes
+                    </h2>
+                    <div class="space-y-4" id="participantsList">
+                        <p id="noParticipantsMessage" class="text-gray-400 text-center">No hay participantes aún. ¡Añade uno para empezar!</p>
                     </div>
                 </div>
             </div>
 
             <div class="flex-1 space-y-6">
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-database text-blue-400 mr-2"></i>
-                        Gestión de Datos
-                    </h2>
-                    <div class="flex space-x-4 mb-4">
-                        <button onclick="saveData()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg font-semibold transition-all">
-                            <i class="fas fa-download mr-2"></i> Guardar Datos
-                        </button>
-                        <button onclick="document.getElementById('fileInput').click()" class="flex-1 bg-gray-700 hover:bg-gray-600 text-white py-2 px-4 rounded-lg font-semibold transition-all">
-                            <i class="fas fa-upload mr-2"></i> Cargar Datos
-                        </button>
-                        <input type="file" id="fileInput" accept=".json" class="hidden" onchange="loadData(event)">
-                        <button onclick="clearData()" class="flex-1 bg-red-600 hover:bg-red-700 text-white py-2 px-4 rounded-lg font-semibold transition-all">
-                            <i class="fas fa-trash-alt mr-2"></i> Borrar Todo
-                        </button>
-                    </div>
-                </div>
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <div class="flex justify-between items-center mb-4">
-                        <h2 class="text-xl font-semibold flex items-center text-white">
-                            <i class="fas fa-users text-purple-400 mr-2"></i>
-                            Participantes
-                        </h2>
-                        <span id="participantCount" class="bg-gray-700 text-gray-300 px-3 py-1 rounded-full text-sm">
-                            0 participantes
-                        </span>
-                    </div>
-                    <div class="mb-4">
-                        <input type="text" id="participantSearch" onkeyup="filterParticipants()"
-                            class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
-                            placeholder="Buscar por nombre o número...">
-                    </div>
-                    <div id="participantsList" class="space-y-3 max-h-96 overflow-y-auto flex flex-wrap gap-4">
-                        <div class="text-center py-8 text-gray-500">
-                            <i class="fas fa-users-slash text-4xl mb-3"></i>
-                            <p>No hay participantes registrados</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-gift text-yellow-400 mr-2"></i>
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-600 text-center">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center justify-center">
+                        <i class="fas fa-gift mr-3 text-purple-400"></i>
                         Realizar Sorteo
                     </h2>
-                    <button onclick="startRaffle()" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white py-4 px-6 rounded-lg font-bold text-lg transition-all transform hover:scale-105">
-                        <i class="fas fa-random mr-2"></i> INICIAR SORTEO
-                    </button>
-                    
-                    <div id="raffleResult" class="mt-6 p-4 bg-gray-900 rounded-lg hidden">
-                        <h3 class="text-lg font-semibold mb-2 text-white">🏆 Ganador del Sorteo</h3>
-                        <div id="winnerInfo" class="text-center"></div>
+                    <div class="flex flex-col items-center">
+                        <div class="text-gray-400 mb-4">
+                            <p>Participantes: <span id="participantCount" class="text-white font-semibold">0</span></p>
+                            <p>Números disponibles: <span id="availableNumbers" class="text-white font-semibold">0</span></p>
+                        </div>
+                        <button id="raffleBtn" class="w-full px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white text-xl font-bold rounded-xl shadow-lg transform hover:scale-105 transition-transform hover:from-yellow-600 hover:to-orange-600">
+                            <i class="fas fa-dice mr-2"></i>¡Sortear!
+                        </button>
                     </div>
                 </div>
 
-                <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
-                    <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
-                        <i class="fas fa-chart-bar text-green-400 mr-2"></i>
-                        Estadísticas
+                <div class="bg-gray-800 p-6 rounded-xl shadow-lg border border-gray-600">
+                    <h2 class="text-2xl font-bold mb-4 flex items-center">
+                        <i class="fas fa-bullhorn mr-3 text-red-500"></i>
+                        Historial de Ganadores
                     </h2>
-                    <div class="grid grid-cols-2 gap-4 text-center">
-                        <div class="p-3 bg-blue-900 rounded-lg">
-                            <div class="text-2xl font-bold text-blue-300" id="totalNumbers">0</div>
-                            <div class="text-sm text-blue-200 stats-label">Números Totales</div>
-                        </div>
-                        <div class="p-3 bg-green-900 rounded-lg">
-                            <div class="text-2xl font-bold text-green-300" id="assignedNumbers">0</div>
-                            <div class="text-sm text-green-200 stats-label">Números Asignados</div>
-                        </div>
+                    <div id="raffleResult" class="text-center space-y-4">
+                        <p class="text-gray-400 text-center" id="noWinnersMessage">
+                            No hay ganadores aún. ¡Inicia tu primer sorteo!
+                        </p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div id="raffleOverlay" class="raffle-container hidden">
-        <div id="countdown" class="text-8xl font-bold mb-8"></div>
-        <div id="raffleDisplay" class="flex flex-col items-center">
-            <div id="liveNumber" class="raffle-number">--</div>
-            <div id="liveWinnerName" class="winner-display"></div>
         </div>
     </div>
 
     <div id="editNumbersModal" class="modal">
         <div class="modal-content">
-            <span class="close-btn" onclick="closeEditModal()">&times;</span>
-            <h2 class="text-2xl font-bold mb-4">Editar Números</h2>
-            <p id="editModalName" class="text-lg text-gray-300 mb-4"></p>
-            <div class="number-grid-container h-80">
-                <div id="editNumberGrid" class="number-grid"></div>
+            <span class="close-btn">&times;</span>
+            <h3 class="text-xl font-bold mb-4">Asignar/Eliminar Números</h3>
+            <div class="space-y-4">
+                <p id="modalInstructions" class="text-gray-400"></p>
+                <div id="modalNumbersGrid" class="number-grid-container">
+                    <div class="number-grid"></div>
+                </div>
             </div>
-            <div class="mt-4">
-                <button onclick="saveEditedNumbers()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
-                    Guardar Cambios
-                </button>
+            <div class="mt-6 text-right">
+                <button id="saveNumbersBtn" class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">Guardar Cambios</button>
             </div>
         </div>
     </div>
 
-    <footer>
-        <p>&copy; 2025 SORTEO RED PILAR. All Rights Reserved. Design by Clau</p>
-        <p id="visitCounter" class="text-sm mt-2"></p>
+    <div id="raffleAnimation" class="raffle-container hidden">
+        <div id="raffleNumber" class="raffle-number"></div>
+        <div id="raffleWinnerInfo" class="winner-display mt-8"></div>
+        <button id="raffleCloseBtn" class="mt-8 px-6 py-3 bg-gray-700 text-gray-200 rounded-lg shadow-md hover:bg-gray-600 transition-colors hidden">
+            <i class="fas fa-times mr-2"></i>Cerrar
+        </button>
+    </div>
+
+    <footer class="mt-auto py-4">
+        &copy; 2024 SORTEO RED PILAR. Todos los derechos reservados.
     </footer>
 
     <script>
-        // --- Funcionalidad de Animación Matrix ---
-        let matrixInterval;
-
-        function startMatrixAnimation() {
-            const canvas = document.getElementById('matrix-canvas');
-            if (!canvas) return;
-
-            canvas.style.display = 'block';
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+[]{}|;:",./<>?';
-            const fontSize = 16;
-            const columns = canvas.width / fontSize;
-            const drops = [];
-
-            for (let i = 0; i < columns; i++) {
-                drops[i] = 1;
-            }
-
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#0f0';
-                ctx.font = `${fontSize}px arial`;
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = letters[Math.floor(Math.random() * letters.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-
-            if (matrixInterval) clearInterval(matrixInterval);
-            matrixInterval = setInterval(draw, 33);
-
-            window.addEventListener('resize', () => {
-                if (matrixInterval) {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                }
-            });
-        }
-
-        function stopMatrixAnimation() {
-            const canvas = document.getElementById('matrix-canvas');
-            if (canvas) {
-                canvas.style.display = 'none';
-            }
-            if (matrixInterval) {
-                clearInterval(matrixInterval);
-                matrixInterval = null;
-            }
-        }
-
-        // Variables globales
-        let participants = [];
-        let selectedNumbers = [];
-        let currentNumbers = 100; // 00-99 por defecto
-        let raffleInterval;
-        let editingParticipantId = null;
-        let loadedFileName = 'sorteo_datos.json'; // Nombre por defecto
-
-        // Inicializar la aplicación
-        function initApp() {
-            loadFromLocalStorage();
-            loadTheme();
-            generateNumberGrid();
-            updateStatistics();
-            updateVisitCount();
-        }
-
-        // --- Funcionalidad de Contador de Visitas ---
-        function updateVisitCount() {
-            let visitCount = localStorage.getItem('visitCount');
-            if (visitCount) {
-                visitCount = parseInt(visitCount) + 1;
-            } else {
-                visitCount = 1;
-            }
-            localStorage.setItem('visitCount', visitCount);
-            document.getElementById('visitCounter').textContent = `Visita #${visitCount}`;
-        }
-
-        // Cargar datos desde localStorage
-        function loadFromLocalStorage() {
-            const savedData = localStorage.getItem('raffleData');
-            if (savedData) {
-                try {
-                    const data = JSON.parse(savedData);
-                    if (data.currentNumbers !== undefined && data.participants) {
-                        currentNumbers = data.currentNumbers;
-                        participants = data.participants;
-                    }
-                } catch (error) {
-                    console.error('Error al cargar datos de localStorage:', error);
-                }
-            }
-        }
-
-        // Guardar datos en localStorage
-        function saveToLocalStorage() {
-            const data = {
-                currentNumbers: currentNumbers,
-                participants: participants
-            };
-            try {
-                localStorage.setItem('raffleData', JSON.stringify(data));
-            } catch (error) {
-                console.error('Error al guardar datos en localStorage:', error);
-            }
-        }
-
-        // --- Funcionalidad de Temas ---
-        function loadTheme() {
-            const savedTheme = localStorage.getItem('raffleTheme') || 'dark';
-            const body = document.body;
+        document.addEventListener('DOMContentLoaded', () => {
+            const minNumInput = document.getElementById('minNum');
+            const maxNumInput = document.getElementById('maxNum');
+            const updateRangeBtn = document.getElementById('updateRangeBtn');
+            const numberGrid = document.getElementById('numberGrid');
+            const selectedNumbersSpan = document.getElementById('selectedNumbers');
+            const selectedCountSpan = document.getElementById('selectedCount');
+            const participantNameInput = document.getElementById('participantName');
+            const participantNumberInput = document.getElementById('participantNumber');
+            const addParticipantBtn = document.getElementById('addParticipantBtn');
+            const participantsList = document.getElementById('participantsList');
+            const raffleBtn = document.getElementById('raffleBtn');
+            const raffleResult = document.getElementById('raffleResult');
+            const participantCountSpan = document.getElementById('participantCount');
+            const availableNumbersSpan = document.getElementById('availableNumbers');
+            const editNumbersBtn = document.getElementById('editNumbersBtn');
+            const editNumbersModal = document.getElementById('editNumbersModal');
+            const modalNumbersGrid = document.getElementById('modalNumbersGrid').querySelector('.number-grid');
+            const closeBtn = document.querySelector('.close-btn');
+            const saveNumbersBtn = document.getElementById('saveNumbersBtn');
+            const noParticipantsMessage = document.getElementById('noParticipantsMessage');
+            const noWinnersMessage = document.getElementById('noWinnersMessage');
+            const raffleAnimation = document.getElementById('raffleAnimation');
+            const raffleNumberDisplay = document.getElementById('raffleNumber');
+            const raffleWinnerInfo = document.getElementById('raffleWinnerInfo');
+            const raffleCloseBtn = document.getElementById('raffleCloseBtn');
             const themeSelectors = document.querySelectorAll('.theme-selector');
 
-            body.className = ''; // Limpiar todas las clases de tema
-            if (savedTheme !== 'dark') {
-                body.classList.add(`${savedTheme}-theme`);
-            }
+            let selectedNumbers = [];
+            let participants = JSON.parse(localStorage.getItem('participants')) || [];
+            let winners = JSON.parse(localStorage.getItem('winners')) || [];
+            let raffleInterval;
 
-            if (savedTheme === 'matrix') {
-                stopDeepSeaAnimation();
-                startMatrixAnimation();
-            } else if (savedTheme === 'deep-sea') {
-                stopMatrixAnimation();
-                startDeepSeaAnimation();
-            } else {
-                stopMatrixAnimation();
-                stopDeepSeaAnimation();
-            }
+            const updateStats = () => {
+                const assignedNumbers = new Set(participants.map(p => p.number));
+                const availableNumbersCount = selectedNumbers.filter(num => !assignedNumbers.has(num)).length;
 
-            themeSelectors.forEach(selector => {
-                selector.value = savedTheme;
-            });
-        }
+                participantCountSpan.textContent = participants.length;
+                availableNumbersSpan.textContent = availableNumbersCount;
+            };
 
-        function changeTheme() {
-            const selectedTheme = event.target.value;
-            const body = document.body;
+            const saveState = () => {
+                localStorage.setItem('participants', JSON.stringify(participants));
+                localStorage.setItem('winners', JSON.stringify(winners));
+            };
 
-            body.className = ''; // Limpiar todas las clases de tema
-            if (selectedTheme !== 'dark') {
-                body.classList.add(`${selectedTheme}-theme`);
-            }
-            
-            if (selectedTheme === 'matrix') {
-                stopDeepSeaAnimation();
-                startMatrixAnimation();
-            } else if (selectedTheme === 'deep-sea') {
-                stopMatrixAnimation();
-                startDeepSeaAnimation();
-            } else {
-                stopMatrixAnimation();
-                stopDeepSeaAnimation();
-            }
-
-            localStorage.setItem('raffleTheme', selectedTheme);
-            
-            // Sincronizar selectores
-            const otherSelector = document.querySelector(`.theme-selector:not([id='${event.target.id}'])`);
-            if (otherSelector) {
-                otherSelector.value = selectedTheme;
-            }
-        }
-
-        // Generar la cuadrícula de números
-        function generateNumberGrid() {
-            const grid = document.querySelector('.number-grid');
-            grid.innerHTML = '';
-            
-            for (let i = 0; i < currentNumbers; i++) {
-                const number = i.toString().padStart(2, '0');
-                const cell = document.createElement('div');
-                cell.className = 'number-cell';
-                cell.textContent = number;
-                cell.setAttribute('data-number', number);
-                cell.onclick = () => toggleNumberSelection(number);
-                grid.appendChild(cell);
-            }
-            updateNumberAssignments();
-        }
-
-        // Seleccionar/deseleccionar número
-        function toggleNumberSelection(number) {
-            const index = selectedNumbers.indexOf(number);
-            const cell = document.querySelector(`[data-number="${number}"]`);
-            
-            if (index === -1) {
-                if (isNumberAssigned(number)) {
-                    alert('Este número ya ha sido asignado a otro participante.');
+            const generateNumberGrid = () => {
+                const min = parseInt(minNumInput.value);
+                const max = parseInt(maxNumInput.value);
+                
+                selectedNumbers = [];
+                numberGrid.innerHTML = '';
+                
+                if (min > max || isNaN(min) || isNaN(max)) {
+                    numberGrid.innerHTML = `<p class="text-red-400 text-center w-full">El rango de números no es válido. Asegúrate de que el número inicial sea menor o igual al final.</p>`;
+                    selectedCountSpan.textContent = '0';
+                    selectedNumbersSpan.textContent = '';
                     return;
                 }
-                selectedNumbers.push(number);
-                cell.classList.add('selected');
-            } else {
-                selectedNumbers.splice(index, 1);
-                cell.classList.remove('selected');
-            }
-            
-            updateSelectedNumbersDisplay();
-        }
-
-        function isNumberAssigned(number) {
-            return participants.some(p => p.numbers.includes(number));
-        }
-
-        // Actualizar display de números seleccionados
-        function updateSelectedNumbersDisplay() {
-            const display = document.getElementById('selectedNumbers');
-            
-            if (selectedNumbers.length === 0) {
-                display.innerHTML = '<span class="text-gray-500">Selecciona números en la cuadrícula</span>';
-            } else {
-                display.innerHTML = selectedNumbers.map(num => 
-                    `<span class="inline-block bg-blue-900 text-blue-300 px-2 py-1 rounded mr-2 mb-2 text-xs">${num}</span>`
-                ).join('');
-            }
-        }
-
-        // Agregar participante
-        function addParticipant() {
-            const nameInput = document.getElementById('participantName');
-            const name = nameInput.value.trim();
-            
-            if (!name) {
-                alert('Por favor ingresa un nombre para el participante');
-                return;
-            }
-            
-            if (selectedNumbers.length === 0) {
-                alert('Por favor selecciona al menos un número');
-                return;
-            }
-            
-            const participant = {
-                id: Date.now(),
-                name: name,
-                numbers: [...selectedNumbers]
-            };
-            
-            participants.push(participant);
-            updateParticipantsList();
-            updateNumberAssignments();
-            clearForm();
-            updateStatistics();
-            saveToLocalStorage();
-        }
-
-        // Filtrar participantes
-        function filterParticipants() {
-            const searchTerm = document.getElementById('participantSearch').value.toLowerCase();
-            const filteredParticipants = participants.filter(p => {
-                const nameMatch = p.name.toLowerCase().includes(searchTerm);
-                const numberMatch = p.numbers.some(num => num.includes(searchTerm));
-                return nameMatch || numberMatch;
-            });
-            updateParticipantsList(filteredParticipants);
-        }
-
-        // Actualizar lista de participantes
-        function updateParticipantsList(filteredList = participants) {
-            const list = document.getElementById('participantsList');
-            const count = document.getElementById('participantCount');
-            
-            // Limpiar lista anterior
-            list.innerHTML = '';
-
-            if (filteredList.length === 0) {
-                const emptyMessage = document.createElement('div');
-                emptyMessage.className = 'text-center py-8 text-gray-500';
-                emptyMessage.innerHTML = `
-                    <i class="fas fa-users-slash text-4xl mb-3"></i>
-                    <p>No hay participantes registrados</p>
-                `;
-                list.appendChild(emptyMessage);
-            } else {
-                filteredList.forEach(participant => {
-                    // Crear tarjeta principal
-                    const card = document.createElement('div');
-                    card.className = 'participant-card';
-
-                    // Contenido de la tarjeta
-                    const cardContent = `
-                        <div class="flex justify-between items-start mb-2">
-                            <h3 class="font-semibold text-lg text-white">${participant.name}</h3>
-                            <div class="relative group">
-                                <button class="text-gray-500 hover:text-gray-300 focus:outline-none">
-                                    <i class="fas fa-ellipsis-v"></i>
-                                </button>
-                                <div class="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-md shadow-lg hidden group-hover:block z-10">
-                                    <a href="#" onclick="editParticipantName(${participant.id})" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"><i class="fas fa-edit mr-2"></i>Cambiar nombre</a>
-                                    <a href="#" onclick="openEditModal(${participant.id})" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"><i class="fas fa-pencil-alt mr-2"></i>Editar números</a>
-                                    <a href="#" onclick="removeParticipant(${participant.id})" class="block px-4 py-2 text-sm text-red-500 hover:bg-red-800"><i class="fas fa-trash-alt mr-2"></i>Eliminar</a>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="flex flex-wrap gap-1">
-                            ${participant.numbers.map(num => 
-                                `<span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs">${num}</span>`
-                            ).join('')}
-                        </div>
-                    `;
-                    card.innerHTML = cardContent;
-                    list.appendChild(card);
-                });
-            }
-            
-            count.textContent = `${filteredList.length} participante${filteredList.length !== 1 ? 's' : ''}`;
-        }
-
-        function editParticipantName(id) {
-            const participant = participants.find(p => p.id === id);
-            if (!participant) return;
-
-            const newName = prompt("Ingresa el nuevo nombre para " + participant.name, participant.name);
-            if (newName && newName.trim() !== "") {
-                participant.name = newName.trim();
-                updateParticipantsList();
-                saveToLocalStorage();
-            }
-        }
-        
-        // Abrir modal de edición de números
-        function openEditModal(id) {
-            const participant = participants.find(p => p.id === id);
-            if (!participant) return;
-
-            editingParticipantId = id;
-            document.getElementById('editModalName').textContent = `Editando números para: ${participant.name}`;
-            const modalGrid = document.getElementById('editNumberGrid');
-            modalGrid.innerHTML = '';
-            
-            const participantNumbers = new Set(participant.numbers);
-            const otherAssignedNumbers = participants.filter(p => p.id !== id).flatMap(p => p.numbers);
-            const otherAssignedSet = new Set(otherAssignedNumbers);
-
-            for (let i = 0; i < currentNumbers; i++) {
-                const number = i.toString().padStart(2, '0');
-                const cell = document.createElement('div');
-                cell.className = 'number-cell';
-                cell.textContent = number;
-                cell.setAttribute('data-number', number);
-
-                if (otherAssignedSet.has(number)) {
-                    cell.classList.add('assigned');
-                    cell.onclick = () => alert('Este número ya está asignado a otro participante.');
-                } else {
-                    if (participantNumbers.has(number)) {
-                        cell.classList.add('selected');
-                    }
-                    cell.onclick = () => toggleModalNumberSelection(cell, number);
+                
+                for (let i = min; i <= max; i++) {
+                    selectedNumbers.push(i);
+                    const cell = document.createElement('div');
+                    cell.className = 'number-cell';
+                    cell.textContent = i;
+                    cell.dataset.number = i;
+                    numberGrid.appendChild(cell);
                 }
-                modalGrid.appendChild(cell);
-            }
+                
+                updateSelectedNumbersDisplay();
+            };
 
-            document.getElementById('editNumbersModal').style.display = 'block';
-        }
+            const updateSelectedNumbersDisplay = () => {
+                selectedCountSpan.textContent = selectedNumbers.length;
+                selectedNumbersSpan.textContent = selectedNumbers.join(', ');
+            };
 
-        function toggleModalNumberSelection(cell, number) {
-            cell.classList.toggle('selected');
-        }
+            const renderParticipants = () => {
+                participantsList.innerHTML = '';
+                if (participants.length === 0) {
+                    noParticipantsMessage.style.display = 'block';
+                } else {
+                    noParticipantsMessage.style.display = 'none';
+                    participants.forEach(p => {
+                        const card = document.createElement('div');
+                        card.className = 'participant-card flex items-center justify-between';
+                        card.innerHTML = `
+                            <div>
+                                <h3 class="font-bold text-lg">${p.name}</h3>
+                                <p class="text-gray-400">Número: <span class="text-blue-400 font-bold">${p.number}</span></p>
+                            </div>
+                            <button class="delete-btn text-red-500 hover:text-red-700 transition-colors" data-number="${p.number}">
+                                <i class="fas fa-trash-alt"></i>
+                            </button>
+                        `;
+                        participantsList.appendChild(card);
+                    });
+                }
+                updateGridState();
+                updateStats();
+            };
 
-        function saveEditedNumbers() {
-            const participant = participants.find(p => p.id === editingParticipantId);
-            if (!participant) return;
+            const renderWinners = () => {
+                raffleResult.innerHTML = '';
+                if (winners.length === 0) {
+                    noWinnersMessage.style.display = 'block';
+                } else {
+                    noWinnersMessage.style.display = 'none';
+                    winners.forEach(w => {
+                        const winnerCard = document.createElement('div');
+                        winnerCard.className = 'participant-card bg-green-900 text-green-200 winner-animation';
+                        winnerCard.innerHTML = `
+                            <h3 class="font-bold text-lg">🎉 ¡Ganador! 🎉</h3>
+                            <p class="text-green-300">Nombre: <span class="font-bold">${w.name}</span></p>
+                            <p class="text-green-300">Número ganador: <span class="font-bold">${w.number}</span></p>
+                        `;
+                        raffleResult.appendChild(winnerCard);
+                    });
+                }
+            };
 
-            const selectedCells = document.querySelectorAll('#editNumberGrid .number-cell.selected');
-            const newNumbers = Array.from(selectedCells).map(cell => cell.getAttribute('data-number'));
-            
-            participant.numbers = newNumbers;
-            updateParticipantsList();
-            updateNumberAssignments();
-            updateStatistics();
-            saveToLocalStorage();
-            closeEditModal();
-        }
+            const updateGridState = () => {
+                const assignedNumbers = new Set(participants.map(p => p.number));
+                const wonNumbers = new Set(winners.map(w => w.number));
 
-        function closeEditModal() {
-            document.getElementById('editNumbersModal').style.display = 'none';
-            editingParticipantId = null;
-        }
-
-        function removeParticipant(id) {
-            if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
-                participants = participants.filter(p => p.id !== id);
-                updateParticipantsList();
-                updateNumberAssignments();
-                updateStatistics();
-                saveToLocalStorage();
-            }
-        }
-
-        function updateNumberAssignments() {
-            document.querySelectorAll('.number-cell').forEach(cell => {
-                cell.classList.remove('assigned');
-                cell.classList.remove('selected');
-            });
-            
-            participants.forEach(participant => {
-                participant.numbers.forEach(number => {
-                    const cell = document.querySelector(`[data-number="${number}"]`);
-                    if (cell) {
+                document.querySelectorAll('.number-cell').forEach(cell => {
+                    const number = parseInt(cell.dataset.number);
+                    cell.className = 'number-cell';
+                    
+                    if (assignedNumbers.has(number)) {
+                        cell.classList.add('assigned');
+                    } else if (wonNumbers.has(number)) {
                         cell.classList.add('assigned');
                     }
                 });
+            };
+
+            const validateNumber = (number) => {
+                const min = parseInt(minNumInput.value);
+                const max = parseInt(maxNumInput.value);
+                if (number < min || number > max) {
+                    return `El número debe estar entre ${min} y ${max}.`;
+                }
+                const assignedNumbers = new Set(participants.map(p => p.number));
+                if (assignedNumbers.has(number)) {
+                    return 'Este número ya está asignado a otro participante.';
+                }
+                return null;
+            };
+
+            // Event Listeners
+            updateRangeBtn.addEventListener('click', () => {
+                generateNumberGrid();
+                updateStats();
+                saveState();
             });
-        }
 
-        function clearForm() {
-            document.getElementById('participantName').value = '';
-            selectedNumbers = [];
-            updateSelectedNumbersDisplay();
-            document.querySelectorAll('.number-cell.selected').forEach(cell => {
-                cell.classList.remove('selected');
+            addParticipantBtn.addEventListener('click', () => {
+                const name = participantNameInput.value.trim();
+                const number = parseInt(participantNumberInput.value);
+                const errorDiv = document.getElementById('participantError');
+                errorDiv.classList.add('hidden');
+
+                if (!name || isNaN(number)) {
+                    errorDiv.textContent = 'Por favor, introduce un nombre y un número válido.';
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+
+                const validationError = validateNumber(number);
+                if (validationError) {
+                    errorDiv.textContent = validationError;
+                    errorDiv.classList.remove('hidden');
+                    return;
+                }
+
+                const newParticipant = { name, number };
+                participants.push(newParticipant);
+                participantNameInput.value = '';
+                participantNumberInput.value = '';
+
+                renderParticipants();
+                saveState();
             });
-        }
 
-        function modifyNumbers(change) {
-            const newTotal = currentNumbers + change;
-            
-            if (newTotal < 10) {
-                alert('Mínimo 10 números requeridos');
-                return;
-            }
-            
-            if (newTotal > 200) {
-                alert('Máximo 200 números permitidos');
-                return;
-            }
+            participantsList.addEventListener('click', (e) => {
+                if (e.target.closest('.delete-btn')) {
+                    const numberToDelete = parseInt(e.target.closest('.delete-btn').dataset.number);
+                    participants = participants.filter(p => p.number !== numberToDelete);
+                    renderParticipants();
+                    saveState();
+                }
+            });
 
-            if (change < 0) {
-                participants.forEach(participant => {
-                    participant.numbers = participant.numbers.filter(num => {
-                        const numValue = parseInt(num, 10);
-                        return numValue < newTotal;
+            raffleBtn.addEventListener('click', () => {
+                const assignedNumbers = participants.map(p => p.number);
+                const availableNumbers = selectedNumbers.filter(num => !assignedNumbers.includes(num) && !winners.map(w => w.number).includes(num));
+
+                if (availableNumbers.length === 0) {
+                    raffleWinnerInfo.textContent = 'No hay números disponibles para sortear.';
+                    raffleAnimation.classList.remove('hidden');
+                    return;
+                }
+                
+                raffleAnimation.classList.remove('hidden');
+                raffleWinnerInfo.textContent = '¡Seleccionando un número...!';
+                raffleCloseBtn.classList.add('hidden');
+
+                let count = 0;
+                raffleInterval = setInterval(() => {
+                    const randomNum = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
+                    raffleNumberDisplay.textContent = randomNum;
+                    count++;
+                    if (count > 50) {
+                        clearInterval(raffleInterval);
+                        
+                        const winningNumber = availableNumbers[Math.floor(Math.random() * availableNumbers.length)];
+                        raffleNumberDisplay.textContent = winningNumber;
+
+                        let winner = participants.find(p => p.number === winningNumber);
+                        
+                        if (winner) {
+                            raffleWinnerInfo.innerHTML = `¡El número ganador es el **${winningNumber}**! <br> ¡Felicidades a **${winner.name}**! 🎉`;
+                            winners.push({ name: winner.name, number: winningNumber });
+                            saveState();
+                            renderWinners();
+                        } else {
+                            raffleWinnerInfo.innerHTML = `El número ganador es el **${winningNumber}**. <br> Este número no está asignado. ¡Sortea de nuevo!`;
+                        }
+                        
+                        updateGridState();
+                        updateStats();
+                        raffleCloseBtn.classList.remove('hidden');
+                    }
+                }, 50);
+            });
+            
+            raffleCloseBtn.addEventListener('click', () => {
+                raffleAnimation.classList.add('hidden');
+            });
+
+            editNumbersBtn.addEventListener('click', () => {
+                modalNumbersGrid.innerHTML = '';
+                const assignedNumbers = new Set(participants.map(p => p.number));
+
+                for (let i = parseInt(minNumInput.value); i <= parseInt(maxNumInput.value); i++) {
+                    const cell = document.createElement('div');
+                    cell.className = 'number-cell';
+                    cell.textContent = i;
+                    cell.dataset.number = i;
+                    if (selectedNumbers.includes(i)) {
+                        cell.classList.add('selected');
+                    }
+                    if (assignedNumbers.has(i)) {
+                        cell.classList.add('assigned');
+                    }
+                    modalNumbersGrid.appendChild(cell);
+                }
+                editNumbersModal.style.display = 'block';
+            });
+            
+            modalNumbersGrid.addEventListener('click', (e) => {
+                const cell = e.target.closest('.number-cell');
+                if (cell && !cell.classList.contains('assigned')) {
+                    cell.classList.toggle('selected');
+                }
+            });
+
+            closeBtn.addEventListener('click', () => {
+                editNumbersModal.style.display = 'none';
+            });
+
+            saveNumbersBtn.addEventListener('click', () => {
+                const newSelectedNumbers = [];
+                modalNumbersGrid.querySelectorAll('.number-cell.selected').forEach(cell => {
+                    newSelectedNumbers.push(parseInt(cell.dataset.number));
+                });
+                selectedNumbers = newSelectedNumbers;
+                updateSelectedNumbersDisplay();
+                generateNumberGrid();
+                updateGridState();
+                saveState();
+                editNumbersModal.style.display = 'none';
+            });
+
+            const changeTheme = () => {
+                const selectedTheme = document.querySelector('.theme-selector:checked, .theme-selector:not([onchange])').value;
+                document.body.className = '';
+                document.body.classList.add(selectedTheme + '-theme');
+
+                // Sincroniza los selectores de tema
+                themeSelectors.forEach(selector => {
+                    selector.value = selectedTheme;
+                });
+
+                // Control de animaciones de fondo
+                const matrixCanvas = document.getElementById('matrix-canvas');
+                const deepSeaCanvas = document.getElementById('deep-sea-canvas');
+
+                stopMatrixAnimation();
+                stopDeepSeaAnimation();
+
+                if (selectedTheme === 'matrix') {
+                    startMatrixAnimation();
+                    matrixCanvas.style.display = 'block';
+                } else if (selectedTheme === 'deep-sea') {
+                    startDeepSeaAnimation();
+                    deepSeaCanvas.style.display = 'block';
+                }
+            };
+
+            // Lógica de las animaciones
+            let matrixInterval;
+            function startMatrixAnimation() {
+                const canvas = document.getElementById('matrix-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                const columns = Math.floor(canvas.width / 20);
+                const drops = Array(columns).fill(1);
+                function drawMatrix() {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+                    ctx.fillStyle = '#0f0';
+                    ctx.font = '15px monospace';
+                    drops.forEach((drop, i) => {
+                        const text = String.fromCharCode(48 + Math.random() * 33);
+                        ctx.fillText(text, i * 20, drop * 20);
+                        if (drop * 20 > canvas.height && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
                     });
+                }
+                if (matrixInterval) clearInterval(matrixInterval);
+                matrixInterval = setInterval(drawMatrix, 50);
+            }
+            function stopMatrixAnimation() {
+                const canvas = document.getElementById('matrix-canvas');
+                if (canvas) canvas.style.display = 'none';
+                if (matrixInterval) clearInterval(matrixInterval);
+                matrixInterval = null;
+            }
+
+            let deepSeaInterval;
+            function startDeepSeaAnimation() {
+                const canvas = document.getElementById('deep-sea-canvas');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                const bubbles = [];
+                const lightRays = [];
+                const setup = () => {
+                    canvas.width = window.innerWidth;
+                    canvas.height = window.innerHeight;
+                    bubbles.length = 0;
+                    lightRays.length = 0;
+                    for (let i = 0; i < 40; i++) {
+                        bubbles.push({
+                            x: Math.random() * canvas.width,
+                            y: canvas.height + Math.random() * 100,
+                            r: Math.random() * 4 + 1,
+                            speed: Math.random() * 0.8 + 0.2,
+                            opacity: Math.random() * 0.5 + 0.2
+                        });
+                    }
+                    for (let i = 0; i < 10; i++) {
+                        lightRays.push({
+                            x: Math.random() * canvas.width,
+                            y: 0,
+                            height: canvas.height,
+                            width: Math.random() * 15 + 5,
+                            speed: Math.random() * 0.1 - 0.05
+                        });
+                    }
+                };
+                const drawDeepSea = () => {
+                    ctx.clearRect(0, 0, canvas.width, canvas.height);
+                    lightRays.forEach(ray => {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${Math.random() * 0.03 + 0.02})`;
+                        ctx.fillRect(ray.x, ray.y, ray.width, ray.height);
+                        ray.x += ray.speed;
+                        if (ray.x > canvas.width + ray.width || ray.x < -ray.width) {
+                            ray.x = Math.random() * canvas.width;
+                        }
+                    });
+                    bubbles.forEach(b => {
+                        ctx.fillStyle = `rgba(255, 255, 255, ${b.opacity})`;
+                        ctx.beginPath();
+                        ctx.arc(b.x, b.y, b.r, 0, Math.PI * 2);
+                        ctx.fill();
+                        b.y -= b.speed;
+                        if (b.y < -b.r) {
+                            b.y = canvas.height + b.r;
+                            b.x = Math.random() * canvas.width;
+                        }
+                    });
+                };
+                setup();
+                if (deepSeaInterval) clearInterval(deepSeaInterval);
+                deepSeaInterval = setInterval(drawDeepSea, 33);
+                window.addEventListener('resize', () => {
+                    if (deepSeaInterval) setup();
                 });
             }
+            function stopDeepSeaAnimation() {
+                const canvas = document.getElementById('deep-sea-canvas');
+                if (canvas) canvas.style.display = 'none';
+                if (deepSeaInterval) clearInterval(deepSeaInterval);
+                deepSeaInterval = null;
+            }
 
-            currentNumbers = newTotal;
+            // Inicialización
+            changeTheme();
             generateNumberGrid();
-            updateParticipantsList();
-            updateStatistics();
-            saveToLocalStorage();
-        }
-
-        function updateStatistics() {
-            document.getElementById('totalNumbers').textContent = currentNumbers;
-            
-            const assignedNumbers = new Set();
-            participants.forEach(p => p.numbers.forEach(n => assignedNumbers.add(n)));
-            document.getElementById('assignedNumbers').textContent = assignedNumbers.size;
-        }
-
-        function saveData() {
-            const data = {
-                currentNumbers: currentNumbers,
-                participants: participants
-            };
-            const jsonData = JSON.stringify(data, null, 2);
-            const blob = new Blob([jsonData], { type: 'application/json' });
-            const fileName = loadedFileName || 'sorteo_datos.json';
-            
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = fileName;
-            a.click();
-            URL.revokeObjectURL(a.href);
-            
-            alert(`Datos guardados exitosamente como '${fileName}'.`);
-        }
-
-        function loadData(event) {
-            const file = event.target.files[0];
-            if (!file) {
-                return;
-            }
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                try {
-                    const data = JSON.parse(e.target.result);
-                    if (data.currentNumbers !== undefined && data.participants) {
-                        currentNumbers = data.currentNumbers;
-                        participants = data.participants;
-                        generateNumberGrid();
-                        updateParticipantsList();
-                        updateStatistics();
-                        saveToLocalStorage(); // <-- THIS IS THE FIX
-                        loadedFileName = file.name;
-                        alert('Datos cargados y guardados en el navegador exitosamente.');
-                    } else {
-                        alert('El archivo JSON no tiene el formato correcto.');
-                    }
-                } catch (error) {
-                    alert('Error al leer el archivo JSON: ' + error.message);
-                }
-            };
-            reader.readAsText(file);
-        }
-        
-        function clearData() {
-            if (confirm('¿Estás seguro de que quieres borrar todos los datos del sorteo? Esta acción es irreversible.')) {
-                participants = [];
-                currentNumbers = 100;
-                clearForm();
-                generateNumberGrid();
-                updateParticipantsList();
-                updateStatistics();
-                document.getElementById('raffleResult').classList.add('hidden');
-                loadedFileName = 'sorteo_datos.json';
-                localStorage.removeItem('raffleData');
-                alert('Todos los datos han sido borrados.');
-            }
-        }
-
-        function startRaffle() {
-            if (participants.length === 0) {
-                alert('No hay participantes para realizar el sorteo');
-                return;
-            }
-            
-            const raffleOverlay = document.getElementById('raffleOverlay');
-            const countdown = document.getElementById('countdown');
-            const liveNumber = document.getElementById('liveNumber');
-            const liveWinnerName = document.getElementById('liveWinnerName');
-
-            raffleOverlay.classList.remove('hidden');
-            liveNumber.textContent = '--';
-            liveWinnerName.textContent = '';
-            countdown.style.display = 'block';
-
-            let count = 3;
-            countdown.textContent = count;
-            const countdownInterval = setInterval(() => {
-                count--;
-                countdown.textContent = count;
-                if (count === 0) {
-                    clearInterval(countdownInterval);
-                    countdown.style.display = 'none';
-                    startNumberAnimation();
-                }
-            }, 1000);
-        }
-
-        function startNumberAnimation() {
-            const liveNumber = document.getElementById('liveNumber');
-            const liveWinnerName = document.getElementById('liveWinnerName');
-
-            let animationCount = 0;
-            raffleInterval = setInterval(() => {
-                const randomNumber = Math.floor(Math.random() * currentNumbers).toString().padStart(2, '0');
-                liveNumber.textContent = randomNumber;
-                animationCount++;
-                if (animationCount > 50) {
-                    clearInterval(raffleInterval);
-                    determineWinner();
-                }
-            }, 50);
-        }
-
-        function determineWinner() {
-            const liveNumber = document.getElementById('liveNumber');
-            const liveWinnerName = document.getElementById('liveWinnerName');
-            const assignedNumbers = participants.flatMap(p => p.numbers);
-            
-            let winningNumber;
-            let winner;
-            let attempt = 0;
-
-            do {
-                const randomIndex = Math.floor(Math.random() * assignedNumbers.length);
-                winningNumber = assignedNumbers[randomIndex];
-                winner = participants.find(p => p.numbers.includes(winningNumber));
-                attempt++;
-            } while (!winner && attempt < 100);
-
-            if (!winner) {
-                winner = participants[Math.floor(Math.random() * participants.length)];
-                winningNumber = winner.numbers[Math.floor(Math.random() * winner.numbers.length)];
-            }
-
-            liveNumber.textContent = winningNumber;
-            liveWinnerName.textContent = `¡El ganador es: ${winner.name}!`;
-            liveWinnerName.classList.add('winner-animation');
-
-            setTimeout(() => {
-                showRaffleResult(winner, winningNumber);
-            }, 3000);
-        }
-
-        function showRaffleResult(winner, winningNumber) {
-            const raffleOverlay = document.getElementById('raffleOverlay');
-            raffleOverlay.classList.add('hidden');
-
-            const resultDiv = document.getElementById('raffleResult');
-            const winnerInfo = document.getElementById('winnerInfo');
-            
-            winnerInfo.innerHTML = `
-                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-6 rounded-lg text-white winner-animation">
-                    <div class="text-3xl font-bold mb-2">${winner.name}</div>
-                    <div class="text-xl">Número ganador: <span class="font-mono font-bold">${winningNumber}</span></div>
-                </div>
-            `;
-            
-            resultDiv.classList.remove('hidden');
-            saveToLocalStorage();
-        }
-
-        document.addEventListener('DOMContentLoaded', initApp);
+            renderParticipants();
+            renderWinners();
+            updateStats();
+        });
     </script>
 </body>
 </html>
