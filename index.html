@@ -24,6 +24,9 @@
             --card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.3), 0 2px 4px -1-px rgba(0, 0, 0, 0.2);
             --theme-selector-bg: #334155;
             --theme-selector-text: #f1f5f9;
+            --footer-bg: #1e293b;
+            --footer-text: #94a3b8;
+            --logo-filter: none;
         }
 
         body {
@@ -32,6 +35,8 @@
             transition: all 0.3s ease;
             font-family: 'Times New Roman', Times, serif;
             min-height: 100vh;
+            display: flex;
+            flex-direction: column;
         }
 
         .number-grid-container {
@@ -81,7 +86,7 @@
             cursor: not-allowed;
             position: relative;
         }
-
+        
         .number-cell.assigned::before,
         .number-cell.assigned::after {
             content: '';
@@ -111,7 +116,7 @@
             transform: translateX(4px);
             box-shadow: var(--card-shadow);
         }
-
+    
         .winner-animation {
             animation: pulse 2s infinite;
         }
@@ -189,6 +194,74 @@
             cursor: pointer;
         }
 
+        /* Estilo para el footer */
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 1rem;
+            margin-top: auto;
+            width: 100%;
+        }
+
+        /* Estilo para el logo */
+        .logo {
+            max-width: 250px; /* Tamaño base ajustado para escritorio */
+            height: auto;
+            transition: all 0.3s ease;
+            filter: var(--logo-filter);
+            padding: 5px; /* Espaciado adicional */
+        }
+
+        @media (max-width: 768px) {
+            .logo {
+                max-width: 180px; /* Tamaño para móviles */
+            }
+            .number-grid-container {
+                max-height: 200px; /* Reducido para móviles */
+            }
+            h1 {
+                font-size: 2rem; /* Texto más pequeño en móvil */
+            }
+            .text-lg {
+                font-size: 1rem; /* Ajuste de texto */
+            }
+            .p-6 {
+                padding: 1rem; /* Padding reducido */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                max-width: 120px; /* Más pequeño en móviles pequeños */
+            }
+            .flex-row {
+                flex-direction: column; /* Apilar columnas en móviles pequeños */
+            }
+            .w-full {
+                width: 100%; /* Asegurar ancho completo */
+            }
+            .number-cell {
+                height: 35px; /* Números más compactos */
+                font-size: 0.9rem;
+            }
+            .participant-card {
+                padding: 8px; /* Padding reducido */
+            }
+            footer {
+                padding: 0.5rem; /* Footer más compacto */
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .max-w-6xl {
+                max-width: 80%; /* Ancho más amplio en escritorio */
+            }
+            .logo {
+                max-width: 300px; /* Tamaño opcional más grande en pantallas anchas */
+            }
+        }
+
         /* --- ESTILOS TEMA PASTEL DREAMS --- */
         .pastel-theme {
             --bg-primary: #f7e1e6;
@@ -202,14 +275,17 @@
             --card-shadow: 0 4px 15px rgba(181, 126, 220, 0.4);
             --theme-selector-bg: #f0e1ff;
             --theme-selector-text: #5e548e;
+            --footer-bg: #f0e1ff;
+            --footer-text: #5e548e;
+            --logo-filter: none;
         }
-
+        
         body.pastel-theme {
             background-color: var(--bg-primary);
             color: var(--text-primary);
             font-family: 'Comic Sans MS', cursive, sans-serif;
         }
-
+        
         .pastel-theme .bg-gray-800 { background-color: var(--bg-secondary); }
         .pastel-theme .text-white { color: var(--text-primary); }
         .pastel-theme .text-gray-400 { color: var(--text-secondary); }
@@ -233,7 +309,7 @@
         .pastel-theme .hover\:bg-green-700:hover { background-color: #4cc7b0; }
         .pastel-theme .bg-blue-600 { background-color: #b57edc; }
         .pastel-theme .hover\:bg-blue-700:hover { background-color: #a06ac9; }
-
+        
         /* Números y texto */
         .pastel-theme .number-cell, .pastel-theme .raffle-number, .pastel-theme .participant-card, .pastel-theme #selectedNumbers, .pastel-theme #editNumbersModal, .pastel-theme #raffleResult {
             font-style: italic;
@@ -259,15 +335,15 @@
         .pastel-theme .number-cell.assigned::before, .pastel-theme .number-cell.assigned::after {
             background-color: #a0a0a0;
         }
-
+        
         .pastel-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
         }
-
+        
         .pastel-theme .bg-blue-900 { background-color: var(--selected-color); }
         .pastel-theme .text-blue-300 { color: var(--text-primary); }
-
+        
         .pastel-theme .bg-green-900 { background-color: var(--selected-color); }
         .pastel-theme .text-green-300 { color: var(--text-primary); }
         .pastel-theme .text-green-200 { color: var(--text-primary); }
@@ -283,7 +359,7 @@
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
         }
-
+        
         .pastel-theme .raffle-container {
             background: rgba(255, 240, 243, 0.9);
             color: var(--text-primary);
@@ -309,12 +385,15 @@
             --text-primary: #e0e0e0;
             --text-secondary: #a0a0a0;
             --border-color: #2c2c2c;
-            --accent-color: #8c7ae6; /* Púrpura */
+            --accent-color: #8c7ae6;
             --hover-color: #2c2c2c;
             --selected-color: #5d48a0;
             --card-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
             --theme-selector-bg: #1a1a1a;
             --theme-selector-text: #e0e0e0;
+            --footer-bg: #1a1a1a;
+            --footer-text: #a0a0a0;
+            --logo-filter: brightness(0.9);
         }
 
         body.elegance-theme {
@@ -327,7 +406,7 @@
             font-family: 'Playfair Display', serif;
             font-weight: 700;
         }
-
+        
         .elegance-theme .text-blue-400, .elegance-theme .text-green-400, .elegance-theme .text-purple-400, .elegance-theme .text-yellow-400 {
             color: var(--accent-color);
         }
@@ -360,12 +439,12 @@
             border-color: var(--accent-color);
             position: relative;
         }
-
+        
         .elegance-theme .number-cell.assigned::before,
         .elegance-theme .number-cell.assigned::after {
             content: '';
             position: absolute;
-            background-color: red; /* La X es roja */
+            background-color: red;
             height: 2px;
             width: 80%;
             top: 50%;
@@ -376,7 +455,7 @@
         .elegance-theme .number-cell.assigned::after {
             transform: translate(-50%, -50%) rotate(-45deg);
         }
-
+        
         .elegance-theme .participant-card {
             background-color: var(--bg-secondary);
             border-color: var(--border-color);
@@ -406,8 +485,128 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-primary);
         }
+        
+        /* --- TEMA BVB --- */
+        .bvb-theme {
+            --bg-primary: #000;
+            --bg-secondary: #1a1a1a;
+            --text-primary: #fff;
+            --text-secondary: #aaa;
+            --border-color: #fde100;
+            --accent-color: #fde100;
+            --hover-color: #333;
+            --selected-color: #fde100;
+            --card-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            --theme-selector-bg: #fde100;
+            --theme-selector-text: #000;
+            --footer-bg: #1a1a1a;
+            --footer-text: #fde100;
+            --logo-filter: brightness(1.2);
+        }
 
-        /* Corrección para que el texto de los selectores de tema sea legible */
+        body.bvb-theme {
+            background-color: var(--bg-primary);
+            color: var(--text-primary);
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .bvb-theme .text-white { color: var(--text-primary); }
+        .bvb-theme .text-gray-400, .bvb-theme .text-gray-300 { color: var(--text-secondary); }
+        .bvb-theme .text-gray-500 { color: var(--text-secondary); }
+        .bvb-theme .text-gray-200 { color: var(--text-secondary); }
+        .bvb-theme .text-red-500 { color: var(--accent-color); }
+        .bvb-theme .hover\:bg-red-800:hover { background-color: var(--accent-color); color: #000; }
+
+        .bvb-theme .bg-gray-800 { background-color: var(--bg-secondary); }
+        .bvb-theme .bg-gray-900 { background-color: var(--bg-secondary); }
+        .bvb-theme .border-gray-600 { border-color: var(--border-color); }
+        
+        .bvb-theme .number-cell {
+            background-color: var(--bg-secondary);
+            color: var(--text-primary);
+            border-color: var(--border-color);
+        }
+        .bvb-theme .number-cell:hover {
+            background-color: var(--hover-color);
+        }
+        .bvb-theme .number-cell.selected {
+            background-color: var(--accent-color);
+            color: #000;
+            border-color: var(--accent-color);
+        }
+        .bvb-theme .number-cell.assigned {
+            background-color: var(--selected-color);
+            color: #000;
+            border-color: var(--accent-color);
+            position: relative;
+        }
+        
+        .bvb-theme .number-cell.assigned::before,
+        .bvb-theme .number-cell.assigned::after {
+            content: '';
+            position: absolute;
+            background-color: red;
+            height: 2px;
+            width: 80%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+        }
+
+        .bvb-theme .number-cell.assigned::after {
+            transform: translate(-50%, -50%) rotate(-45deg);
+        }
+        
+        .bvb-theme .participant-card {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+        .bvb-theme .bg-blue-900 { background-color: var(--accent-color); }
+        .bvb-theme .text-blue-300 { color: #000; }
+        .bvb-theme .bg-green-900 { background-color: var(--selected-color); }
+        .bvb-theme .text-green-300 { color: #000; }
+        .bvb-theme .text-green-200 { color: var(--text-secondary); }
+        
+        .bvb-theme .text-blue-400, .bvb-theme .text-green-400, .bvb-theme .text-purple-400, .bvb-theme .text-yellow-400 {
+            color: var(--accent-color);
+        }
+        
+        .bvb-theme .bg-blue-600 { background-color: var(--accent-color); color: #000; }
+        .bvb-theme .hover\:bg-blue-700:hover { background-color: #e0d000; }
+        .bvb-theme .bg-red-600 { background-color: #000; color: var(--accent-color); border: 2px solid var(--accent-color); }
+        .bvb-theme .hover\:bg-red-700:hover { background-color: var(--accent-color); color: #000; }
+        .bvb-theme .bg-green-600 { background-color: #000; color: var(--accent-color); border: 2px solid var(--accent-color); }
+        .bvb-theme .hover\:bg-green-700:hover { background-color: var(--accent-color); color: #000; }
+
+        .bvb-theme .bg-gradient-to-r {
+            background-image: linear-gradient(to right, #fde100, #000);
+            color: #fff;
+        }
+        .bvb-theme .hover\:from-yellow-600:hover {
+            background-image: linear-gradient(to right, #e0d000, #000);
+        }
+        
+        .bvb-theme .raffle-container {
+            background: rgba(0, 0, 0, 0.95);
+            color: var(--text-primary);
+        }
+        .bvb-theme .raffle-number {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--accent-color);
+            text-shadow: 0 0 5px #fff, 0 0 15px #fff;
+        }
+        .bvb-theme .winner-display {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text-primary);
+        }
+        
+        .bvb-theme .modal-content {
+            background-color: var(--bg-secondary);
+            border-color: var(--border-color);
+            box-shadow: var(--card-shadow);
+        }
+
         .theme-selector {
             -webkit-appearance: none;
             -moz-appearance: none;
@@ -424,13 +623,24 @@
             background-color: #fff;
             color: #000;
         }
+        
+        .bvb-theme .stats-label {
+            color: #000;
+        }
+        
+        .bvb-theme #raffleResult h3 {
+            color: #fde100;
+        }
+        .bvb-theme #winnerInfo div {
+            background-image: linear-gradient(to right, #fde100, #000);
+            color: #fff;
+        }
     </style>
 </head>
 <body>
     <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
         <div class="flex items-center">
-            <img src="logo.png" alt="Logo de SORTEO RED PILAR" class="h-12 mr-2">
-            <h1 class="text-xl font-bold text-white">SORTEO RED PILAR</h1>
+            <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
         </div>
         <div class="flex items-center">
             <label for="theme-selector-mobile" class="mr-2 text-sm text-gray-400">Tema:</label>
@@ -438,20 +648,18 @@
                 <option value="dark">Oscuro</option>
                 <option value="pastel">Pastel Dreams</option>
                 <option value="elegance">Elegancia Nocturna</option>
+                <option value="bvb">BVB</option>
             </select>
         </div>
     </div>
-
+    
     <div class="min-h-screen py-8 px-4 flex flex-col justify-start items-center md:pt-20">
         <div class="w-full max-w-6xl mx-auto flex flex-col md:flex-row space-y-8 md:space-y-0 md:space-x-8">
             <div class="flex-1 space-y-6">
                 <div class="text-center mb-6 hidden md:block">
                     <div class="flex items-center justify-center mb-2">
-                        <img src="logo.png" alt="Logo de SORTEO RED PILAR" class="h-12 mr-4">
-                        <h1 class="text-4xl font-bold text-white">
-                            <i class="fas fa-ticket-alt text-blue-400 mr-2"></i>
-                            SORTEO RED PILAR
-                        </h1>
+                        <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo mr-3">
+                        <h1 class="text-4xl font-bold text-white">SORTEO RED PILAR</h1>
                     </div>
                     <p class="text-lg text-gray-400">
                         Organiza sorteos de forma elegante y confiable
@@ -462,10 +670,11 @@
                             <option value="dark">Oscuro</option>
                             <option value="pastel">Pastel Dreams</option>
                             <option value="elegance">Elegancia Nocturna</option>
+                            <option value="bvb">BVB</option>
                         </select>
                     </div>
                 </div>
-
+                
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
                         <i class="fas fa-sliders-h text-blue-400 mr-2"></i>
@@ -479,10 +688,10 @@
                             <i class="fas fa-plus mr-2"></i> Agregar 10 números
                         </button>
                     </div>
-
+                    
                     <div class="number-grid-container">
                         <div class="number-grid">
-                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -494,7 +703,7 @@
                     <div class="space-y-4">
                         <div>
                             <label class="block text-sm font-medium mb-2 text-gray-400">Nombre del participante</label>
-                            <input type="text" id="participantName"
+                            <input type="text" id="participantName" 
                                 class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
                                 placeholder="Ingresa el nombre">
                         </div>
@@ -512,18 +721,6 @@
             </div>
 
             <div class="flex-1 space-y-6">
-                 <div class="text-center mb-6 hidden md:block">
-                    <div class="flex items-center justify-center mb-2">
-                        <img src="logo.png" alt="Logo de SORTEO RED PILAR" class="h-12 mr-4">
-                        <h1 class="text-4xl font-bold text-white">
-                            <i class="fas fa-ticket-alt text-blue-400 mr-2"></i>
-                            SORTEO RED PILAR
-                        </h1>
-                    </h1>
-                    <p class="text-lg text-gray-400">
-                        Organiza sorteos de forma elegante y confiable
-                    </p>
-                </div>
                 <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
                     <h2 class="text-xl font-semibold mb-4 flex items-center text-white">
                         <i class="fas fa-database text-blue-400 mr-2"></i>
@@ -557,7 +754,7 @@
                             class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
                             placeholder="Buscar por nombre o número...">
                     </div>
-                    <div id="participantsList" class="space-y-3 max-h-96 overflow-y-auto">
+                    <div id="participantsList" class="space-y-3 max-h-96 overflow-y-auto flex flex-wrap gap-4">
                         <div class="text-center py-8 text-gray-500">
                             <i class="fas fa-users-slash text-4xl mb-3"></i>
                             <p>No hay participantes registrados</p>
@@ -573,7 +770,7 @@
                     <button onclick="startRaffle()" class="w-full bg-gradient-to-r from-yellow-500 to-orange-500 hover:from-yellow-600 hover:to-orange-600 text-white py-4 px-6 rounded-lg font-bold text-lg transition-all transform hover:scale-105">
                         <i class="fas fa-random mr-2"></i> INICIAR SORTEO
                     </button>
-
+                    
                     <div id="raffleResult" class="mt-6 p-4 bg-gray-900 rounded-lg hidden">
                         <h3 class="text-lg font-semibold mb-2 text-white">🏆 Ganador del Sorteo</h3>
                         <div id="winnerInfo" class="text-center"></div>
@@ -588,4 +785,559 @@
                     <div class="grid grid-cols-2 gap-4 text-center">
                         <div class="p-3 bg-blue-900 rounded-lg">
                             <div class="text-2xl font-bold text-blue-300" id="totalNumbers">0</div>
-                            <div class
+                            <div class="text-sm text-blue-200 stats-label">Números Totales</div>
+                        </div>
+                        <div class="p-3 bg-green-900 rounded-lg">
+                            <div class="text-2xl font-bold text-green-300" id="assignedNumbers">0</div>
+                            <div class="text-sm text-green-200 stats-label">Números Asignados</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="raffleOverlay" class="raffle-container hidden">
+        <div id="countdown" class="text-8xl font-bold mb-8"></div>
+        <div id="raffleDisplay" class="flex flex-col items-center">
+            <div id="liveNumber" class="raffle-number">--</div>
+            <div id="liveWinnerName" class="winner-display"></div>
+        </div>
+    </div>
+
+    <div id="editNumbersModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeEditModal()">&times;</span>
+            <h2 class="text-2xl font-bold mb-4">Editar Números</h2>
+            <p id="editModalName" class="text-lg text-gray-300 mb-4"></p>
+            <div class="number-grid-container h-80">
+                <div id="editNumberGrid" class="number-grid"></div>
+            </div>
+            <div class="mt-4">
+                <button onclick="saveEditedNumbers()" class="w-full bg-blue-600 hover:bg-blue-700 text-white py-3 px-4 rounded-lg font-semibold transition-all">
+                    Guardar Cambios
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2025 SORTEO RED PILAR. All Rights Reserved. Design by Clau</p>
+    </footer>
+
+    <script>
+        // Variables globales
+        let participants = [];
+        let selectedNumbers = [];
+        let currentNumbers = 100; // 00-99 por defecto
+        let raffleInterval;
+        let editingParticipantId = null;
+        let loadedFileName = 'sorteo_datos.json'; // Nombre por defecto
+
+        // Inicializar la aplicación
+        function initApp() {
+            loadFromLocalStorage();
+            loadTheme();
+            generateNumberGrid();
+            updateStatistics();
+        }
+
+        // Cargar datos desde localStorage
+        function loadFromLocalStorage() {
+            const savedData = localStorage.getItem('raffleData');
+            if (savedData) {
+                try {
+                    const data = JSON.parse(savedData);
+                    if (data.currentNumbers !== undefined && data.participants) {
+                        currentNumbers = data.currentNumbers;
+                        participants = data.participants;
+                    }
+                } catch (error) {
+                    console.error('Error al cargar datos de localStorage:', error);
+                }
+            }
+        }
+
+        // Guardar datos en localStorage
+        function saveToLocalStorage() {
+            const data = {
+                currentNumbers: currentNumbers,
+                participants: participants
+            };
+            try {
+                localStorage.setItem('raffleData', JSON.stringify(data));
+            } catch (error) {
+                console.error('Error al guardar datos en localStorage:', error);
+            }
+        }
+
+        // --- Funcionalidad de Temas ---
+        function loadTheme() {
+            const savedTheme = localStorage.getItem('raffleTheme') || 'dark';
+            const body = document.body;
+            const themeSelectors = document.querySelectorAll('.theme-selector');
+
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
+            if (savedTheme !== 'dark') {
+                body.classList.add(`${savedTheme}-theme`);
+            }
+
+            themeSelectors.forEach(selector => {
+                selector.value = savedTheme;
+            });
+        }
+
+        function changeTheme() {
+            const selectedTheme = event.target.value;
+            const body = document.body;
+
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
+            if (selectedTheme !== 'dark') {
+                body.classList.add(`${selectedTheme}-theme`);
+            }
+            
+            localStorage.setItem('raffleTheme', selectedTheme);
+            
+            // Sincronizar selectores
+            const otherSelector = document.querySelector(`.theme-selector:not([id='${event.target.id}'])`);
+            if (otherSelector) {
+                otherSelector.value = selectedTheme;
+            }
+        }
+
+        // Generar la cuadrícula de números
+        function generateNumberGrid() {
+            const grid = document.querySelector('.number-grid');
+            grid.innerHTML = '';
+            
+            for (let i = 0; i < currentNumbers; i++) {
+                const number = i.toString().padStart(2, '0');
+                const cell = document.createElement('div');
+                cell.className = 'number-cell';
+                cell.textContent = number;
+                cell.setAttribute('data-number', number);
+                cell.onclick = () => toggleNumberSelection(number);
+                grid.appendChild(cell);
+            }
+            updateNumberAssignments();
+        }
+
+        // Seleccionar/deseleccionar número
+        function toggleNumberSelection(number) {
+            const index = selectedNumbers.indexOf(number);
+            const cell = document.querySelector(`[data-number="${number}"]`);
+            
+            if (index === -1) {
+                if (isNumberAssigned(number)) {
+                    alert('Este número ya ha sido asignado a otro participante.');
+                    return;
+                }
+                selectedNumbers.push(number);
+                cell.classList.add('selected');
+            } else {
+                selectedNumbers.splice(index, 1);
+                cell.classList.remove('selected');
+            }
+            
+            updateSelectedNumbersDisplay();
+        }
+
+        function isNumberAssigned(number) {
+            return participants.some(p => p.numbers.includes(number));
+        }
+
+        // Actualizar display de números seleccionados
+        function updateSelectedNumbersDisplay() {
+            const display = document.getElementById('selectedNumbers');
+            
+            if (selectedNumbers.length === 0) {
+                display.innerHTML = '<span class="text-gray-500">Selecciona números en la cuadrícula</span>';
+            } else {
+                display.innerHTML = selectedNumbers.map(num => 
+                    `<span class="inline-block bg-blue-900 text-blue-300 px-2 py-1 rounded mr-2 mb-2 text-xs">${num}</span>`
+                ).join('');
+            }
+        }
+
+        // Agregar participante
+        function addParticipant() {
+            const nameInput = document.getElementById('participantName');
+            const name = nameInput.value.trim();
+            
+            if (!name) {
+                alert('Por favor ingresa un nombre para el participante');
+                return;
+            }
+            
+            if (selectedNumbers.length === 0) {
+                alert('Por favor selecciona al menos un número');
+                return;
+            }
+            
+            const participant = {
+                id: Date.now(),
+                name: name,
+                numbers: [...selectedNumbers]
+            };
+            
+            participants.push(participant);
+            updateParticipantsList();
+            updateNumberAssignments();
+            clearForm();
+            updateStatistics();
+            saveToLocalStorage();
+        }
+
+        // Filtrar participantes
+        function filterParticipants() {
+            const searchTerm = document.getElementById('participantSearch').value.toLowerCase();
+            const filteredParticipants = participants.filter(p => {
+                const nameMatch = p.name.toLowerCase().includes(searchTerm);
+                const numberMatch = p.numbers.some(num => num.includes(searchTerm));
+                return nameMatch || numberMatch;
+            });
+            updateParticipantsList(filteredParticipants);
+        }
+
+        // Actualizar lista de participantes
+        function updateParticipantsList(filteredList = participants) {
+            const list = document.getElementById('participantsList');
+            const count = document.getElementById('participantCount');
+            
+            if (filteredList.length === 0) {
+                list.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-users-slash text-4xl mb-3"></i>
+                        <p>No se encontraron participantes</p>
+                    </div>
+                `;
+            } else {
+                list.innerHTML = filteredList.map(participant => `
+                    <div class="participant-card">
+                        <div class="flex justify-between items-start mb-2">
+                            <h3 class="font-semibold text-lg text-white">${participant.name}</h3>
+                            <div class="relative group">
+                                <button class="text-gray-500 hover:text-gray-300 focus:outline-none">
+                                    <i class="fas fa-ellipsis-v"></i>
+                                </button>
+                                <div class="absolute right-0 mt-2 w-48 bg-gray-700 border border-gray-600 rounded-md shadow-lg hidden group-hover:block z-10">
+                                    <a href="#" onclick="editParticipantName(${participant.id})" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"><i class="fas fa-edit mr-2"></i>Cambiar nombre</a>
+                                    <a href="#" onclick="openEditModal(${participant.id})" class="block px-4 py-2 text-sm text-gray-200 hover:bg-gray-600"><i class="fas fa-pencil-alt mr-2"></i>Editar números</a>
+                                    <a href="#" onclick="removeParticipant(${participant.id})" class="block px-4 py-2 text-sm text-red-500 hover:bg-red-800"><i class="fas fa-trash-alt mr-2"></i>Eliminar</a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flex flex-wrap gap-1">
+                            ${participant.numbers.map(num => 
+                                `<span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs">${num}</span>`
+                            ).join('')}
+                        </div>
+                    </div>
+                `).join('');
+            }
+            
+            count.textContent = `${filteredList.length} participante${filteredList.length !== 1 ? 's' : ''}`;
+        }
+
+        function editParticipantName(id) {
+            const participant = participants.find(p => p.id === id);
+            if (!participant) return;
+
+            const newName = prompt("Ingresa el nuevo nombre para " + participant.name, participant.name);
+            if (newName && newName.trim() !== "") {
+                participant.name = newName.trim();
+                updateParticipantsList();
+                saveToLocalStorage();
+            }
+        }
+        
+        // Abrir modal de edición de números
+        function openEditModal(id) {
+            const participant = participants.find(p => p.id === id);
+            if (!participant) return;
+
+            editingParticipantId = id;
+            document.getElementById('editModalName').textContent = `Editando números para: ${participant.name}`;
+            const modalGrid = document.getElementById('editNumberGrid');
+            modalGrid.innerHTML = '';
+            
+            const participantNumbers = new Set(participant.numbers);
+            const otherAssignedNumbers = participants.filter(p => p.id !== id).flatMap(p => p.numbers);
+            const otherAssignedSet = new Set(otherAssignedNumbers);
+
+            for (let i = 0; i < currentNumbers; i++) {
+                const number = i.toString().padStart(2, '0');
+                const cell = document.createElement('div');
+                cell.className = 'number-cell';
+                cell.textContent = number;
+                cell.setAttribute('data-number', number);
+
+                if (otherAssignedSet.has(number)) {
+                    cell.classList.add('assigned');
+                    cell.onclick = () => alert('Este número ya está asignado a otro participante.');
+                } else {
+                    if (participantNumbers.has(number)) {
+                        cell.classList.add('selected');
+                    }
+                    cell.onclick = () => toggleModalNumberSelection(cell, number);
+                }
+                modalGrid.appendChild(cell);
+            }
+
+            document.getElementById('editNumbersModal').style.display = 'block';
+        }
+
+        function toggleModalNumberSelection(cell, number) {
+            cell.classList.toggle('selected');
+        }
+
+        function saveEditedNumbers() {
+            const participant = participants.find(p => p.id === editingParticipantId);
+            if (!participant) return;
+
+            const selectedCells = document.querySelectorAll('#editNumberGrid .number-cell.selected');
+            const newNumbers = Array.from(selectedCells).map(cell => cell.getAttribute('data-number'));
+            
+            participant.numbers = newNumbers;
+            updateParticipantsList();
+            updateNumberAssignments();
+            updateStatistics();
+            saveToLocalStorage();
+            closeEditModal();
+        }
+
+        function closeEditModal() {
+            document.getElementById('editNumbersModal').style.display = 'none';
+            editingParticipantId = null;
+        }
+
+        function removeParticipant(id) {
+            if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
+                participants = participants.filter(p => p.id !== id);
+                updateParticipantsList();
+                updateNumberAssignments();
+                updateStatistics();
+                saveToLocalStorage();
+            }
+        }
+
+        function updateNumberAssignments() {
+            document.querySelectorAll('.number-cell').forEach(cell => {
+                cell.classList.remove('assigned');
+                cell.classList.remove('selected');
+            });
+            
+            participants.forEach(participant => {
+                participant.numbers.forEach(number => {
+                    const cell = document.querySelector(`[data-number="${number}"]`);
+                    if (cell) {
+                        cell.classList.add('assigned');
+                    }
+                });
+            });
+        }
+
+        function clearForm() {
+            document.getElementById('participantName').value = '';
+            selectedNumbers = [];
+            updateSelectedNumbersDisplay();
+            document.querySelectorAll('.number-cell.selected').forEach(cell => {
+                cell.classList.remove('selected');
+            });
+        }
+
+        function modifyNumbers(change) {
+            const newTotal = currentNumbers + change;
+            
+            if (newTotal < 10) {
+                alert('Mínimo 10 números requeridos');
+                return;
+            }
+            
+            if (newTotal > 200) {
+                alert('Máximo 200 números permitidos');
+                return;
+            }
+
+            if (change < 0) {
+                participants.forEach(participant => {
+                    participant.numbers = participant.numbers.filter(num => {
+                        const numValue = parseInt(num, 10);
+                        return numValue < newTotal;
+                    });
+                });
+            }
+
+            currentNumbers = newTotal;
+            generateNumberGrid();
+            updateParticipantsList();
+            updateStatistics();
+            saveToLocalStorage();
+        }
+
+        function updateStatistics() {
+            document.getElementById('totalNumbers').textContent = currentNumbers;
+            
+            const assignedNumbers = new Set();
+            participants.forEach(p => p.numbers.forEach(n => assignedNumbers.add(n)));
+            document.getElementById('assignedNumbers').textContent = assignedNumbers.size;
+        }
+
+        function saveData() {
+            const data = {
+                currentNumbers: currentNumbers,
+                participants: participants
+            };
+            const jsonData = JSON.stringify(data, null, 2);
+            const blob = new Blob([jsonData], { type: 'application/json' });
+            const fileName = loadedFileName || 'sorteo_datos.json';
+            
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = fileName;
+            a.click();
+            URL.revokeObjectURL(a.href);
+            
+            alert(`Datos guardados exitosamente como '${fileName}'.`);
+        }
+
+        function loadData(event) {
+            const file = event.target.files[0];
+            if (!file) {
+                return;
+            }
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                try {
+                    const data = JSON.parse(e.target.result);
+                    if (data.currentNumbers !== undefined && data.participants) {
+                        currentNumbers = data.currentNumbers;
+                        participants = data.participants;
+                        generateNumberGrid();
+                        updateParticipantsList();
+                        updateStatistics();
+                        saveToLocalStorage();
+                        loadedFileName = file.name;
+                        alert('Datos cargados exitosamente.');
+                    } else {
+                        alert('El archivo JSON no tiene el formato correcto.');
+                    }
+                } catch (error) {
+                    alert('Error al leer el archivo JSON: ' + error.message);
+                }
+            };
+            reader.readAsText(file);
+        }
+        
+        function clearData() {
+            if (confirm('¿Estás seguro de que quieres borrar todos los datos del sorteo? Esta acción es irreversible.')) {
+                participants = [];
+                currentNumbers = 100;
+                clearForm();
+                generateNumberGrid();
+                updateParticipantsList();
+                updateStatistics();
+                document.getElementById('raffleResult').classList.add('hidden');
+                loadedFileName = 'sorteo_datos.json';
+                localStorage.removeItem('raffleData');
+                alert('Todos los datos han sido borrados.');
+            }
+        }
+
+        function startRaffle() {
+            if (participants.length === 0) {
+                alert('No hay participantes para realizar el sorteo');
+                return;
+            }
+            
+            const raffleOverlay = document.getElementById('raffleOverlay');
+            const countdown = document.getElementById('countdown');
+            const liveNumber = document.getElementById('liveNumber');
+            const liveWinnerName = document.getElementById('liveWinnerName');
+
+            raffleOverlay.classList.remove('hidden');
+            liveNumber.textContent = '--';
+            liveWinnerName.textContent = '';
+            countdown.style.display = 'block';
+
+            let count = 3;
+            countdown.textContent = count;
+            const countdownInterval = setInterval(() => {
+                count--;
+                countdown.textContent = count;
+                if (count === 0) {
+                    clearInterval(countdownInterval);
+                    countdown.style.display = 'none';
+                    startNumberAnimation();
+                }
+            }, 1000);
+        }
+
+        function startNumberAnimation() {
+            const liveNumber = document.getElementById('liveNumber');
+            const liveWinnerName = document.getElementById('liveWinnerName');
+
+            let animationCount = 0;
+            raffleInterval = setInterval(() => {
+                const randomNumber = Math.floor(Math.random() * currentNumbers).toString().padStart(2, '0');
+                liveNumber.textContent = randomNumber;
+                animationCount++;
+                if (animationCount > 50) {
+                    clearInterval(raffleInterval);
+                    determineWinner();
+                }
+            }, 50);
+        }
+
+        function determineWinner() {
+            const liveNumber = document.getElementById('liveNumber');
+            const liveWinnerName = document.getElementById('liveWinnerName');
+            const assignedNumbers = participants.flatMap(p => p.numbers);
+            
+            let winningNumber;
+            let winner;
+            let attempt = 0;
+
+            do {
+                const randomIndex = Math.floor(Math.random() * assignedNumbers.length);
+                winningNumber = assignedNumbers[randomIndex];
+                winner = participants.find(p => p.numbers.includes(winningNumber));
+                attempt++;
+            } while (!winner && attempt < 100);
+
+            if (!winner) {
+                winner = participants[Math.floor(Math.random() * participants.length)];
+                winningNumber = winner.numbers[Math.floor(Math.random() * winner.numbers.length)];
+            }
+
+            liveNumber.textContent = winningNumber;
+            liveWinnerName.textContent = `¡El ganador es: ${winner.name}!`;
+            liveWinnerName.classList.add('winner-animation');
+
+            setTimeout(() => {
+                showRaffleResult(winner, winningNumber);
+            }, 3000);
+        }
+
+        function showRaffleResult(winner, winningNumber) {
+            const raffleOverlay = document.getElementById('raffleOverlay');
+            raffleOverlay.classList.add('hidden');
+
+            const resultDiv = document.getElementById('raffleResult');
+            const winnerInfo = document.getElementById('winnerInfo');
+            
+            winnerInfo.innerHTML = `
+                <div class="bg-gradient-to-r from-yellow-500 to-orange-500 p-6 rounded-lg text-white winner-animation">
+                    <div class="text-3xl font-bold mb-2">${winner.name}</div>
+                    <div class="text-xl">Número ganador: <span class="font-mono font-bold">${winningNumber}</span></div>
+                </div>
+            `;
+            
+            resultDiv.classList.remove('hidden');
+            saveToLocalStorage();
+        }
+
+        document.addEventListener('DOMContentLoaded', initApp);
+    </script>
+</body>
+</html>
