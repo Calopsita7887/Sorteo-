@@ -108,6 +108,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 16px;
+            margin-bottom: 12px;
             transition: all 0.2s ease;
         }
 
@@ -484,129 +485,7 @@
             font-family: 'Montserrat', sans-serif;
             color: var(--text-primary);
         }
-        
-
-        /* --- TEMA MATRIX --- */
-        .matrix-theme {
-            --bg-primary: #000;
-            --bg-secondary: rgba(10, 25, 10, 0.5);
-            --text-primary: #0f0;
-            --text-secondary: #0c0;
-            --border-color: #0f0;
-            --accent-color: #0f0;
-            --hover-color: #0a0;
-            --selected-color: #0f0;
-            --card-shadow: 0 0 15px #0f0;
-            --theme-selector-bg: #000;
-            --theme-selector-text: #0f0;
-            --footer-bg: rgba(10, 25, 10, 0.5);
-            --footer-text: #0f0;
-            --logo-filter: hue-rotate(120deg) brightness(1.5);
-        }
-
-        body.matrix-theme {
-            background-color: var(--bg-primary);
-            color: var(--text-primary);
-            font-family: 'Courier New', Courier, monospace;
-        }
-
-        .matrix-theme .bg-gray-800, .matrix-theme .bg-gray-900 {
-            background-color: var(--bg-secondary);
-            backdrop-filter: blur(5px);
-        }
-        .matrix-theme .text-white, .matrix-theme .text-gray-200, .matrix-theme .text-gray-300, .matrix-theme .text-gray-400, .matrix-theme .text-gray-500 {
-            color: var(--text-primary);
-        }
-        .matrix-theme .border-gray-600 { border-color: var(--border-color); }
-        .matrix-theme .bg-gray-700 { background-color: rgba(10, 40, 10, 0.7); }
-        .matrix-theme .hover\:bg-gray-600:hover { background-color: rgba(10, 60, 10, 0.9); box-shadow: 0 0 5px #0f0; }
-
-        .matrix-theme input::placeholder {
-            color: rgba(0, 255, 0, 0.5);
-        }
-
-        .matrix-theme .focus\:ring-blue-400:focus {
-            --tw-ring-color: var(--accent-color);
-            box-shadow: 0 0 10px var(--accent-color);
-        }
-
-        .matrix-theme input[type="text"] {
-            background-color: #000 !important;
-            color: #0f0 !important;
-            border: 1px solid #0f0 !important;
-        }
-
-        .matrix-theme .number-cell {
-            background-color: transparent;
-            border-color: var(--border-color);
-            color: var(--text-primary);
-        }
-        .matrix-theme .number-cell:hover {
-            background-color: var(--hover-color);
-            color: #000;
-        }
-        .matrix-theme .number-cell.selected, .matrix-theme .number-cell.assigned {
-            background-color: var(--selected-color);
-            color: #000;
-        }
-
-        .matrix-theme .participant-card, .matrix-theme .modal-content {
-            background-color: rgba(10, 25, 10, 0.85);
-            border-color: var(--border-color);
-            box-shadow: var(--card-shadow);
-        }
-
-        .matrix-theme .bg-blue-900, .matrix-theme .bg-green-900 { background-color: var(--accent-color); }
-        .matrix-theme .text-blue-300, .matrix-theme .text-green-300 { color: #000; }
-        .matrix-theme .stats-label { color: #000 !important; }
-
-        .matrix-theme .bg-blue-600, .matrix-theme .bg-green-600, .matrix-theme .bg-red-600 {
-            background-color: transparent;
-            border: 1px solid var(--border-color);
-        }
-        .matrix-theme .hover\:bg-blue-700:hover, .matrix-theme .hover\:bg-green-700:hover, .matrix-theme .hover\:bg-red-700:hover {
-            background-color: var(--hover-color);
-            color: #000;
-        }
-
-        .matrix-theme .bg-gradient-to-r {
-            background-image: none;
-            background-color: var(--accent-color);
-            color: #000;
-        }
-
-        .theme-selector {
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
-            background-color: var(--theme-selector-bg);
-            color: var(--theme-selector-text);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            padding: 8px;
-            transition: all 0.3s ease;
-        }
-
-        .theme-selector option {
-            background-color: #fff;
-            color: #000;
-        }
-        
-        .bvb-theme .stats-label {
-            color: #000;
-        }
-        
-        .bvb-theme #raffleResult h3 {
-            color: #fde100;
-        }
-        .bvb-theme #winnerInfo div {
-            background-image: linear-gradient(to right, #fde100, #000);
-            color: #fff;
-        }
-    </style>
-</head>
-<body>
-    <canvas id="matrix-canvas" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1; display: none;"></canvas>
+     
     <div class="fixed top-0 left-0 w-full bg-gray-900 p-4 z-50 shadow-md flex justify-between items-center md:hidden">
         <div class="flex items-center">
             <img src="logo.png" alt="SORTEO RED PILAR Logo" class="logo">
@@ -616,8 +495,7 @@
             <select id="theme-selector-mobile" class="theme-selector" onchange="changeTheme()">
                 <option value="dark">Oscuro</option>
                 <option value="pastel">Pastel Dreams</option>
-                <option value="elegance">Elegancia Nocturna</option>
-                <option value="matrix">Hacker Matrix</option>
+                <option value="elegance">Elegancia Nocturna</option
             </select>
         </div>
     </div>
@@ -639,7 +517,6 @@
                             <option value="dark">Oscuro</option>
                             <option value="pastel">Pastel Dreams</option>
                             <option value="elegance">Elegancia Nocturna</option>
-                            <option value="matrix">Hacker Matrix</option>
                         </select>
                     </div>
                 </div>
@@ -723,7 +600,7 @@
                             class="w-full px-4 py-2 border border-gray-600 rounded-lg focus:ring-2 focus:ring-blue-400 focus:border-transparent bg-gray-700 text-white"
                             placeholder="Buscar por nombre o número...">
                     </div>
-                    <div id="participantsList" class="max-h-96 overflow-y-auto flex flex-wrap gap-4">
+                    <div id="participantsList" class="space-y-3 max-h-96 overflow-y-auto flex flex-wrap gap-4">
                         <div class="text-center py-8 text-gray-500">
                             <i class="fas fa-users-slash text-4xl mb-3"></i>
                             <p>No hay participantes registrados</p>
@@ -792,70 +669,9 @@
 
     <footer>
         <p>&copy; 2025 SORTEO RED PILAR. All Rights Reserved. Design by Clau</p>
-        <p id="visitCounter" class="text-sm mt-2"></p>
     </footer>
 
     <script>
-        // --- Funcionalidad de Animación Matrix ---
-        let matrixInterval;
-
-        function startMatrixAnimation() {
-            const canvas = document.getElementById('matrix-canvas');
-            if (!canvas) return;
-
-            canvas.style.display = 'block';
-            const ctx = canvas.getContext('2d');
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-
-            const letters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890@#$%^&*()_+[]{}|;:",./<>?';
-            const fontSize = 16;
-            const columns = canvas.width / fontSize;
-            const drops = [];
-
-            for (let i = 0; i < columns; i++) {
-                drops[i] = 1;
-            }
-
-            function draw() {
-                ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                ctx.fillRect(0, 0, canvas.width, canvas.height);
-                ctx.fillStyle = '#0f0';
-                ctx.font = `${fontSize}px arial`;
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = letters[Math.floor(Math.random() * letters.length)];
-                    ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                    if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-
-            if (matrixInterval) clearInterval(matrixInterval);
-            matrixInterval = setInterval(draw, 33);
-
-            window.addEventListener('resize', () => {
-                if (matrixInterval) {
-                    canvas.width = window.innerWidth;
-                    canvas.height = window.innerHeight;
-                }
-            });
-        }
-
-        function stopMatrixAnimation() {
-            const canvas = document.getElementById('matrix-canvas');
-            if (canvas) {
-                canvas.style.display = 'none';
-            }
-            if (matrixInterval) {
-                clearInterval(matrixInterval);
-                matrixInterval = null;
-            }
-        }
-
         // Variables globales
         let participants = [];
         let selectedNumbers = [];
@@ -870,19 +686,6 @@
             loadTheme();
             generateNumberGrid();
             updateStatistics();
-            updateVisitCount();
-        }
-
-        // --- Funcionalidad de Contador de Visitas ---
-        function updateVisitCount() {
-            let visitCount = localStorage.getItem('visitCount');
-            if (visitCount) {
-                visitCount = parseInt(visitCount) + 1;
-            } else {
-                visitCount = 1;
-            }
-            localStorage.setItem('visitCount', visitCount);
-            document.getElementById('visitCounter').textContent = `Visita #${visitCount}`;
         }
 
         // Cargar datos desde localStorage
@@ -920,15 +723,9 @@
             const body = document.body;
             const themeSelectors = document.querySelectorAll('.theme-selector');
 
-            body.className = ''; // Limpiar todas las clases de tema
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
             if (savedTheme !== 'dark') {
                 body.classList.add(`${savedTheme}-theme`);
-            }
-
-            if (savedTheme === 'matrix') {
-                startMatrixAnimation();
-            } else {
-                stopMatrixAnimation();
             }
 
             themeSelectors.forEach(selector => {
@@ -940,17 +737,11 @@
             const selectedTheme = event.target.value;
             const body = document.body;
 
-            body.className = ''; // Limpiar todas las clases de tema
+            body.classList.remove('dark-theme', 'pastel-theme', 'elegance-theme', 'bvb-theme');
             if (selectedTheme !== 'dark') {
                 body.classList.add(`${selectedTheme}-theme`);
             }
             
-            if (selectedTheme === 'matrix') {
-                startMatrixAnimation();
-            } else {
-                stopMatrixAnimation();
-            }
-
             localStorage.setItem('raffleTheme', selectedTheme);
             
             // Sincronizar selectores
@@ -1059,25 +850,16 @@
             const list = document.getElementById('participantsList');
             const count = document.getElementById('participantCount');
             
-            // Limpiar lista anterior
-            list.innerHTML = '';
-
             if (filteredList.length === 0) {
-                const emptyMessage = document.createElement('div');
-                emptyMessage.className = 'text-center py-8 text-gray-500';
-                emptyMessage.innerHTML = `
-                    <i class="fas fa-users-slash text-4xl mb-3"></i>
-                    <p>No hay participantes registrados</p>
+                list.innerHTML = `
+                    <div class="text-center py-8 text-gray-500">
+                        <i class="fas fa-users-slash text-4xl mb-3"></i>
+                        <p>No se encontraron participantes</p>
+                    </div>
                 `;
-                list.appendChild(emptyMessage);
             } else {
-                filteredList.forEach(participant => {
-                    // Crear tarjeta principal
-                    const card = document.createElement('div');
-                    card.className = 'participant-card';
-
-                    // Contenido de la tarjeta
-                    const cardContent = `
+                list.innerHTML = filteredList.map(participant => `
+                    <div class="participant-card">
                         <div class="flex justify-between items-start mb-2">
                             <h3 class="font-semibold text-lg text-white">${participant.name}</h3>
                             <div class="relative group">
@@ -1096,10 +878,8 @@
                                 `<span class="bg-blue-900 text-blue-300 px-2 py-1 rounded text-xs">${num}</span>`
                             ).join('')}
                         </div>
-                    `;
-                    card.innerHTML = cardContent;
-                    list.appendChild(card);
-                });
+                    </div>
+                `).join('');
             }
             
             count.textContent = `${filteredList.length} participante${filteredList.length !== 1 ? 's' : ''}`;
@@ -1282,9 +1062,9 @@
                         generateNumberGrid();
                         updateParticipantsList();
                         updateStatistics();
-                        saveToLocalStorage(); // <-- THIS IS THE FIX
+                        saveToLocalStorage();
                         loadedFileName = file.name;
-                        alert('Datos cargados y guardados en el navegador exitosamente.');
+                        alert('Datos cargados exitosamente.');
                     } else {
                         alert('El archivo JSON no tiene el formato correcto.');
                     }
