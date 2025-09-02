@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
@@ -24,6 +24,14 @@
             position: relative;
             overflow: hidden;
             transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
+        }
+        .logo-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .logo {
+            width: 100px;
+            height: auto;
         }
         h1 {
             color: #4CAF50;
@@ -212,8 +220,6 @@
         .edit-mode #add-number-btn:hover { background-color: #0056b3; }
         .edit-mode #update-name-btn { background-color: #4CAF50; color: #fff; }
         .edit-mode #update-name-btn:hover { background-color: #45a049; }
-
-
         #ganador-container {
             margin-top: 20px;
             text-align: center;
@@ -379,7 +385,6 @@
             color: #ff00ff;
             text-shadow: 0 0 10px #ff00ff;
         }
-
         /* --- ESTILOS TEMA NEON PARTY --- */
         body.neon-theme {
             background-color: #0a0a1a;
@@ -596,7 +601,6 @@
             color: #5e548e;
             border-color: #b57edc;
         }
-
         #theme-toggle-group {
             margin-top: 0;
             justify-content: flex-end;
@@ -623,27 +627,22 @@
             color: #5e548e;
             border-color: #b57edc;
         }
-
         .hide-on-edit-mode {
             display: none;
         }
-
         /* ESTILOS PARA LOS BOTONES DE GUARDAR/CARGAR */
         #save-data-button { background-color: #6c757d; }
         #save-data-button:hover { background-color: #5a6268; }
         #load-data-button { background-color: #17a2b8; }
         #load-data-button:hover { background-color: #138496; }
-
         .cosmic-theme #save-data-button { background-color: #663399; }
         .cosmic-theme #save-data-button:hover { background-color: #5a2c8a; }
         .cosmic-theme #load-data-button { background-color: #00aaff; }
         .cosmic-theme #load-data-button:hover { background-color: #0077cc; }
-
         .neon-theme #save-data-button { background-color: #ff00ff; color: #000; }
         .neon-theme #save-data-button:hover { background-color: #cc00cc; }
         .neon-theme #load-data-button { background-color: #00ffff; color: #000; }
         .neon-theme #load-data-button:hover { background-color: #00cccc; }
-
         .pastel-theme #save-data-button { background-color: #b57edc; }
         .pastel-theme #save-data-button:hover { background-color: #a06ac9; }
         .pastel-theme #load-data-button { background-color: #72b9e6; }
@@ -703,17 +702,56 @@
         .pastel-theme #saved-code {
             color: #b57edc;
         }
-
         /* --- NUEVO ESTILO PARA EL BORDE DE RESALTE --- */
         .number-box.resaltado {
             border: 3px solid #ff5722; /* Color naranja, puedes cambiarlo */
             transform: scale(1.1);
         }
         /* Fin de los nuevos estilos */
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
+
+        /* -------------------------------------- */
+        /* --- ESTILOS TEMA HACKER (NUEVO) --- */
+        /* -------------------------------------- */
+        body.hacker-theme {
+            background-color: #000000;
+            color: #00ff00;
+            font-family: 'Consolas', 'Courier New', monospace;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Fondo de efecto "Matrix" */
+        #hacker-background {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            overflow: hidden;
+        }
+        #hacker-background::before {
+            content: "10101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010-mode.person-info {
+            display: none;
+        }
+
+        .hacker-theme #theme-selector {
+            background-color: #0d1a0d;
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+
     </style>
 </head>
 <body>
 
+<div id="hacker-background"></div>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
 
@@ -721,9 +759,15 @@
     <div id="theme-toggle-group">
         <label for="theme-selector" style="font-weight: normal;">Seleccionar tema:</label>
         <select id="theme-selector">
+            <option value="hacker">Hacker</option>
             <option value="pastel" selected>Pastel Dreams</option>
             <option value="default">Clásico</option>
+            <option value="cosmic">Cosmic</option>
+            <option value="neon">Neon Party</option>
         </select>
+    </div>
+    <div class="logo-container">
+        <img src="logo.png" alt="Logo de Red Pilar" class="logo">
     </div>
     <h1>Red Pilar</h1>
 
@@ -780,7 +824,7 @@
             <input type="text" id="search-person" placeholder="Busca por nombre o número...">
         </div>
         <div id="results-list">
-            </div>
+        </div>
     </div>
 
     <div id="ganador-container" style="display:none;">
@@ -789,6 +833,9 @@
         <div id="ganador-numero"></div>
         <h2>¡Y el ganador es!</h2>
         <div id="ganador-nombre"></div>
+    </div>
+    <div class="footer">
+        design by Clau
     </div>
 
 </div>
@@ -824,6 +871,7 @@
     const body = document.body;
     const mainContainer = document.getElementById('main-container');
     const numbersRangeLabel = document.getElementById('numbers-range-label');
+    const hackerBackground = document.getElementById('hacker-background');
 
     const saveButton = document.getElementById('save-data-button');
     const loadButton = document.getElementById('load-data-button');
@@ -847,6 +895,8 @@
     const MIN_NUMBERS = 100;
     let currentMaxNumber = 99;
     let currentRaffleCode = null; // Variable para almacenar el código del sorteo cargado
+    
+    let hackerEffectInterval;
 
     loadData();
 
@@ -875,511 +925,524 @@
         });
     }
 
-    function generateNumberBoxes(start, end) {
-        for (let i = start; i <= end; i++) {
+    function generateNumberBoxes(limit) {
+        numbersContainer.innerHTML = '';
+        for (let i = 0; i <= limit; i++) {
             createNumberBox(i);
         }
     }
 
-    function saveData() {
-        const data = {
-            participants: allParticipants,
-            assignedNumbers: [...assignedNumbers],
-            currentMaxNumber: currentMaxNumber
-        };
-        localStorage.setItem('raffleData', JSON.stringify(data));
-    }
-
-    function loadData() {
-        const savedData = localStorage.getItem('raffleData');
-        if (savedData) {
-            const data = JSON.parse(savedData);
-            allParticipants = data.participants;
-            assignedNumbers = new Set(data.assignedNumbers);
-            currentMaxNumber = data.currentMaxNumber;
-
-            numbersContainer.innerHTML = '';
-            generateNumberBoxes(0, currentMaxNumber);
-            updateParticipantsList();
-        } else {
-            generateNumberBoxes(0, 99);
-            currentMaxNumber = 99;
-        }
-
-        updateRangeLabel();
-
-        const savedTheme = localStorage.getItem('theme');
-        if (savedTheme) {
-            themeSelector.value = savedTheme;
-            applyTheme(savedTheme);
-        } else {
-            themeSelector.value = 'pastel';
-            applyTheme('pastel');
-        }
-    }
-
-    function updateParticipantsList() {
-        resultsList.innerHTML = '';
-        allParticipants.forEach((participant, index) => {
-            const personEntry = document.createElement('div');
-            personEntry.classList.add('person-entry');
-            personEntry.dataset.index = index;
-
-            const numbersText = participant.numbers.sort((a, b) => a - b).map(n => String(n).padStart(2, '0')).join(', ');
-            personEntry.innerHTML = `
-                <div class="person-info">
-                    <div class="person-name">${participant.name}</div>
-                    <div class="person-numbers">Números: ${numbersText}</div>
-                </div>
-                <div class="person-actions">
-                    <button class="action-button" onclick="editParticipant(${index})">✎</button>
-                    <button class="action-button" onclick="removeParticipant(${index})">🗑️</button>
-                </div>
-            `;
-            resultsList.appendChild(personEntry);
-        });
-        
-        assignedNumbers.forEach(num => {
-            const box = document.querySelector(`.number-box[data-number="${num}"]`);
-            if (box) {
+    function markAssignedNumbers() {
+        const numberBoxes = document.querySelectorAll('.number-box');
+        numberBoxes.forEach(box => {
+            const num = parseInt(box.dataset.number);
+            if (assignedNumbers.has(num)) {
                 box.classList.add('assigned');
                 box.classList.remove('selected');
+            } else {
+                box.classList.remove('assigned');
             }
         });
     }
 
-    function editParticipant(index) {
-        const participant = allParticipants[index];
-        const entry = document.querySelector(`.person-entry[data-index="${index}"]`);
-        
-        entry.classList.add('edit-mode');
-        entry.innerHTML = `
-            <div class="person-info">
-                <input type="text" id="edit-name-${index}" value="${participant.name}">
-                <div class="person-numbers-list">
-                    ${participant.numbers.sort((a,b)=>a-b).map(num => `
-                        <span class="person-number-chip">
-                            ${String(num).padStart(2, '0')}
-                            <button onclick="removeNumberFromParticipant(${index}, ${num})">🗑️</button>
-                        </span>
-                    `).join('')}
-                    <button id="add-number-btn" onclick="addNumberToParticipant(${index})">Agregar número</button>
-                </div>
-            </div>
-            <div class="person-actions">
-                <button id="update-name-btn" onclick="updateParticipantName(${index})">Actualizar participante</button>
-            </div>
-        `;
-    }
-
-    function updateParticipantName(index) {
-        const newName = document.getElementById(`edit-name-${index}`).value.trim();
-        if (newName === '') {
-            alert('El nombre no puede estar vacío.');
+    function addPerson() {
+        const name = personNameInput.value.trim();
+        if (name === '') {
+            alert('Por favor, ingresa un nombre.');
             return;
         }
 
-        const participant = allParticipants[index];
-        participant.name = newName;
-        
-        saveData();
-        updateParticipantsList();
-        filtrarParticipantes(); // Llama a la función de filtro después de actualizar
-    }
-
-
-    function removeNumberFromParticipant(index, numberToRemove) {
-        const participant = allParticipants[index];
-        const numberIndex = participant.numbers.indexOf(numberToRemove);
-        
-        if (numberIndex > -1) {
-            participant.numbers.splice(numberIndex, 1);
-            assignedNumbers.delete(numberToRemove);
-            
-            const box = document.querySelector(`.number-box[data-number="${numberToRemove}"]`);
-            if (box) {
-                box.classList.remove('assigned');
-                box.classList.remove('selected');
-            }
-            saveData();
-            editParticipant(index); // Re-renderizar la entrada de edición
-        }
-    }
-
-    function addNumberToParticipant(index) {
-        const number = prompt(`Ingresa un número para agregar (00-${currentMaxNumber}):`);
-        if (number === null || number.trim() === '') return;
-
-        const num = parseInt(number);
-        if (isNaN(num) || num < 0 || num > currentMaxNumber) {
-            alert(`Número inválido. Debe estar entre 00 y ${currentMaxNumber}.`);
-            return;
-        }
-
-        if (assignedNumbers.has(num)) {
-            alert('Ese número ya está asignado a otro participante.');
-            return;
-        }
-
-        const participant = allParticipants[index];
-        if (participant.numbers.includes(num)) {
-            alert('Ese número ya está asignado a este participante.');
-            return;
-        }
-        
-        participant.numbers.push(num);
-        assignedNumbers.add(num);
-        
-        const box = document.querySelector(`.number-box[data-number="${num}"]`);
-        if (box) {
-            box.classList.add('assigned');
-        }
-
-        saveData();
-        editParticipant(index); // Re-renderizar la entrada de edición
-    }
-
-    function removeParticipant(index) {
-        if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
-            const participant = allParticipants[index];
-            participant.numbers.forEach(num => {
-                assignedNumbers.delete(num);
-                const box = document.querySelector(`.number-box[data-number="${num}"]`);
-                if (box) {
-                    box.classList.remove('assigned');
-                }
-            });
-            allParticipants.splice(index, 1);
-            saveData();
-            updateParticipantsList();
-            filtrarParticipantes(); // Llama a la función de filtro después de eliminar
-        }
-    }
-
-    addButton.addEventListener('click', () => {
-        const personName = personNameInput.value.trim();
-        if (personName === '') {
-            alert('Por favor, escribe el nombre de la persona.');
-            return;
-        }
         if (selectedNumbers.length === 0) {
             alert('Por favor, selecciona al menos un número.');
             return;
         }
 
-        allParticipants.push({ name: personName, numbers: selectedNumbers });
+        const numbersToAssign = [];
+        for (const num of selectedNumbers) {
+            if (!assignedNumbers.has(num)) {
+                numbersToAssign.push(num);
+                assignedNumbers.add(num);
+            }
+        }
 
-        selectedNumbers.forEach(num => {
-            assignedNumbers.add(num);
-        });
-
-        personNameInput.value = '';
-        selectedNumbers = [];
-        
-        // Deseleccionar y actualizar
-        document.querySelectorAll('.number-box.selected').forEach(box => {
-            box.classList.remove('selected');
-        });
-        
-        saveData();
-        updateParticipantsList();
-        filtrarParticipantes(); // Llama a la función de filtro después de agregar un participante
-    });
-
-    sorteoButton.addEventListener('click', () => {
-        const allAssignedNumbersArray = allParticipants.flatMap(p => p.numbers);
-        if (allAssignedNumbersArray.length === 0) {
-            alert('No hay números asignados para realizar el sorteo.');
+        if (numbersToAssign.length === 0) {
+            alert('Todos los números seleccionados ya están asignados.');
             return;
         }
-        
-        // Desplazar la vista al contenedor del sorteo
-        ganadorContainer.style.display = 'block';
-        ganadorContainer.scrollIntoView({ behavior: 'smooth' });
 
+        const person = {
+            id: Date.now(),
+            name: name,
+            numbers: numbersToAssign,
+        };
+
+        allParticipants.push(person);
+        selectedNumbers = [];
+        personNameInput.value = '';
+        markAssignedNumbers();
+        renderParticipants(allParticipants);
+    }
+
+    function renderParticipants(participants) {
+        resultsList.innerHTML = '';
+        participants.forEach(person => {
+            const entry = document.createElement('div');
+            entry.classList.add('person-entry');
+            entry.dataset.id = person.id;
+            entry.innerHTML = `
+                <div class="person-info">
+                    <div class="person-name">${person.name}</div>
+                    <div class="person-numbers">${person.numbers.join(', ')}</div>
+                </div>
+                <div class="person-actions">
+                    <button class="action-button edit-button">✏️</button>
+                    <button class="action-button delete-button">🗑️</button>
+                </div>
+            `;
+            resultsList.appendChild(entry);
+        });
+
+        addEventListenersToButtons();
+    }
+
+    function addEventListenersToButtons() {
+        document.querySelectorAll('.edit-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const entry = e.target.closest('.person-entry');
+                const id = parseInt(entry.dataset.id);
+                editPerson(id);
+            });
+        });
+
+        document.querySelectorAll('.delete-button').forEach(button => {
+            button.addEventListener('click', (e) => {
+                const entry = e.target.closest('.person-entry');
+                const id = parseInt(entry.dataset.id);
+                deletePerson(id);
+            });
+        });
+    }
+
+    function editPerson(id) {
+        const person = allParticipants.find(p => p.id === id);
+        if (!person) return;
+
+        const entry = document.querySelector(`.person-entry[data-id="${id}"]`);
+        entry.classList.add('edit-mode');
+
+        const oldName = person.name;
+        const oldNumbers = person.numbers;
+
+        entry.innerHTML = `
+            <div class="person-info">
+                <input type="text" id="edit-name-${id}" value="${oldName}" placeholder="Nuevo nombre...">
+                <div class="person-numbers-list" id="edit-numbers-${id}"></div>
+                <div class="form-group" style="margin-top: 10px;">
+                    <input type="text" id="add-number-input-${id}" placeholder="Número para añadir (Ej: 42)">
+                </div>
+                <button id="add-number-btn-${id}" class="edit-mode-btn" style="background-color: #007BFF; color: #fff;">Añadir</button>
+            </div>
+            <div class="person-actions">
+                <button id="update-name-btn-${id}" class="edit-mode-btn" style="background-color: #4CAF50; color: #fff;">Guardar</button>
+                <button id="cancel-edit-btn-${id}" class="edit-mode-btn" style="background-color: #f44336; color: #fff;">Cancelar</button>
+            </div>
+        `;
+        
+        const numbersList = document.getElementById(`edit-numbers-${id}`);
+        oldNumbers.forEach(num => {
+            const chip = createNumberChip(num, id);
+            numbersList.appendChild(chip);
+        });
+
+        document.getElementById(`update-name-btn-${id}`).addEventListener('click', () => saveEdit(id));
+        document.getElementById(`cancel-edit-btn-${id}`).addEventListener('click', () => cancelEdit(id));
+        document.getElementById(`add-number-btn-${id}`).addEventListener('click', () => addNumberToPerson(id));
+    }
+
+    function createNumberChip(number, personId) {
+        const chip = document.createElement('span');
+        chip.classList.add('person-number-chip');
+        chip.textContent = String(number).padStart(2, '0');
+        chip.dataset.number = number;
+
+        const removeBtn = document.createElement('button');
+        removeBtn.textContent = 'x';
+        removeBtn.addEventListener('click', () => removeNumberFromPerson(personId, number));
+
+        chip.appendChild(removeBtn);
+        return chip;
+    }
+
+    function removeNumberFromPerson(personId, number) {
+        const person = allParticipants.find(p => p.id === personId);
+        if (!person) return;
+
+        person.numbers = person.numbers.filter(num => num !== number);
+        assignedNumbers.delete(number);
+
+        renderParticipants(allParticipants);
+        markAssignedNumbers();
+    }
+
+    function addNumberToPerson(personId) {
+        const input = document.getElementById(`add-number-input-${personId}`);
+        const newNumber = parseInt(input.value.trim());
+
+        if (isNaN(newNumber) || newNumber < 0 || newNumber > currentMaxNumber) {
+            alert(`Por favor, introduce un número válido entre 0 y ${currentMaxNumber}.`);
+            return;
+        }
+
+        if (assignedNumbers.has(newNumber)) {
+            alert('Este número ya está asignado.');
+            return;
+        }
+
+        const person = allParticipants.find(p => p.id === personId);
+        if (person) {
+            person.numbers.push(newNumber);
+            assignedNumbers.add(newNumber);
+            
+            const numbersList = document.getElementById(`edit-numbers-${personId}`);
+            const chip = createNumberChip(newNumber, personId);
+            numbersList.appendChild(chip);
+            
+            input.value = '';
+            markAssignedNumbers();
+        }
+    }
+
+    function saveEdit(id) {
+        const person = allParticipants.find(p => p.id === id);
+        if (!person) return;
+
+        const newNameInput = document.getElementById(`edit-name-${id}`);
+        person.name = newNameInput.value.trim() || person.name;
+
+        renderParticipants(allParticipants);
+        markAssignedNumbers();
+    }
+
+    function cancelEdit(id) {
+        renderParticipants(allParticipants);
+    }
+
+    function deletePerson(id) {
+        if (!confirm('¿Estás seguro de que quieres eliminar a esta persona y sus números?')) {
+            return;
+        }
+        const person = allParticipants.find(p => p.id === id);
+        if (!person) return;
+
+        person.numbers.forEach(num => assignedNumbers.delete(num));
+        allParticipants = allParticipants.filter(p => p.id !== id);
+
+        renderParticipants(allParticipants);
+        markAssignedNumbers();
+    }
+
+    function clearAll() {
+        if (confirm('¿Estás seguro de que quieres limpiar todos los participantes y números?')) {
+            allParticipants = [];
+            selectedNumbers = [];
+            assignedNumbers.clear();
+            personNameInput.value = '';
+            ganadorContainer.style.display = 'none';
+            renderParticipants([]);
+            markAssignedNumbers();
+        }
+    }
+
+    function sorteo() {
+        const allNumbers = allParticipants.flatMap(p => p.numbers);
+        if (allNumbers.length === 0) {
+            alert('No hay números disponibles para el sorteo.');
+            return;
+        }
+
+        ganadorContainer.style.display = 'block';
         ganadorNumero.textContent = '';
         ganadorNombre.textContent = '';
-        ganadorNumero.classList.remove('sorteo-running');
-        ganadorNombre.classList.remove('sorteo-running');
-        ganadorNombre.classList.remove('ganador-zoom');
-        countdownTimer.style.display = 'block';
+        sorteoButton.disabled = true;
 
-        let count = 5;
-        countdownTimer.textContent = count;
+        const totalTime = 3000;
+        const interval = 50;
+        let elapsed = 0;
+        let countdown = 3;
+        
+        countdownTimer.textContent = '3';
+        countdownSound.currentTime = 0;
         countdownSound.play();
-
+        
         const countdownInterval = setInterval(() => {
-            count--;
-            if (count > 0) {
-                countdownTimer.textContent = count;
+            countdown--;
+            if (countdown > 0) {
+                countdownTimer.textContent = countdown;
+                countdownSound.currentTime = 0;
                 countdownSound.play();
             } else {
                 clearInterval(countdownInterval);
-                countdownTimer.style.display = 'none';
-                
-                spinSound.loop = true;
+                countdownTimer.textContent = '';
                 spinSound.play();
+                spinSound.loop = true;
+                
+                const sorteoInterval = setInterval(() => {
+                    elapsed += interval;
+                    const randomIndex = Math.floor(Math.random() * allNumbers.length);
+                    const randomWinnerNumber = allNumbers[randomIndex];
+                    ganadorNumero.textContent = String(randomWinnerNumber).padStart(2, '0');
+                    if (elapsed >= totalTime) {
+                        clearInterval(sorteoInterval);
+                        spinSound.pause();
+                        spinSound.currentTime = 0;
+                        spinSound.loop = false;
+                        
+                        const winnerNumber = parseInt(ganadorNumero.textContent);
+                        const winner = allParticipants.find(p => p.numbers.includes(winnerNumber));
+                        ganadorNombre.textContent = winner ? winner.name : 'No encontrado';
+                        ganadorNumero.classList.add('ganador-zoom');
+                        ganadorNombre.classList.add('ganador-zoom');
+                        
+                        setTimeout(() => {
+                            winnerSound.play();
+                            createConfetti(50);
+                            sorteoButton.disabled = false;
+                        }, 500);
 
-                ganadorNumero.classList.add('sorteo-running');
-                ganadorNombre.classList.add('sorteo-running');
-
-                const spinInterval = setInterval(() => {
-                    const randomNum = allAssignedNumbersArray[Math.floor(Math.random() * allAssignedNumbersArray.length)];
-                    ganadorNumero.textContent = String(randomNum).padStart(2, '0');
-                    const randomWinner = allParticipants[Math.floor(Math.random() * allParticipants.length)];
-                    ganadorNombre.textContent = randomWinner.name;
-                }, 25);
-
-                setTimeout(() => {
-                    clearInterval(spinInterval);
-                    spinSound.pause();
-                    spinSound.currentTime = 0;
-                    winnerSound.play();
-
-                    ganadorNumero.classList.remove('sorteo-running');
-                    ganadorNombre.classList.remove('sorteo-running');
-                    
-                    const winningNumber = allAssignedNumbersArray[Math.floor(Math.random() * allAssignedNumbersArray.length)];
-                    const winner = allParticipants.find(p => p.numbers.includes(winningNumber));
-
-                    ganadorNumero.textContent = String(winningNumber).padStart(2, '0');
-                    ganadorNombre.textContent = winner ? winner.name : 'No encontrado';
-                    ganadorNombre.classList.add('ganador-zoom');
-
-                    startConfetti();
-
-                }, 3000);
+                    }
+                }, interval);
             }
         }, 1000);
-    });
-
-    clearButton.addEventListener('click', () => {
-        if (confirm('¿Estás seguro de que quieres limpiar toda la lista de participantes y números?')) {
-            localStorage.clear();
-            resultsList.innerHTML = '';
-            ganadorContainer.style.display = 'none';
-            personNameInput.value = '';
-            selectedNumbers = [];
-            allParticipants.length = 0;
-            assignedNumbers.clear();
-            currentRaffleCode = null; // Reinicia el código del sorteo
-            loadCodeInput.value = ''; // Borra el código del input
-            saveCodeContainer.style.display = 'none'; // Oculta el contenedor del código
-            searchNumberInput.value = ''; // Limpia el campo de búsqueda
-            searchPersonInput.value = ''; // Limpia el campo de búsqueda de personas
-
-            document.querySelectorAll('.number-box').forEach(box => {
-                box.remove();
-            });
-            generateNumberBoxes(0, 99);
-            currentMaxNumber = 99;
-            updateRangeLabel();
-            saveData();
-        }
-    });
-
-    function addNumbers(count) {
-        const lastNumber = numbersContainer.childElementCount > 0 ? parseInt(numbersContainer.lastChild.dataset.number) : -1;
-        generateNumberBoxes(lastNumber + 1, lastNumber + count);
-        currentMaxNumber = lastNumber + count;
-        updateRangeLabel();
-        saveData();
     }
 
-    function removeNumbers(count) {
-        let removedCount = 0;
-        const boxes = numbersContainer.children;
-        const currentMaxNumberCopy = currentMaxNumber;
-
-        if (currentMaxNumberCopy < 99) {
-            alert(`No se pueden eliminar más números. El mínimo es el 99.`);
-            return;
-        }
-
-        for (let i = currentMaxNumberCopy; i >= 0 && removedCount < count; i--) {
-            if (!assignedNumbers.has(i)) {
-                const box = document.querySelector(`.number-box[data-number="${i}"]`);
-                if (box) {
-                    box.remove();
-                    removedCount++;
-                }
-            }
-        }
-        
-        if (removedCount > 0) {
-            currentMaxNumber = currentMaxNumberCopy - removedCount;
-            updateRangeLabel();
-            saveData();
-        }
-    }
-
-    add10Button.addEventListener('click', () => addNumbers(10));
-    remove10Button.addEventListener('click', () => removeNumbers(10));
-    
-    selectRange10Button.addEventListener('click', () => {
-        const allBoxes = document.querySelectorAll('.number-box');
-        const unassignedBoxes = Array.from(allBoxes).filter(box => !box.classList.contains('assigned'));
-
-        let newSelected = 0;
-        unassignedBoxes.forEach((box, index) => {
-            if (newSelected < 10 && !box.classList.contains('selected')) {
-                box.classList.add('selected');
-                const num = parseInt(box.dataset.number);
-                if (!selectedNumbers.includes(num)) {
-                    selectedNumbers.push(num);
-                    newSelected++;
-                }
-            }
-        });
-    });
-
-    function startConfetti() {
-        const confettiContainer = document.querySelector('.container');
-        const colors = ['#f06', '#ff0', '#0f0', '#0ff', '#00f', '#f0f'];
-        const count = 200;
+    function createConfetti(count) {
         for (let i = 0; i < count; i++) {
             const confetti = document.createElement('div');
             confetti.classList.add('confetti');
-            confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
             confetti.style.left = `${Math.random() * 100}%`;
-            confetti.style.animationDelay = `${Math.random() * 2}s`;
-            confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
-            confettiContainer.appendChild(confetti);
-            confetti.addEventListener('animationend', () => confetti.remove());
+            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+            confetti.style.animationDuration = `${Math.random() * 2 + 3}s`;
+            ganadorContainer.appendChild(confetti);
         }
     }
 
-    themeSelector.addEventListener('change', (event) => {
-        applyTheme(event.target.value);
-        localStorage.setItem('theme', event.target.value);
-    });
+    function addRemoveNumbers(count) {
+        currentMaxNumber += count;
+        if (currentMaxNumber < MIN_NUMBERS - 1) {
+            currentMaxNumber = MIN_NUMBERS - 1;
+        }
+        generateNumberBoxes(currentMaxNumber);
+        markAssignedNumbers();
+        updateRangeLabel();
+    }
+    
+    function selectRangeOfNumbers(count) {
+        const startNumber = selectedNumbers.length > 0 ? Math.max(...selectedNumbers) + 1 : 0;
+        
+        const newlySelected = [];
+        for (let i = 0; i < count; i++) {
+            const num = startNumber + i;
+            if (num > currentMaxNumber) {
+                alert('No hay suficientes números disponibles para seleccionar en este rango.');
+                break;
+            }
+            if (!assignedNumbers.has(num)) {
+                newlySelected.push(num);
+            }
+        }
+        
+        selectedNumbers = [...selectedNumbers, ...newlySelected];
+        selectedNumbers.sort((a,b) => a-b);
+        
+        document.querySelectorAll('.number-box').forEach(box => {
+            const num = parseInt(box.dataset.number);
+            if (selectedNumbers.includes(num)) {
+                box.classList.add('selected');
+            } else {
+                box.classList.remove('selected');
+            }
+        });
+    }
 
-    function applyTheme(themeName) {
-        body.className = '';
-        mainContainer.className = 'container';
-        switch (themeName) {
-            case 'cosmic':
-                body.classList.add('cosmic-theme');
-                mainContainer.classList.add('cosmic-theme');
-                break;
-            case 'neon':
-                body.classList.add('neon-theme');
-                mainContainer.classList.add('neon-theme');
-                break;
-            case 'pastel':
-                body.classList.add('pastel-theme');
-                mainContainer.classList.add('pastel-theme');
-                break;
-            default:
-                break;
+    function loadTheme(theme) {
+        body.classList.remove('cosmic-theme', 'neon-theme', 'pastel-theme', 'hacker-theme');
+        mainContainer.classList.remove('cosmic-theme', 'neon-theme', 'pastel-theme', 'hacker-theme');
+        
+        stopHackerEffect();
+        if (theme === 'hacker') {
+            body.classList.add('hacker-theme');
+            mainContainer.classList.add('hacker-theme');
+            loadHackerEffect();
+        } else if (theme !== 'default') {
+            body.classList.add(`${theme}-theme`);
+            mainContainer.classList.add(`${theme}-theme`);
         }
     }
 
-    function generateCode() {
-        return Math.random().toString(36).substring(2, 8).toUpperCase();
+    function loadHackerEffect() {
+        const chars = '0123456789ABCDEF!@#$%^&*()_+{}[]|:;"<>,.?/~`';
+        const numChars = chars.length;
+        const columnWidth = 10;
+        const totalColumns = Math.floor(window.innerWidth / columnWidth);
+
+        const columns = [];
+        for (let i = 0; i < totalColumns; i++) {
+            columns.push({
+                x: i * columnWidth,
+                y: Math.random() * -window.innerHeight,
+                speed: Math.random() * 5 + 3,
+                length: Math.random() * 20 + 10
+            });
+        }
+        
+        hackerBackground.style.display = 'block';
+
+        hackerEffectInterval = setInterval(() => {
+            hackerBackground.innerHTML = '';
+            columns.forEach(col => {
+                let currentY = col.y;
+                for (let i = 0; i < col.length; i++) {
+                    const char = document.createElement('span');
+                    char.textContent = chars[Math.floor(Math.random() * numChars)];
+                    char.style.position = 'absolute';
+                    char.style.left = `${col.x}px`;
+                    char.style.top = `${currentY}px`;
+                    char.style.color = `#00ff00`;
+                    char.style.fontSize = `12px`;
+                    char.style.opacity = (col.length - i) / col.length;
+                    hackerBackground.appendChild(char);
+                    currentY += 12; // Altura de la fuente
+                }
+                
+                col.y += col.speed;
+                if (col.y > window.innerHeight) {
+                    col.y = Math.random() * -window.innerHeight;
+                    col.speed = Math.random() * 5 + 3;
+                    col.length = Math.random() * 20 + 10;
+                }
+            });
+        }, 50);
+    }
+    
+    function stopHackerEffect() {
+        clearInterval(hackerEffectInterval);
+        hackerBackground.innerHTML = '';
+        hackerBackground.style.display = 'none';
     }
 
-    // Función para GUARDAR datos en Firebase
-    saveButton.addEventListener('click', async () => {
-        const data = {
+    function saveData() {
+        const raffleData = {
             participants: allParticipants,
-            currentMaxNumber: currentMaxNumber
+            assignedNumbers: Array.from(assignedNumbers),
+            maxNumber: currentMaxNumber
         };
-        const codeToSave = currentRaffleCode || generateCode();
-
-        try {
-            await db.collection('sorteos').doc(codeToSave).set(data);
-            
-            savedCodeElement.textContent = codeToSave;
+        const dataString = JSON.stringify(raffleData);
+        const raffleCode = btoa(dataString);
+        
+        db.collection("raffles").add({
+            code: raffleCode,
+            createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        })
+        .then((docRef) => {
+            savedCodeElement.textContent = docRef.id;
             saveCodeContainer.style.display = 'block';
-
-            currentRaffleCode = codeToSave; // Actualiza la variable con el código que se acaba de usar
-
-        } catch (e) {
-            console.error("Error al guardar el documento: ", e);
-            alert("Error al guardar el sorteo. Intenta de nuevo.");
-        }
-    });
-
-    // Función para CARGAR datos desde Firebase
-    loadButton.addEventListener('click', async () => {
-        const code = loadCodeInput.value.trim().toUpperCase();
+            console.log("Documento escrito con ID: ", docRef.id);
+        })
+        .catch((error) => {
+            alert("Error al guardar el sorteo: " + error);
+        });
+    }
+    
+    function loadData() {
+        const code = loadCodeInput.value.trim();
         if (code === '') {
-            alert('Por favor, ingresa un código.');
             return;
         }
-        try {
-            const doc = await db.collection('sorteos').doc(code).get();
+        
+        db.collection("raffles").doc(code).get()
+        .then((doc) => {
             if (doc.exists) {
                 const data = doc.data();
-                allParticipants = data.participants;
-                currentMaxNumber = data.currentMaxNumber;
-
-                // Limpia y regenera la lista de números y participantes
-                numbersContainer.innerHTML = '';
-                generateNumberBoxes(0, currentMaxNumber);
-
-                assignedNumbers.clear();
-                allParticipants.forEach(p => p.numbers.forEach(num => assignedNumbers.add(num)));
-                
-                updateRangeLabel();
-                updateParticipantsList();
-                saveData();
-                
-                currentRaffleCode = code; // Guarda el código cargado
-
-                alert('Sorteo cargado con éxito!');
+                if (data && data.code) {
+                    try {
+                        const dataString = atob(data.code);
+                        const raffleData = JSON.parse(dataString);
+                        allParticipants = raffleData.participants;
+                        assignedNumbers = new Set(raffleData.assignedNumbers);
+                        currentMaxNumber = raffleData.maxNumber;
+                        generateNumberBoxes(currentMaxNumber);
+                        markAssignedNumbers();
+                        renderParticipants(allParticipants);
+                        updateRangeLabel();
+                        alert("Sorteo cargado exitosamente.");
+                        currentRaffleCode = code;
+                    } catch (e) {
+                        alert("Código de sorteo no válido.");
+                    }
+                }
             } else {
-                alert('No se encontró ningún sorteo con ese código.');
+                alert("No se encontró un sorteo con ese código.");
             }
-        } catch (e) {
-            console.error("Error al cargar el documento: ", e);
-            alert("Error al cargar el sorteo. Intenta de nuevo.");
-        }
-    });
-    
-    // Función para buscar y resaltar un número en el marcador
-    function buscarNumero() {
-        const numeroBuscado = searchNumberInput.value.trim();
-        const todosLosNumeros = document.querySelectorAll('.number-box');
+        })
+        .catch((error) => {
+            alert("Error al cargar el sorteo: " + error);
+        });
+    }
 
-        todosLosNumeros.forEach(box => {
+    // Funcionalidad de búsqueda de números
+    searchNumberInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.trim();
+        const numberBoxes = document.querySelectorAll('.number-box');
+        
+        numberBoxes.forEach(box => {
             box.classList.remove('resaltado');
-        });
-
-        if (numeroBuscado !== '') {
-            const numeroEncontrado = document.querySelector(`.number-box[data-number="${parseInt(numeroBuscado)}"]`);
-            
-            if (numeroEncontrado) {
-                numeroEncontrado.classList.add('resaltado');
-                numeroEncontrado.scrollIntoView({ behavior: 'smooth', block: 'center' });
+            if (searchTerm !== '' && box.textContent.includes(searchTerm)) {
+                box.classList.add('resaltado');
             }
+        });
+    });
+
+    // Funcionalidad de búsqueda de participantes
+    searchPersonInput.addEventListener('input', (e) => {
+        const searchTerm = e.target.value.trim().toLowerCase();
+        let filteredParticipants = [];
+
+        if (searchTerm === '') {
+            filteredParticipants = allParticipants;
+        } else {
+            filteredParticipants = allParticipants.filter(person => {
+                // Buscar por nombre
+                const nameMatch = person.name.toLowerCase().includes(searchTerm);
+                // Buscar por número asignado
+                const numberMatch = person.numbers.some(num => String(num).padStart(2, '0').includes(searchTerm));
+                return nameMatch || numberMatch;
+            });
         }
-    }
+        renderParticipants(filteredParticipants);
+    });
 
-    // Función para filtrar la lista de participantes
-    function filtrarParticipantes() {
-        const filtro = searchPersonInput.value.trim().toLowerCase();
-        const participantes = document.querySelectorAll('.person-entry');
+    // Inicialización
+    generateNumberBoxes(currentMaxNumber);
+    updateRangeLabel();
 
-        participantes.forEach(participante => {
-            const nombre = participante.querySelector('.person-name').textContent.toLowerCase();
-            const numeros = participante.querySelector('.person-numbers').textContent.toLowerCase();
+    // Event Listeners
+    addButton.addEventListener('click', addPerson);
+    clearButton.addEventListener('click', clearAll);
+    sorteoButton.addEventListener('click', sorteo);
+    add10Button.addEventListener('click', () => addRemoveNumbers(10));
+    remove10Button.addEventListener('click', () => addRemoveNumbers(-10));
+    selectRange10Button.addEventListener('click', () => selectRangeOfNumbers(10));
+    themeSelector.addEventListener('change', (e) => {
+        loadTheme(e.target.value);
+    });
 
-            // Muestra el participante si el filtro coincide con el nombre o los números
-            if (nombre.includes(filtro) || numeros.includes(filtro)) {
-                participante.style.display = 'flex';
-            } else {
-                participante.style.display = 'none';
-            }
-        });
-    }
+    saveButton.addEventListener('click', saveData);
+    loadButton.addEventListener('click', loadData);
 
-    // Agrega "escuchadores" a los campos de búsqueda
-    searchNumberInput.addEventListener('input', buscarNumero);
-    searchPersonInput.addEventListener('input', filtrarParticipantes);
+    // Cargar el tema inicial por defecto
+    loadTheme(themeSelector.value);
 
 </script>
 
 </body>
-</html>    
+</html>
