@@ -30,7 +30,7 @@
             margin-bottom: 20px;
         }
         .logo {
-            width: 100px;
+            width: 150px;
             height: auto;
         }
         h1 {
@@ -759,8 +759,8 @@
     <div id="theme-toggle-group">
         <label for="theme-selector" style="font-weight: normal;">Seleccionar tema:</label>
         <select id="theme-selector">
-            <option value="hacker">Hacker</option>
-            <option value="pastel" selected>Pastel Dreams</option>
+            <option value="hacker" selected>Hacker</option>
+            <option value="pastel">Pastel Dreams</option>
             <option value="default">Clásico</option>
             <option value="cosmic">Cosmic</option>
             <option value="neon">Neon Party</option>
@@ -1280,48 +1280,39 @@
     }
 
     function loadHackerEffect() {
-        const chars = '0123456789ABCDEF!@#$%^&*()_+{}[]|:;"<>,.?/~`';
-        const numChars = chars.length;
-        const columnWidth = 10;
-        const totalColumns = Math.floor(window.innerWidth / columnWidth);
+        const hackerBackground = document.getElementById('hacker-background');
+        if (!hackerBackground) return;
 
-        const columns = [];
-        for (let i = 0; i < totalColumns; i++) {
-            columns.push({
-                x: i * columnWidth,
-                y: Math.random() * -window.innerHeight,
-                speed: Math.random() * 5 + 3,
-                length: Math.random() * 20 + 10
-            });
+        const canvas = document.createElement('canvas');
+        hackerBackground.appendChild(canvas);
+        const ctx = canvas.getContext('2d');
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        const letters = 'ABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZ';
+        const fontSize = 10;
+        const columns = Math.floor(canvas.width / fontSize);
+        const drops = [];
+        for(let i = 0; i < columns; i++) {
+            drops[i] = 1;
         }
-        
-        hackerBackground.style.display = 'block';
 
-        hackerEffectInterval = setInterval(() => {
-            hackerBackground.innerHTML = '';
-            columns.forEach(col => {
-                let currentY = col.y;
-                for (let i = 0; i < col.length; i++) {
-                    const char = document.createElement('span');
-                    char.textContent = chars[Math.floor(Math.random() * numChars)];
-                    char.style.position = 'absolute';
-                    char.style.left = `${col.x}px`;
-                    char.style.top = `${currentY}px`;
-                    char.style.color = `#00ff00`;
-                    char.style.fontSize = `12px`;
-                    char.style.opacity = (col.length - i) / col.length;
-                    hackerBackground.appendChild(char);
-                    currentY += 12; // Altura de la fuente
+        function draw() {
+            ctx.fillStyle = 'rgba(0, 0, 0, .1)';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+            for(let i = 0; i < drops.length; i++) {
+                const text = letters[Math.floor(Math.random() * letters.length)];
+                ctx.fillStyle = '#0f0';
+                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+                drops[i]++;
+                if(drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
+                    drops[i] = 0;
                 }
-                
-                col.y += col.speed;
-                if (col.y > window.innerHeight) {
-                    col.y = Math.random() * -window.innerHeight;
-                    col.speed = Math.random() * 5 + 3;
-                    col.length = Math.random() * 20 + 10;
-                }
-            });
-        }, 50);
+            }
+        }
+
+        hackerEffectInterval = setInterval(draw, 33);
     }
     
     function stopHackerEffect() {
