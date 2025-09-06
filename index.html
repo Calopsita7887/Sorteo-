@@ -898,7 +898,49 @@
     
     let hackerEffectInterval;
 
-    loadData();
+    // Funciones para guardar y cargar el estado en el Local Storage
+    function saveStateToLocalStorage() {
+        try {
+            const state = {
+                participants: allParticipants,
+                assignedNumbers: Array.from(assignedNumbers),
+                maxNumber: currentMaxNumber,
+                theme: themeSelector.value
+            };
+            localStorage.setItem('raffleState', JSON.stringify(state));
+        } catch (e) {
+            console.error("Error al guardar el estado en el Local Storage:", e);
+        }
+    }
+
+    function loadStateFromLocalStorage() {
+        const savedState = localStorage.getItem('raffleState');
+        if (savedState) {
+            try {
+                const state = JSON.parse(savedState);
+                allParticipants = state.participants || [];
+                assignedNumbers = new Set(state.assignedNumbers || []);
+                currentMaxNumber = state.maxNumber !== undefined ? state.maxNumber : 99;
+                themeSelector.value = state.theme || 'hacker';
+            } catch (e) {
+                console.error("Error al cargar el estado desde el Local Storage:", e);
+                // Si hay un error, se usan los valores por defecto
+                allParticipants = [];
+                assignedNumbers = new Set();
+                currentMaxNumber = 99;
+                themeSelector.value = 'hacker';
+            }
+        }
+        // Inicializar la interfaz con los datos cargados o los por defecto
+        updateRangeLabel();
+        generateNumberBoxes(currentMaxNumber);
+        markAssignedNumbers();
+        renderParticipants(allParticipants);
+        loadTheme(themeSelector.value);
+    }
+
+    // Cargar el estado desde Local Storage al iniciar
+    loadStateFromLocalStorage();
 
     function updateRangeLabel() {
         numbersRangeLabel.textContent = `Selecciona los números (00 a ${currentMaxNumber}):`;
@@ -981,6 +1023,7 @@
         personNameInput.value = '';
         markAssignedNumbers();
         renderParticipants(allParticipants);
+        saveStateToLocalStorage();
     }
 
     function renderParticipants(participants) {
@@ -1082,6 +1125,7 @@
 
         renderParticipants(allParticipants);
         markAssignedNumbers();
+        saveStateToLocalStorage();
     }
 
     function addNumberToPerson(personId) {
@@ -1109,6 +1153,7 @@
             
             input.value = '';
             markAssignedNumbers();
+            saveStateToLocalStorage();
         }
     }
 
@@ -1121,6 +1166,7 @@
 
         renderParticipants(allParticipants);
         markAssignedNumbers();
+        saveStateToLocalStorage();
     }
 
     function cancelEdit(id) {
@@ -1139,6 +1185,7 @@
 
         renderParticipants(allParticipants);
         markAssignedNumbers();
+        saveStateToLocalStorage();
     }
 
     function clearAll() {
@@ -1150,6 +1197,7 @@
             ganadorContainer.style.display = 'none';
             renderParticipants([]);
             markAssignedNumbers();
+            localStorage.removeItem('raffleState');
         }
     }
 
@@ -1234,6 +1282,7 @@
         generateNumberBoxes(currentMaxNumber);
         markAssignedNumbers();
         updateRangeLabel();
+        saveStateToLocalStorage();
     }
     
     function selectRangeOfNumbers(count) {
@@ -1413,8 +1462,8 @@
     });
 
     // Inicialización
-    generateNumberBoxes(currentMaxNumber);
-    updateRangeLabel();
+    // generateNumberBoxes(currentMaxNumber);
+    // updateRangeLabel();
 
     // Event Listeners
     addButton.addEventListener('click', addPerson);
@@ -1425,13 +1474,14 @@
     selectRange10Button.addEventListener('click', () => selectRangeOfNumbers(10));
     themeSelector.addEventListener('change', (e) => {
         loadTheme(e.target.value);
+        saveStateToLocalStorage();
     });
 
     saveButton.addEventListener('click', saveData);
     loadButton.addEventListener('click', loadData);
 
     // Cargar el tema inicial por defecto
-    loadTheme(themeSelector.value);
+    // loadTheme(themeSelector.value); // This is now called inside loadStateFromLocalStorage()
 
 </script>
 
