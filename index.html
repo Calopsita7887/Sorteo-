@@ -382,8 +382,7 @@
             text-shadow: 0 0 10px #ff00ff;
         }
         .cosmic-theme #countdown-timer {
-            color: #ff00ff;
-            text-shadow: 0 0 10px #ff00ff;
+            color: #f44336;
         }
         /* --- ESTILOS TEMA NEON PARTY --- */
         body.neon-theme {
@@ -716,774 +715,757 @@
         }
 
         /* -------------------------------------- */
-        /* --- ESTILOS TEMA HACKER (NUEVO) --- */
+        /* --- ESTILOS TEMA HACKER (ACTUALIZADO) --- */
         /* -------------------------------------- */
         body.hacker-theme {
             background-color: #000000;
-            color: #00ff00;
+            color: #00ff00; /* Texto principal verde neón */
             font-family: 'Consolas', 'Courier New', monospace;
-            overflow: hidden;
-            position: relative;
+            overflow: hidden; /* Para que el canvas de fondo no cause scroll */
+            position: relative; /* Necesario para posicionar el canvas */
         }
-
-        /* Fondo de efecto "Matrix" */
-        #hacker-background {
+        /* Estilos del canvas para el efecto Matrix */
+        #matrixCanvas {
             position: fixed;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
             z-index: -1;
-            overflow: hidden;
+            display: none; /* Se mostrará con JS solo para este tema */
         }
-        #hacker-background::before {
-            content: "10101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010101010-mode.person-info {
-            display: none;
+        /* El logo cambiará de color a verde neón */
+        .hacker-theme .logo {
+            filter: brightness(0) invert(1) sepia(1) saturate(10000%) hue-rotate(90deg);
         }
+        .container.hacker-theme {
+            background-color: rgba(10, 20, 10, 0.9); /* Fondo oscuro semitransparente */
+            box-shadow: 0 0 15px 5px rgba(0, 255, 0, 0.6); /* Sombra verde neón */
+            border: 1px solid #00ff00; /* Borde verde */
+        }
+        .hacker-theme h1 {
+            color: #00ff00;
+            text-shadow: 0 0 5px #00ff00, 0 0 15px #00ff00;
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        .hacker-theme label {
+            color: #00ff00;
+        }
+        .hacker-theme input[type="text"] {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            border: 1px solid #00ff00;
+            box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        .hacker-theme #numbers-container {
+            background-color: #0a0a0a;
+            border: 1px solid #00ff00;
+            box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        .hacker-theme .number-box {
+            background-color: #003300; /* Verde oscuro */
+            color: #00ff00;
+            border: 1px solid #00ff00;
+        }
+        .hacker-theme .number-box:hover {
+            background-color: #007700; /* Verde más claro al pasar el ratón */
+            box-shadow: 0 0 8px #00ff00;
+            color: #fff; /* Blanco brillante */
+        }
+        .hacker-theme .number-box.selected {
+            background-color: #00ff00;
+            color: #000000; /* Texto negro en verde */
+            box-shadow: 0 0 10px #00ff00, 0 0 20px #00ff00;
+        }
+        .hacker-theme .number-box.assigned {
+            background-color: #111111;
+            color: #006600;
+            text-decoration-color: #006600;
+        }
+        .hacker-theme button {
+            font-family: 'Consolas', 'Courier New', monospace;
+        }
+        .hacker-theme #add-button { background-color: #00aa00; }
+        .hacker-theme #add-button:hover { background-color: #007700; }
+        .hacker-theme #clear-button { background-color: #aa0000; }
+        .hacker-theme #clear-button:hover { background-color: #770000; }
+        .hacker-theme #sorteo-button { background-color: #00ff00; color: #000; }
+        .hacker-theme #sorteo-button:hover { background-color: #00cc00; }
+        .hacker-theme .add-numbers-group button, .hacker-theme .range-buttons button { background-color: #009900; }
+        .hacker-theme .add-numbers-group button:hover, .hacker-theme .range-buttons button:hover { background-color: #006600; }
 
-        .hacker-theme #theme-selector {
-            background-color: #0d1a0d;
+        .hacker-theme #results-container, .hacker-theme #history-container {
+            background-color: #0a0a0a;
+            border: 1px solid #00ff00;
+            box-shadow: inset 0 0 5px rgba(0, 255, 0, 0.5);
+        }
+        .hacker-theme .person-entry, .hacker-theme .history-entry {
+            border-bottom: 1px dotted #006600; /* Borde punteado */
+        }
+        .hacker-theme .person-name {
+            color: #00ff00;
+        }
+        .hacker-theme .action-button {
+            color: #00ff00;
+        }
+        .hacker-theme .action-button:hover {
+            color: #ffffff;
+        }
+        .hacker-theme .edit-mode input[type="text"] {
+            background-color: #0a0a0a;
             color: #00ff00;
             border-color: #00ff00;
         }
+        .hacker-theme .edit-mode .person-number-chip {
+            background-color: #006600;
+            color: #00ff00;
+        }
+        .hacker-theme .edit-mode .person-number-chip button {
+            color: #ff0000; /* Botón de eliminar en rojo */
+        }
+        .hacker-theme .edit-mode #add-number-btn { background-color: #009900; color: #fff; }
+        .hacker-theme .edit-mode #add-number-btn:hover { background-color: #006600; }
+        .hacker-theme .edit-mode #update-name-btn { background-color: #00aa00; color: #fff; }
+        .hacker-theme .edit-mode #update-name-btn:hover { background-color: #007700; }
 
+        .hacker-theme #ganador-container h2 {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .hacker-theme #ganador-nombre, .hacker-theme #ganador-numero {
+            color: #00ff00;
+            text-shadow: 0 0 10px #00ff00;
+        }
+        .hacker-theme #ganador-numero {
+            color: #00cc00; /* Un verde ligeramente diferente para el número */
+        }
+        .hacker-theme #countdown-timer {
+            color: #ff0000; /* Contador en rojo para contraste */
+            text-shadow: 0 0 10px #ff0000;
+        }
+        .hacker-theme #theme-selector {
+            background-color: #0a0a0a;
+            color: #00ff00;
+            border-color: #00ff00;
+        }
+        .hacker-theme #save-data-button { background-color: #004400; }
+        .hacker-theme #save-data-button:hover { background-color: #003300; }
+        .hacker-theme #load-data-button { background-color: #007700; }
+        .hacker-theme #load-data-button:hover { background-color: #005500; }
+
+        #save-code-container {
+            margin-top: 15px;
+            padding: 10px;
+            background-color: #eee;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            display: none;
+            word-break: break-all;
+            text-align: center;
+        }
+        #save-code-container h4 {
+            margin: 0;
+            font-size: 1em;
+            color: #555;
+        }
+        #saved-code {
+            font-size: 1.5em;
+            font-weight: bold;
+            color: #007BFF;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .cosmic-theme #save-code-container {
+            background-color: #220044;
+            border-color: #4b0082;
+        }
+        .cosmic-theme #save-code-container h4 {
+            color: #b3a0d3;
+        }
+        .cosmic-theme #saved-code {
+            color: #a0d4ff;
+        }
+        
+        .neon-theme #save-code-container {
+            background-color: #1a1a2a;
+            border-color: #64ffda;
+        }
+        .neon-theme #save-code-container h4 {
+            color: #f0f0f0;
+        }
+        .neon-theme #saved-code {
+            color: #ff00ff;
+        }
+        
+        .pastel-theme #save-code-container {
+            background-color: #fff8f8;
+            border-color: #b57edc;
+        }
+        .pastel-theme #save-code-container h4 {
+            color: #5e548e;
+        }
+        .pastel-theme #saved-code {
+            color: #b57edc;
+        }
+        .number-box.resaltado {
+            border: 3px solid #ff5722;
+            transform: scale(1.1);
+        }
+        .hacker-theme .number-box.resaltado {
+            border: 3px solid #ffff00;
+            box-shadow: 0 0 10px #ffff00, 0 0 20px #ffff00;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.9em;
+            color: #888;
+        }
     </style>
 </head>
 <body>
-
-<div id="hacker-background"></div>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-firestore.js"></script>
-
-<div class="container" id="main-container">
-    <div id="theme-toggle-group">
-        <label for="theme-selector" style="font-weight: normal;">Seleccionar tema:</label>
-        <select id="theme-selector">
-            <option value="hacker" selected>Hacker</option>
-            <option value="pastel">Pastel Dreams</option>
-            <option value="default">Clásico</option>
-            <option value="cosmic">Cosmic</option>
-            <option value="neon">Neon Party</option>
-        </select>
-    </div>
-    <div class="logo-container">
-        <img src="logo.png" alt="Logo de Red Pilar" class="logo">
-    </div>
-    <h1>Red Pilar</h1>
-
-    <div class="form-group">
-        <label for="search-number">Buscar y resaltar número:</label>
-        <input type="text" id="search-number" placeholder="Ej: 02, 102...">
-    </div>
-
-    <div class="form-group">
-        <label for="person-name">Nombre de la persona:</label>
-        <input type="text" id="person-name" placeholder="Escribe el nombre aquí...">
-    </div>
-
-    <label id="numbers-range-label">Selecciona los números (00 a 99):</label>
-    <div id="numbers-container"></div>
-
-    <label>Modificar cantidad de números:</label>
-    <div class="add-numbers-group">
-        <button id="add-10-button">+10</button>
-        <button id="remove-10-button">-10</button>
-    </div>
-    <label>Selección de rango:</label>
-    <div class="range-buttons">
-        <button id="select-range-10-button">Seleccionar +10</button>
-    </div>
-
-    <div class="button-group">
-        <button id="add-button">Agregar persona y números</button>
-        <button id="sorteo-button">Sortear</button>
-    </div>
-
-    <div style="display: flex; justify-content: flex-end; margin-top: 10px;">
-        <button id="clear-button" style="width: 48%;">Limpiar todo</button>
-    </div>
-
-    <hr>
-    
-    <div style="text-align: center; margin-top: 20px;">
-        <button id="save-data-button" style="padding: 10px 20px; border: none; border-radius: 4px; color: #fff; cursor: pointer;">Guardar Sorteo</button>
-        <input type="text" id="load-code-input" placeholder="Ingresa tu código" style="padding: 10px; border-radius: 4px; border: 1px solid #ccc; width: 150px;">
-        <button id="load-data-button" style="padding: 10px 20px; border: none; border-radius: 4px; color: #fff; cursor: pointer;">Cargar Sorteo</button>
-    </div>
-    
-    <div id="save-code-container">
-        <h4>Tu sorteo ha sido guardado.</h4>
-        <p>¡Guarda este código para cargarlo en otro momento! 👉 <span id="saved-code"></span></p>
-    </div>
-
-    <hr>
-
-    <div id="results-container">
-        <h2>Participantes</h2>
-        <div class="form-group">
-            <input type="text" id="search-person" placeholder="Busca por nombre o número...">
+    <canvas id="matrixCanvas"></canvas>
+    <div class="container">
+        <div id="theme-toggle-group">
+            <select id="theme-selector">
+                <option value="default">Clásico</option>
+                <option value="cosmic">Cósmico</option>
+                <option value="neon">Neon Party</option>
+                <option value="pastel">Pastel Dreams</option>
+                <option value="hacker">Hacker</option>
+            </select>
         </div>
-        <div id="results-list">
+        <div class="logo-container">
+            <img src="https://i.ibb.co/6P6X2yH/logo-redpilar.png" alt="Logo de Red Pilar" class="logo">
         </div>
+        <h1 id="main-title">Sorteo Red Pilar</h1>
+        <div id="form-container">
+            <div class="form-group">
+                <label for="person-name">Nombre del Participante:</label>
+                <input type="text" id="person-name" placeholder="Escribe el nombre aquí">
+            </div>
+            <div class="form-group">
+                <label>Selecciona los números:</label>
+                <div id="numbers-container"></div>
+            </div>
+            <div class="add-numbers-group">
+                <button id="add-10-button">+10</button>
+                <button id="add-25-button">+25</button>
+                <button id="add-50-button">+50</button>
+            </div>
+            <div class="button-group">
+                <button id="add-button">Añadir Participante</button>
+                <button id="clear-button">Limpiar Selección</button>
+            </div>
+        </div>
+        
+        <div id="results-container">
+            <h2>Participantes</h2>
+            <div id="participants-list"></div>
+        </div>
+        
+        <div class="button-group hide-on-edit-mode">
+            <button id="sorteo-button">Realizar Sorteo</button>
+            <button id="save-data-button">Guardar Datos</button>
+            <button id="load-data-button">Cargar Datos</button>
+        </div>
+
+        <div id="save-code-container">
+            <h4>Código de guardado:</h4>
+            <span id="saved-code"></span>
+        </div>
+        
+        <div id="ganador-container">
+            <h2>🎉 Ganador del Sorteo 🎉</h2>
+            <div id="ganador-numero"></div>
+            <div id="ganador-nombre"></div>
+            <div id="countdown-timer"></div>
+        </div>
+        
+        <div id="history-container">
+            <h2>Historial de Sorteos</h2>
+            <div id="history-list"></div>
+        </div>
+
+        <p class="footer">
+            <a href="https://www.redpilar.com.ar" target="_blank">RedPilar.com.ar</a> - Sorteo Digital
+        </p>
+
     </div>
 
-    <div id="ganador-container" style="display:none;">
-        <div id="countdown-timer"></div>
-        <h2>¡El número ganador es!</h2>
-        <div id="ganador-numero"></div>
-        <h2>¡Y el ganador es!</h2>
-        <div id="ganador-nombre"></div>
-    </div>
-    <div class="footer">
-        design by Clau
-    </div>
+    <script>
+        const personNameInput = document.getElementById('person-name');
+        const numbersContainer = document.getElementById('numbers-container');
+        const addButton = document.getElementById('add-button');
+        const clearButton = document.getElementById('clear-button');
+        const sorteoButton = document.getElementById('sorteo-button');
+        const participantsList = document.getElementById('participants-list');
+        const ganadorNombre = document.getElementById('ganador-nombre');
+        const ganadorNumero = document.getElementById('ganador-numero');
+        const countdownTimer = document.getElementById('countdown-timer');
+        const historyList = document.getElementById('history-list');
+        const add10Button = document.getElementById('add-10-button');
+        const add25Button = document.getElementById('add-25-button');
+        const add50Button = document.getElementById('add-50-button');
+        const saveDataButton = document.getElementById('save-data-button');
+        const loadDataButton = document.getElementById('load-data-button');
+        const saveCodeContainer = document.getElementById('save-code-container');
+        const savedCodeSpan = document.getElementById('saved-code');
+        const themeSelector = document.getElementById('theme-selector');
+        
+        let allNumbers = [];
+        let assignedNumbers = new Set();
+        let selectedNumbers = new Set();
+        let participants = [];
+        let history = [];
+        
+        let isEditing = false;
+        let editingIndex = -1;
 
-</div>
+        // --- Lógica del Sorteo ---
+        function generateNumbers(count = 100) {
+            allNumbers = Array.from({ length: count }, (_, i) => i + 1);
+            renderNumbers();
+        }
 
-<script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyCQdtjwagG3pH2_MZAV2pKVq9HS7I-ufHk",
-      authDomain: "sorteo-24534.firebaseapp.com",
-      projectId: "sorteo-24534",
-      storageBucket: "sorteo-24534.firebasestorage.app",
-      messagingSenderId: "546018107328",
-      appId: "1:546018107328:web:4eb823a41e3cd70c29f225"
-    };
+        function renderNumbers() {
+            numbersContainer.innerHTML = '';
+            allNumbers.forEach(num => {
+                const numberBox = document.createElement('div');
+                numberBox.classList.add('number-box');
+                numberBox.textContent = num;
+                numberBox.dataset.number = num;
 
-    // Inicializa Firebase
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.firestore();
+                if (assignedNumbers.has(num)) {
+                    numberBox.classList.add('assigned');
+                }
+                if (selectedNumbers.has(num)) {
+                    numberBox.classList.add('selected');
+                }
 
-    const numbersContainer = document.getElementById('numbers-container');
-    const personNameInput = document.getElementById('person-name');
-    const addButton = document.getElementById('add-button');
-    const clearButton = document.getElementById('clear-button');
-    const sorteoButton = document.getElementById('sorteo-button');
-    const add10Button = document.getElementById('add-10-button');
-    const remove10Button = document.getElementById('remove-10-button');
-    const selectRange10Button = document.getElementById('select-range-10-button');
-    const resultsList = document.getElementById('results-list');
-    const ganadorContainer = document.getElementById('ganador-container');
-    const ganadorNumero = document.getElementById('ganador-numero');
-    const ganadorNombre = document.getElementById('ganador-nombre');
-    const countdownTimer = document.getElementById('countdown-timer');
-    const themeSelector = document.getElementById('theme-selector');
-    const body = document.body;
-    const mainContainer = document.getElementById('main-container');
-    const numbersRangeLabel = document.getElementById('numbers-range-label');
-    const hackerBackground = document.getElementById('hacker-background');
+                numberBox.addEventListener('click', () => {
+                    if (!assignedNumbers.has(num)) {
+                        if (selectedNumbers.has(num)) {
+                            selectedNumbers.delete(num);
+                            numberBox.classList.remove('selected');
+                        } else {
+                            selectedNumbers.add(num);
+                            numberBox.classList.add('selected');
+                        }
+                    }
+                });
+                numbersContainer.appendChild(numberBox);
+            });
+        }
 
-    const saveButton = document.getElementById('save-data-button');
-    const loadButton = document.getElementById('load-data-button');
-    const loadCodeInput = document.getElementById('load-code-input');
-    const saveCodeContainer = document.getElementById('save-code-container');
-    const savedCodeElement = document.getElementById('saved-code');
-    
-    // Campo de búsqueda de números
-    const searchNumberInput = document.getElementById('search-number');
-    // Nuevo campo de búsqueda de participantes
-    const searchPersonInput = document.getElementById('search-person');
+        function addParticipant() {
+            const name = personNameInput.value.trim();
+            if (name === '') {
+                alert('Por favor, introduce un nombre.');
+                return;
+            }
+            if (selectedNumbers.size === 0) {
+                alert('Por favor, selecciona al menos un número.');
+                return;
+            }
 
+            const newParticipant = {
+                name: name,
+                numbers: Array.from(selectedNumbers).sort((a, b) => a - b)
+            };
 
-    const countdownSound = new Audio('https://www.soundboard.com/mediafiles/3/30018_e2f694931a78c1874249a567634f195d.mp3');
-    const spinSound = new Audio('https://www.soundboard.com/mediafiles/1/18167_nfs_prostreet_rev_4.mp3');
-    const winnerSound = new Audio('https://www.soundboard.com/mediafiles/6/6389_87900b90e9e46a78280f58a329d91f86.mp3');
+            if (isEditing) {
+                const oldNumbers = participants[editingIndex].numbers;
+                oldNumbers.forEach(num => assignedNumbers.delete(num));
+                participants[editingIndex] = newParticipant;
+                isEditing = false;
+                editingIndex = -1;
+                document.body.classList.remove('edit-mode');
+                addButton.textContent = 'Añadir Participante';
+            } else {
+                participants.push(newParticipant);
+            }
 
-    let selectedNumbers = [];
-    let allParticipants = [];
-    let assignedNumbers = new Set();
-    const MIN_NUMBERS = 100;
-    let currentMaxNumber = 99;
-    let currentRaffleCode = null; // Variable para almacenar el código del sorteo cargado
-    
-    let hackerEffectInterval;
+            selectedNumbers.forEach(num => assignedNumbers.add(num));
+            
+            personNameInput.value = '';
+            selectedNumbers.clear();
+            
+            renderNumbers();
+            renderParticipants();
+            saveToLocalStorage();
+        }
 
-    // Funciones para guardar y cargar el estado en el Local Storage
-    function saveStateToLocalStorage() {
-        try {
-            const state = {
-                participants: allParticipants,
+        function renderParticipants() {
+            participantsList.innerHTML = '';
+            participants.forEach((person, index) => {
+                const personEntry = document.createElement('div');
+                personEntry.classList.add('person-entry');
+
+                const personInfo = document.createElement('div');
+                personInfo.classList.add('person-info');
+                personInfo.innerHTML = `
+                    <div class="person-name">${person.name}</div>
+                    <div class="person-numbers">Números: ${person.numbers.join(', ')}</div>
+                `;
+                personEntry.appendChild(personInfo);
+
+                const personActions = document.createElement('div');
+                personActions.classList.add('person-actions');
+                
+                const editButton = document.createElement('button');
+                editButton.innerHTML = '✏️';
+                editButton.classList.add('action-button');
+                editButton.title = 'Editar';
+                editButton.addEventListener('click', () => editParticipant(index));
+                personActions.appendChild(editButton);
+
+                const deleteButton = document.createElement('button');
+                deleteButton.innerHTML = '🗑️';
+                deleteButton.classList.add('action-button');
+                deleteButton.title = 'Eliminar';
+                deleteButton.addEventListener('click', () => deleteParticipant(index));
+                personActions.appendChild(deleteButton);
+
+                personEntry.appendChild(personActions);
+                participantsList.appendChild(personEntry);
+            });
+        }
+
+        function editParticipant(index) {
+            const personToEdit = participants[index];
+            personNameInput.value = personToEdit.name;
+            selectedNumbers.clear();
+            personToEdit.numbers.forEach(num => selectedNumbers.add(num));
+            renderNumbers();
+            
+            isEditing = true;
+            editingIndex = index;
+            addButton.textContent = 'Actualizar Participante';
+            document.body.classList.add('edit-mode');
+        }
+
+        function deleteParticipant(index) {
+            if (confirm('¿Estás seguro de que quieres eliminar a este participante?')) {
+                const personToDelete = participants[index];
+                personToDelete.numbers.forEach(num => assignedNumbers.delete(num));
+                participants.splice(index, 1);
+                
+                renderNumbers();
+                renderParticipants();
+                saveToLocalStorage();
+            }
+        }
+
+        function clearSelection() {
+            selectedNumbers.clear();
+            renderNumbers();
+        }
+
+        function selectRange(count) {
+            selectedNumbers.clear();
+            const unassignedNumbers = allNumbers.filter(num => !assignedNumbers.has(num));
+            for (let i = 0; i < Math.min(count, unassignedNumbers.length); i++) {
+                selectedNumbers.add(unassignedNumbers[i]);
+            }
+            renderNumbers();
+        }
+
+        async function realizarSorteo() {
+            if (participants.length === 0) {
+                alert('No hay participantes para el sorteo.');
+                return;
+            }
+            if (history.length > 0 && confirm('¿Deseas realizar otro sorteo? El historial será conservado.')) {
+                // Si el usuario confirma, no hacemos nada más que continuar con el sorteo.
+            } else if (history.length > 0) {
+                return; // Si el usuario cancela, no hacemos nada.
+            }
+            
+            const allAssignedNumbers = Array.from(assignedNumbers);
+            if (allAssignedNumbers.length === 0) {
+                alert('No hay números asignados para sortear.');
+                return;
+            }
+
+            sorteoButton.disabled = true;
+            clearButton.disabled = true;
+
+            ganadorNombre.textContent = '';
+            ganadorNumero.textContent = '';
+            countdownTimer.style.display = 'block';
+
+            let countdown = 3;
+            const countdownInterval = setInterval(() => {
+                countdownTimer.textContent = countdown;
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    countdownTimer.style.display = 'none';
+                    rollRandomNumber(allAssignedNumbers);
+                }
+                countdown--;
+            }, 1000);
+        }
+
+        function rollRandomNumber(numbersPool) {
+            let rollCount = 0;
+            const maxRolls = 100;
+            const rollInterval = 50;
+
+            const finalWinnerNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
+
+            const rollingInterval = setInterval(() => {
+                const tempNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
+                ganadorNumero.textContent = tempNumber;
+
+                // Animar el número mientras se "sortea"
+                ganadorNumero.classList.add('sorteo-running');
+
+                rollCount++;
+                if (rollCount >= maxRolls) {
+                    clearInterval(rollingInterval);
+                    ganadorNumero.classList.remove('sorteo-running');
+                    showWinner(finalWinnerNumber);
+                }
+            }, rollInterval);
+        }
+
+        function showWinner(winnerNumber) {
+            const winner = participants.find(p => p.numbers.includes(winnerNumber));
+            const winningPersonName = winner ? winner.name : 'Desconocido';
+
+            ganadorNombre.textContent = winningPersonName;
+            ganadorNumero.textContent = winnerNumber;
+            
+            ganadorNombre.classList.add('ganador-zoom');
+            ganadorNumero.classList.add('ganador-zoom');
+
+            setTimeout(() => {
+                ganadorNombre.classList.remove('ganador-zoom');
+                ganadorNumero.classList.remove('ganador-zoom');
+            }, 1000);
+
+            // Resaltar el número ganador
+            const winningNumberBox = document.querySelector(`.number-box[data-number="${winnerNumber}"]`);
+            if (winningNumberBox) {
+                winningNumberBox.classList.add('resaltado');
+            }
+
+            // Registrar en el historial
+            history.push({
+                winnerName: winningPersonName,
+                winnerNumber: winnerNumber,
+                timestamp: new Date().toLocaleString()
+            });
+
+            renderHistory();
+            createConfetti();
+
+            sorteoButton.disabled = false;
+            clearButton.disabled = false;
+            saveToLocalStorage();
+        }
+
+        function renderHistory() {
+            historyList.innerHTML = '';
+            history.forEach(entry => {
+                const historyEntry = document.createElement('div');
+                historyEntry.classList.add('history-entry');
+                historyEntry.innerHTML = `
+                    <div class="person-info">
+                        <div class="person-name">Ganador: ${entry.winnerName}</div>
+                        <div class="person-numbers">Número: ${entry.winnerNumber} (${entry.timestamp})</div>
+                    </div>
+                `;
+                historyList.appendChild(historyEntry);
+            });
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                document.body.appendChild(confetti);
+
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+        }
+
+        // --- Funcionalidad de Guardado y Carga ---
+        function saveToLocalStorage() {
+            const data = {
+                participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
-                maxNumber: currentMaxNumber,
+                history: history,
                 theme: themeSelector.value
             };
-            localStorage.setItem('raffleState', JSON.stringify(state));
-        } catch (e) {
-            console.error("Error al guardar el estado en el Local Storage:", e);
-        }
-    }
-
-    function loadStateFromLocalStorage() {
-        const savedState = localStorage.getItem('raffleState');
-        if (savedState) {
-            try {
-                const state = JSON.parse(savedState);
-                allParticipants = state.participants || [];
-                assignedNumbers = new Set(state.assignedNumbers || []);
-                currentMaxNumber = state.maxNumber !== undefined ? state.maxNumber : 99;
-                themeSelector.value = state.theme || 'hacker';
-            } catch (e) {
-                console.error("Error al cargar el estado desde el Local Storage:", e);
-                // Si hay un error, se usan los valores por defecto
-                allParticipants = [];
-                assignedNumbers = new Set();
-                currentMaxNumber = 99;
-                themeSelector.value = 'hacker';
-            }
-        }
-        // Inicializar la interfaz con los datos cargados o los por defecto
-        updateRangeLabel();
-        generateNumberBoxes(currentMaxNumber);
-        markAssignedNumbers();
-        renderParticipants(allParticipants);
-        loadTheme(themeSelector.value);
-    }
-
-    // Cargar el estado desde Local Storage al iniciar
-    loadStateFromLocalStorage();
-
-    function updateRangeLabel() {
-        numbersRangeLabel.textContent = `Selecciona los números (00 a ${currentMaxNumber}):`;
-    }
-
-    function createNumberBox(number) {
-        const numberBox = document.createElement('div');
-        numberBox.classList.add('number-box');
-        numberBox.textContent = String(number).padStart(2, '0');
-        numberBox.dataset.number = number;
-        numbersContainer.appendChild(numberBox);
-
-        numberBox.addEventListener('click', () => {
-            if (!numberBox.classList.contains('assigned')) {
-                numberBox.classList.toggle('selected');
-                const num = parseInt(numberBox.dataset.number);
-                const index = selectedNumbers.indexOf(num);
-                if (index > -1) {
-                    selectedNumbers.splice(index, 1);
-                } else {
-                    selectedNumbers.push(num);
-                }
-            }
-        });
-    }
-
-    function generateNumberBoxes(limit) {
-        numbersContainer.innerHTML = '';
-        for (let i = 0; i <= limit; i++) {
-            createNumberBox(i);
-        }
-    }
-
-    function markAssignedNumbers() {
-        const numberBoxes = document.querySelectorAll('.number-box');
-        numberBoxes.forEach(box => {
-            const num = parseInt(box.dataset.number);
-            if (assignedNumbers.has(num)) {
-                box.classList.add('assigned');
-                box.classList.remove('selected');
-            } else {
-                box.classList.remove('assigned');
-            }
-        });
-    }
-
-    function addPerson() {
-        const name = personNameInput.value.trim();
-        if (name === '') {
-            alert('Por favor, ingresa un nombre.');
-            return;
+            const compressedData = btoa(JSON.stringify(data));
+            localStorage.setItem('raffleData', compressedData);
         }
 
-        if (selectedNumbers.length === 0) {
-            alert('Por favor, selecciona al menos un número.');
-            return;
-        }
-
-        const numbersToAssign = [];
-        for (const num of selectedNumbers) {
-            if (!assignedNumbers.has(num)) {
-                numbersToAssign.push(num);
-                assignedNumbers.add(num);
-            }
-        }
-
-        if (numbersToAssign.length === 0) {
-            alert('Todos los números seleccionados ya están asignados.');
-            return;
-        }
-
-        const person = {
-            id: Date.now(),
-            name: name,
-            numbers: numbersToAssign,
-        };
-
-        allParticipants.push(person);
-        selectedNumbers = [];
-        personNameInput.value = '';
-        markAssignedNumbers();
-        renderParticipants(allParticipants);
-        saveStateToLocalStorage();
-    }
-
-    function renderParticipants(participants) {
-        resultsList.innerHTML = '';
-        participants.forEach(person => {
-            const entry = document.createElement('div');
-            entry.classList.add('person-entry');
-            entry.dataset.id = person.id;
-            entry.innerHTML = `
-                <div class="person-info">
-                    <div class="person-name">${person.name}</div>
-                    <div class="person-numbers">${person.numbers.join(', ')}</div>
-                </div>
-                <div class="person-actions">
-                    <button class="action-button edit-button">✏️</button>
-                    <button class="action-button delete-button">🗑️</button>
-                </div>
-            `;
-            resultsList.appendChild(entry);
-        });
-
-        addEventListenersToButtons();
-    }
-
-    function addEventListenersToButtons() {
-        document.querySelectorAll('.edit-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const entry = e.target.closest('.person-entry');
-                const id = parseInt(entry.dataset.id);
-                editPerson(id);
-            });
-        });
-
-        document.querySelectorAll('.delete-button').forEach(button => {
-            button.addEventListener('click', (e) => {
-                const entry = e.target.closest('.person-entry');
-                const id = parseInt(entry.dataset.id);
-                deletePerson(id);
-            });
-        });
-    }
-
-    function editPerson(id) {
-        const person = allParticipants.find(p => p.id === id);
-        if (!person) return;
-
-        const entry = document.querySelector(`.person-entry[data-id="${id}"]`);
-        entry.classList.add('edit-mode');
-
-        const oldName = person.name;
-        const oldNumbers = person.numbers;
-
-        entry.innerHTML = `
-            <div class="person-info">
-                <input type="text" id="edit-name-${id}" value="${oldName}" placeholder="Nuevo nombre...">
-                <div class="person-numbers-list" id="edit-numbers-${id}"></div>
-                <div class="form-group" style="margin-top: 10px;">
-                    <input type="text" id="add-number-input-${id}" placeholder="Número para añadir (Ej: 42)">
-                </div>
-                <button id="add-number-btn-${id}" class="edit-mode-btn" style="background-color: #007BFF; color: #fff;">Añadir</button>
-            </div>
-            <div class="person-actions">
-                <button id="update-name-btn-${id}" class="edit-mode-btn" style="background-color: #4CAF50; color: #fff;">Guardar</button>
-                <button id="cancel-edit-btn-${id}" class="edit-mode-btn" style="background-color: #f44336; color: #fff;">Cancelar</button>
-            </div>
-        `;
-        
-        const numbersList = document.getElementById(`edit-numbers-${id}`);
-        oldNumbers.forEach(num => {
-            const chip = createNumberChip(num, id);
-            numbersList.appendChild(chip);
-        });
-
-        document.getElementById(`update-name-btn-${id}`).addEventListener('click', () => saveEdit(id));
-        document.getElementById(`cancel-edit-btn-${id}`).addEventListener('click', () => cancelEdit(id));
-        document.getElementById(`add-number-btn-${id}`).addEventListener('click', () => addNumberToPerson(id));
-    }
-
-    function createNumberChip(number, personId) {
-        const chip = document.createElement('span');
-        chip.classList.add('person-number-chip');
-        chip.textContent = String(number).padStart(2, '0');
-        chip.dataset.number = number;
-
-        const removeBtn = document.createElement('button');
-        removeBtn.textContent = 'x';
-        removeBtn.addEventListener('click', () => removeNumberFromPerson(personId, number));
-
-        chip.appendChild(removeBtn);
-        return chip;
-    }
-
-    function removeNumberFromPerson(personId, number) {
-        const person = allParticipants.find(p => p.id === personId);
-        if (!person) return;
-
-        person.numbers = person.numbers.filter(num => num !== number);
-        assignedNumbers.delete(number);
-
-        renderParticipants(allParticipants);
-        markAssignedNumbers();
-        saveStateToLocalStorage();
-    }
-
-    function addNumberToPerson(personId) {
-        const input = document.getElementById(`add-number-input-${personId}`);
-        const newNumber = parseInt(input.value.trim());
-
-        if (isNaN(newNumber) || newNumber < 0 || newNumber > currentMaxNumber) {
-            alert(`Por favor, introduce un número válido entre 0 y ${currentMaxNumber}.`);
-            return;
-        }
-
-        if (assignedNumbers.has(newNumber)) {
-            alert('Este número ya está asignado.');
-            return;
-        }
-
-        const person = allParticipants.find(p => p.id === personId);
-        if (person) {
-            person.numbers.push(newNumber);
-            assignedNumbers.add(newNumber);
-            
-            const numbersList = document.getElementById(`edit-numbers-${personId}`);
-            const chip = createNumberChip(newNumber, personId);
-            numbersList.appendChild(chip);
-            
-            input.value = '';
-            markAssignedNumbers();
-            saveStateToLocalStorage();
-        }
-    }
-
-    function saveEdit(id) {
-        const person = allParticipants.find(p => p.id === id);
-        if (!person) return;
-
-        const newNameInput = document.getElementById(`edit-name-${id}`);
-        person.name = newNameInput.value.trim() || person.name;
-
-        renderParticipants(allParticipants);
-        markAssignedNumbers();
-        saveStateToLocalStorage();
-    }
-
-    function cancelEdit(id) {
-        renderParticipants(allParticipants);
-    }
-
-    function deletePerson(id) {
-        if (!confirm('¿Estás seguro de que quieres eliminar a esta persona y sus números?')) {
-            return;
-        }
-        const person = allParticipants.find(p => p.id === id);
-        if (!person) return;
-
-        person.numbers.forEach(num => assignedNumbers.delete(num));
-        allParticipants = allParticipants.filter(p => p.id !== id);
-
-        renderParticipants(allParticipants);
-        markAssignedNumbers();
-        saveStateToLocalStorage();
-    }
-
-    function clearAll() {
-        if (confirm('¿Estás seguro de que quieres limpiar todos los participantes y números?')) {
-            allParticipants = [];
-            selectedNumbers = [];
-            assignedNumbers.clear();
-            personNameInput.value = '';
-            ganadorContainer.style.display = 'none';
-            renderParticipants([]);
-            markAssignedNumbers();
-            localStorage.removeItem('raffleState');
-        }
-    }
-
-    function sorteo() {
-        const allNumbers = allParticipants.flatMap(p => p.numbers);
-        if (allNumbers.length === 0) {
-            alert('No hay números disponibles para el sorteo.');
-            return;
-        }
-
-        ganadorContainer.style.display = 'block';
-        ganadorNumero.textContent = '';
-        ganadorNombre.textContent = '';
-        sorteoButton.disabled = true;
-
-        const totalTime = 3000;
-        const interval = 50;
-        let elapsed = 0;
-        let countdown = 3;
-        
-        countdownTimer.textContent = '3';
-        countdownSound.currentTime = 0;
-        countdownSound.play();
-        
-        const countdownInterval = setInterval(() => {
-            countdown--;
-            if (countdown > 0) {
-                countdownTimer.textContent = countdown;
-                countdownSound.currentTime = 0;
-                countdownSound.play();
-            } else {
-                clearInterval(countdownInterval);
-                countdownTimer.textContent = '';
-                spinSound.play();
-                spinSound.loop = true;
+        function loadFromLocalStorage() {
+            const compressedData = localStorage.getItem('raffleData');
+            if (compressedData) {
+                const decompressedData = JSON.parse(atob(compressedData));
+                participants = decompressedData.participants;
+                assignedNumbers = new Set(decompressedData.assignedNumbers);
+                history = decompressedData.history;
                 
-                const sorteoInterval = setInterval(() => {
-                    elapsed += interval;
-                    const randomIndex = Math.floor(Math.random() * allNumbers.length);
-                    const randomWinnerNumber = allNumbers[randomIndex];
-                    ganadorNumero.textContent = String(randomWinnerNumber).padStart(2, '0');
-                    if (elapsed >= totalTime) {
-                        clearInterval(sorteoInterval);
-                        spinSound.pause();
-                        spinSound.currentTime = 0;
-                        spinSound.loop = false;
-                        
-                        const winnerNumber = parseInt(ganadorNumero.textContent);
-                        const winner = allParticipants.find(p => p.numbers.includes(winnerNumber));
-                        ganadorNombre.textContent = winner ? winner.name : 'No encontrado';
-                        ganadorNumero.classList.add('ganador-zoom');
-                        ganadorNombre.classList.add('ganador-zoom');
-                        
-                        setTimeout(() => {
-                            winnerSound.play();
-                            createConfetti(50);
-                            sorteoButton.disabled = false;
-                        }, 500);
-
-                    }
-                }, interval);
-            }
-        }, 1000);
-    }
-
-    function createConfetti(count) {
-        for (let i = 0; i < count; i++) {
-            const confetti = document.createElement('div');
-            confetti.classList.add('confetti');
-            confetti.style.left = `${Math.random() * 100}%`;
-            confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-            confetti.style.animationDuration = `${Math.random() * 2 + 3}s`;
-            ganadorContainer.appendChild(confetti);
-        }
-    }
-
-    function addRemoveNumbers(count) {
-        currentMaxNumber += count;
-        if (currentMaxNumber < MIN_NUMBERS - 1) {
-            currentMaxNumber = MIN_NUMBERS - 1;
-        }
-        generateNumberBoxes(currentMaxNumber);
-        markAssignedNumbers();
-        updateRangeLabel();
-        saveStateToLocalStorage();
-    }
-    
-    function selectRangeOfNumbers(count) {
-        const startNumber = selectedNumbers.length > 0 ? Math.max(...selectedNumbers) + 1 : 0;
-        
-        const newlySelected = [];
-        for (let i = 0; i < count; i++) {
-            const num = startNumber + i;
-            if (num > currentMaxNumber) {
-                alert('No hay suficientes números disponibles para seleccionar en este rango.');
-                break;
-            }
-            if (!assignedNumbers.has(num)) {
-                newlySelected.push(num);
-            }
-        }
-        
-        selectedNumbers = [...selectedNumbers, ...newlySelected];
-        selectedNumbers.sort((a,b) => a-b);
-        
-        document.querySelectorAll('.number-box').forEach(box => {
-            const num = parseInt(box.dataset.number);
-            if (selectedNumbers.includes(num)) {
-                box.classList.add('selected');
-            } else {
-                box.classList.remove('selected');
-            }
-        });
-    }
-
-    function loadTheme(theme) {
-        body.classList.remove('cosmic-theme', 'neon-theme', 'pastel-theme', 'hacker-theme');
-        mainContainer.classList.remove('cosmic-theme', 'neon-theme', 'pastel-theme', 'hacker-theme');
-        
-        stopHackerEffect();
-        if (theme === 'hacker') {
-            body.classList.add('hacker-theme');
-            mainContainer.classList.add('hacker-theme');
-            loadHackerEffect();
-        } else if (theme !== 'default') {
-            body.classList.add(`${theme}-theme`);
-            mainContainer.classList.add(`${theme}-theme`);
-        }
-    }
-
-    function loadHackerEffect() {
-        const hackerBackground = document.getElementById('hacker-background');
-        if (!hackerBackground) return;
-
-        const canvas = document.createElement('canvas');
-        hackerBackground.appendChild(canvas);
-        const ctx = canvas.getContext('2d');
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        const letters = 'ABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZABCDEFGHIJKLMNOPQRSTUVXYZ';
-        const fontSize = 10;
-        const columns = Math.floor(canvas.width / fontSize);
-        const drops = [];
-        for(let i = 0; i < columns; i++) {
-            drops[i] = 1;
-        }
-
-        function draw() {
-            ctx.fillStyle = 'rgba(0, 0, 0, .1)';
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
-            for(let i = 0; i < drops.length; i++) {
-                const text = letters[Math.floor(Math.random() * letters.length)];
-                ctx.fillStyle = '#0f0';
-                ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-                drops[i]++;
-                if(drops[i] * fontSize > canvas.height && Math.random() > 0.95) {
-                    drops[i] = 0;
-                }
+                renderNumbers();
+                renderParticipants();
+                renderHistory();
             }
         }
 
-        hackerEffectInterval = setInterval(draw, 33);
-    }
-    
-    function stopHackerEffect() {
-        clearInterval(hackerEffectInterval);
-        hackerBackground.innerHTML = '';
-        hackerBackground.style.display = 'none';
-    }
-
-    function saveData() {
-        const raffleData = {
-            participants: allParticipants,
-            assignedNumbers: Array.from(assignedNumbers),
-            maxNumber: currentMaxNumber
-        };
-        const dataString = JSON.stringify(raffleData);
-        const raffleCode = btoa(dataString);
-        
-        db.collection("raffles").add({
-            code: raffleCode,
-            createdAt: firebase.firestore.FieldValue.serverTimestamp()
-        })
-        .then((docRef) => {
-            savedCodeElement.textContent = docRef.id;
+        function generateSaveCode() {
+            const data = {
+                participants: participants,
+                assignedNumbers: Array.from(assignedNumbers),
+                history: history,
+                theme: themeSelector.value
+            };
+            const compressedData = btoa(JSON.stringify(data));
+            savedCodeSpan.textContent = compressedData;
             saveCodeContainer.style.display = 'block';
-            console.log("Documento escrito con ID: ", docRef.id);
-        })
-        .catch((error) => {
-            alert("Error al guardar el sorteo: " + error);
-        });
-    }
-    
-    function loadData() {
-        const code = loadCodeInput.value.trim();
-        if (code === '') {
-            return;
         }
-        
-        db.collection("raffles").doc(code).get()
-        .then((doc) => {
-            if (doc.exists) {
-                const data = doc.data();
-                if (data && data.code) {
-                    try {
-                        const dataString = atob(data.code);
-                        const raffleData = JSON.parse(dataString);
-                        allParticipants = raffleData.participants;
-                        assignedNumbers = new Set(raffleData.assignedNumbers);
-                        currentMaxNumber = raffleData.maxNumber;
-                        generateNumberBoxes(currentMaxNumber);
-                        markAssignedNumbers();
-                        renderParticipants(allParticipants);
-                        updateRangeLabel();
-                        alert("Sorteo cargado exitosamente.");
-                        currentRaffleCode = code;
-                    } catch (e) {
-                        alert("Código de sorteo no válido.");
+
+        function loadFromCode() {
+            const code = prompt('Introduce el código de guardado:');
+            if (code) {
+                try {
+                    const decompressedData = JSON.parse(atob(code));
+                    participants = decompressedData.participants;
+                    assignedNumbers = new Set(decompressedData.assignedNumbers);
+                    history = decompressedData.history;
+                    
+                    renderNumbers();
+                    renderParticipants();
+                    renderHistory();
+                    
+                    if (decompressedData.theme) {
+                        themeSelector.value = decompressedData.theme;
+                        applyTheme(decompressedData.theme);
+                    }
+                } catch (e) {
+                    alert('Código inválido.');
+                }
+            }
+        }
+
+        // --- Manejo de Temas ---
+        function applyTheme(theme) {
+            document.body.className = '';
+            document.body.classList.add(`${theme}-theme`);
+            localStorage.setItem('selectedTheme', theme);
+
+            if (theme === 'hacker') {
+                initMatrixEffect();
+            } else {
+                const canvas = document.getElementById('matrixCanvas');
+                if (canvas) {
+                    canvas.style.display = 'none';
+                    // Para detener el efecto de Matrix si ya estaba corriendo
+                    // No hay una forma limpia de detener requestAnimationFrame, pero
+                    // la lógica del bucle lo detendrá cuando se cambie el tema.
+                }
+            }
+        }
+
+        themeSelector.addEventListener('change', (event) => {
+            applyTheme(event.target.value);
+        });
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+            themeSelector.value = savedTheme;
+            applyTheme(savedTheme);
+            loadFromLocalStorage();
+            generateNumbers(100);
+        });
+
+        // --- Script para el efecto Matrix de fondo (Tema Hacker) ---
+        function initMatrixEffect() {
+            const canvas = document.getElementById('matrixCanvas');
+            if (!canvas) return;
+
+            const ctx = canvas.getContext('2d');
+            canvas.style.display = 'block';
+
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+
+            const alphabet = 'アァカサタナハマヤラワガザダバパイィキシチニヒミリヰギジヂビピウゥクスツヌフムユルグズヅブプエェケセテネヘメレヱゲゼデベペオォコソトノホモヨロヲゴゾドボポヴッンABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+
+            const fontSize = 16;
+            let columns = Math.floor(canvas.width / fontSize);
+
+            const drops = [];
+            for (let i = 0; i < columns; i++) {
+                drops[i] = 1;
+            }
+
+            let lastTime = 0;
+            const fps = 30;
+            const interval = 1000 / fps;
+
+            function drawMatrix(currentTime) {
+                if (!document.body.classList.contains('hacker-theme')) {
+                    cancelAnimationFrame(drawMatrix);
+                    return;
+                }
+                
+                if (currentTime - lastTime > interval) {
+                    ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+                    ctx.fillStyle = '#00ff00';
+                    ctx.font = fontSize + 'px monospace';
+
+                    for (let i = 0; i < drops.length; i++) {
+                        const text = alphabet.charAt(Math.floor(Math.random() * alphabet.length));
+                        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                        if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
+                            drops[i] = 0;
+                        }
+                        drops[i]++;
+                    }
+                    lastTime = currentTime;
+                }
+                requestAnimationFrame(drawMatrix);
+            }
+
+            requestAnimationFrame(drawMatrix);
+
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                columns = Math.floor(canvas.width / fontSize);
+                if (drops.length !== columns) {
+                    const oldDrops = drops.slice();
+                    drops.length = columns;
+                    for(let i = 0; i < columns; i++) {
+                        if (drops[i] === undefined) {
+                            drops[i] = (oldDrops[i] !== undefined) ? oldDrops[i] : 1;
+                        }
                     }
                 }
-            } else {
-                alert("No se encontró un sorteo con ese código.");
-            }
-        })
-        .catch((error) => {
-            alert("Error al cargar el sorteo: " + error);
-        });
-    }
-
-    // Funcionalidad de búsqueda de números
-    searchNumberInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.trim();
-        const numberBoxes = document.querySelectorAll('.number-box');
-        
-        numberBoxes.forEach(box => {
-            box.classList.remove('resaltado');
-            if (searchTerm !== '' && box.textContent.includes(searchTerm)) {
-                box.classList.add('resaltado');
-            }
-        });
-    });
-
-    // Funcionalidad de búsqueda de participantes
-    searchPersonInput.addEventListener('input', (e) => {
-        const searchTerm = e.target.value.trim().toLowerCase();
-        let filteredParticipants = [];
-
-        if (searchTerm === '') {
-            filteredParticipants = allParticipants;
-        } else {
-            filteredParticipants = allParticipants.filter(person => {
-                // Buscar por nombre
-                const nameMatch = person.name.toLowerCase().includes(searchTerm);
-                // Buscar por número asignado
-                const numberMatch = person.numbers.some(num => String(num).padStart(2, '0').includes(searchTerm));
-                return nameMatch || numberMatch;
             });
         }
-        renderParticipants(filteredParticipants);
-    });
 
-    // Inicialización
-    // generateNumberBoxes(currentMaxNumber);
-    // updateRangeLabel();
-
-    // Event Listeners
-    addButton.addEventListener('click', addPerson);
-    clearButton.addEventListener('click', clearAll);
-    sorteoButton.addEventListener('click', sorteo);
-    add10Button.addEventListener('click', () => addRemoveNumbers(10));
-    remove10Button.addEventListener('click', () => addRemoveNumbers(-10));
-    selectRange10Button.addEventListener('click', () => selectRangeOfNumbers(10));
-    themeSelector.addEventListener('change', (e) => {
-        loadTheme(e.target.value);
-        saveStateToLocalStorage();
-    });
-
-    saveButton.addEventListener('click', saveData);
-    loadButton.addEventListener('click', loadData);
-
-    // Cargar el tema inicial por defecto
-    // loadTheme(themeSelector.value); // This is now called inside loadStateFromLocalStorage()
-
-</script>
-
+        // --- Event Listeners ---
+        addButton.addEventListener('click', addParticipant);
+        clearButton.addEventListener('click', clearSelection);
+        sorteoButton.addEventListener('click', realizarSorteo);
+        add10Button.addEventListener('click', () => selectRange(10));
+        add25Button.addEventListener('click', () => selectRange(25));
+        add50Button.addEventListener('click', () => selectRange(50));
+        saveDataButton.addEventListener('click', generateSaveCode);
+        loadDataButton.addEventListener('click', loadFromCode);
+    </script>
 </body>
 </html>
