@@ -270,6 +270,9 @@
             top: -10px;
             border-radius: 50%;
             z-index: 1;
+            animation-name: fall;
+            animation-timing-function: linear;
+            animation-fill-mode: forwards;
         }
         @keyframes fall {
             to {
@@ -1238,14 +1241,24 @@
         function loadFromLocalStorage() {
             const compressedData = localStorage.getItem('raffleData');
             if (compressedData) {
-                const decompressedData = JSON.parse(atob(compressedData));
-                participants = decompressedData.participants;
-                assignedNumbers = new Set(decompressedData.assignedNumbers);
-                history = decompressedData.history;
+                try {
+                    const decompressedData = JSON.parse(atob(compressedData));
+                    participants = decompressedData.participants || [];
+                    assignedNumbers = new Set(decompressedData.assignedNumbers || []);
+                    history = decompressedData.history || [];
+
+                    if (decompressedData.theme) {
+                        themeSelector.value = decompressedData.theme;
+                        applyTheme(decompressedData.theme);
+                    }
                 
-                renderNumbers();
-                renderParticipants();
-                renderHistory();
+                    renderNumbers();
+                    renderParticipants();
+                    renderHistory();
+                } catch (e) {
+                    console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
+                    localStorage.removeItem('raffleData');
+                }
             }
         }
 
