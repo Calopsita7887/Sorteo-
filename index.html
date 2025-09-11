@@ -851,9 +851,103 @@
         .celuapuestas-theme .footer {
             color: #666;
         }
+
+        /* --- ESTILOS TEMA MATRIX --- */
+        #matrix-canvas {
+            display: none; /* Oculto por defecto */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+        }
+        body.matrix-theme #matrix-canvas {
+            display: block; /* Visible solo en el tema Matrix */
+        }
+        body.matrix-theme {
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        .container.matrix-theme {
+            background-color: rgba(0, 0, 0, 0.75);
+            border: 1px solid #0f0;
+            box-shadow: 0 0 15px #0f0;
+        }
+        .matrix-theme h1 {
+            color: #0f0;
+            text-shadow: 0 0 5px #0f0;
+        }
+        .matrix-theme label {
+            color: #0f0;
+        }
+        .matrix-theme input[type="text"] {
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+        .matrix-theme #numbers-container {
+            background-color: #050505;
+            border: 1px solid #0f0;
+        }
+        .matrix-theme .number-box {
+            background-color: #111;
+            color: #0f0;
+            border: 1px solid #0a0;
+        }
+        .matrix-theme .number-box:hover {
+            background-color: #0f0;
+            color: #000;
+        }
+        .matrix-theme .number-box.selected {
+            background-color: #0f0;
+            color: #000;
+            transform: scale(1.05);
+            box-shadow: 0 0 10px #0f0;
+        }
+        .matrix-theme .number-box.assigned {
+            background-color: #080808;
+            color: #050;
+            text-decoration-color: #050;
+        }
+        .matrix-theme button {
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+        .matrix-theme button:hover {
+            background-color: #0f0;
+            color: #000;
+        }
+        .matrix-theme #results-container, .matrix-theme #history-container {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: 1px solid #0f0;
+        }
+        .matrix-theme .person-entry, .matrix-theme .history-entry {
+            border-bottom: 1px solid #0f0;
+        }
+        .matrix-theme .person-name {
+            color: #0f0;
+        }
+        .matrix-theme .action-button {
+            color: #0f0;
+        }
+        .matrix-theme .action-button:hover {
+            color: #fff;
+        }
+        .matrix-theme #theme-selector {
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+        .matrix-theme .footer {
+            color: #0f0;
+        }
     </style>
 </head>
 <body>
+    <canvas id="matrix-canvas"></canvas>
     <div class="container">
         <div id="theme-toggle-group">
             <select id="theme-selector">
@@ -862,10 +956,11 @@
                 <option value="neon">Neon Party</option>
                 <option value="pastel">Pastel Dreams</option>
                 <option value="celuapuestas">CeluApuestas</option>
+                <option value="matrix">Matrix</option>
             </select>
         </div>
         <div class="logo-container">
-            <img src="https://i.ibb.co/6P6X2yH/logo-redpilar.png" alt="Logo de Red Pilar" class="logo">
+            <img src="logo.png" alt="Logo de CeluApuestas" class="logo">
         </div>
         <h1 id="main-title">Sorteo Red Pilar</h1>
         <div id="form-container">
@@ -1297,11 +1392,72 @@
             }
         }
 
+        // --- Lógica del Tema Matrix ---
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        let matrixAnimationInterval;
+
+        function startMatrixAnimation() {
+            if (matrixAnimationInterval) clearInterval(matrixAnimationInterval);
+
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+
+            const letters = '0123456789';
+            const fontSize = 16;
+            const columns = matrixCanvas.width / fontSize;
+
+            const drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function drawMatrix() {
+                matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+                matrixCtx.fillStyle = '#0f0';
+                matrixCtx.font = fontSize + 'px arial';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                    matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+
+            matrixAnimationInterval = setInterval(drawMatrix, 33);
+        }
+
+        function stopMatrixAnimation() {
+            if (matrixAnimationInterval) {
+                clearInterval(matrixAnimationInterval);
+                matrixAnimationInterval = null;
+                matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (document.body.classList.contains('matrix-theme')) {
+                startMatrixAnimation();
+            }
+        });
+
         // --- Manejo de Temas ---
         function applyTheme(theme) {
             document.body.className = '';
             document.body.classList.add(`${theme}-theme`);
             localStorage.setItem('selectedTheme', theme);
+
+            if (theme === 'matrix') {
+                startMatrixAnimation();
+            } else {
+                stopMatrixAnimation();
+            }
         }
 
         themeSelector.addEventListener('change', (event) => {
