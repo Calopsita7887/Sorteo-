@@ -802,7 +802,8 @@
         function saveToLocalStorage() {
             const data = {
                 participants: participants,
-                assignedNumbers: Array.from(assignedNumbers)
+                assignedNumbers: Array.from(assignedNumbers),
+                allNumbers: allNumbers
             };
             const compressedData = btoa(JSON.stringify(data));
             localStorage.setItem('raffleData', compressedData);
@@ -815,13 +816,22 @@
                     const decompressedData = JSON.parse(atob(compressedData));
                     participants = decompressedData.participants || [];
                     assignedNumbers = new Set(decompressedData.assignedNumbers || []);
-                
-                    renderNumbers();
+                    allNumbers = decompressedData.allNumbers || [];
+
+                    if (allNumbers.length === 0) {
+                        generateNumbers(100);
+                    } else {
+                        renderNumbers();
+                    }
                     renderParticipants();
+
                 } catch (e) {
                     console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
                     localStorage.removeItem('raffleData');
+                    generateNumbers(100);
                 }
+            } else {
+                generateNumbers(100);
             }
         }
 
@@ -899,7 +909,6 @@
         // --- Inicialización ---
         document.addEventListener('DOMContentLoaded', () => {
             loadFromLocalStorage();
-            generateNumbers(100);
             startMatrixAnimation();
         });
 
