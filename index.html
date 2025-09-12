@@ -1090,7 +1090,7 @@
             }
         }
 
-        /* --- ESTILOS PARA EL MODAL DE NUMERO LIBRE --- */
+        /* --- ESTILOS PARA EL MODAL --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1119,15 +1119,12 @@
             margin-top: 0;
             color: #7aa5d2;
         }
-        #modal-number {
-            font-size: 2em;
-            font-weight: bold;
-        }
+
         .modal-content .form-group {
             margin-bottom: 20px;
         }
 
-        .modal-content select, .modal-content input {
+        .modal-content select {
             width: 100%;
             padding: 10px;
             border: 1px solid #444;
@@ -1142,10 +1139,11 @@
             display: flex;
             justify-content: center;
         }
+
         .modal-content .button-group button {
             width: auto;
             flex-grow: 0;
-            margin: 0 5px;
+            margin: 0 10px;
         }
 
         #modal-delete-button {
@@ -1162,26 +1160,13 @@
             background-color: #7a7a7a;
         }
 
-        #modal-assign-new-button {
-            background-color: #7aa5d2;
-        }
-        #modal-assign-new-button:hover {
-            background-color: #5c8bb8;
-        }
-
-        #modal-assign-existing-button {
-            background-color: #c5a365;
-        }
-        #modal-assign-existing-button:hover {
-            background-color: #a08451;
-        }
         /* Adaptaciones para temas */
         .cosmic-theme .modal-content {
             background-color: #1a0033;
             border-color: #5d00a0;
         }
         .cosmic-theme .modal-content h3 { color: #d495ff; }
-        .cosmic-theme .modal-content select, .cosmic-theme .modal-content input { background-color: #220044; color: #a0d4ff; border-color: #4b0082; }
+        .cosmic-theme .modal-content select { background-color: #220044; color: #a0d4ff; border-color: #4b0082; }
 
         .neon-theme .modal-content {
             background-color: #1a1a2a;
@@ -1189,7 +1174,7 @@
             box-shadow: 0 0 20px 5px rgba(100, 255, 255, 0.4);
         }
         .neon-theme .modal-content h3 { color: #ff00ff; }
-        .neon-theme .modal-content select, .neon-theme .modal-content input { background-color: #333344; color: #64ffda; border-color: #64ffda; }
+        .neon-theme .modal-content select { background-color: #333344; color: #64ffda; border-color: #64ffda; }
 
         .pastel-theme .modal-content {
             background-color: #fff0f3;
@@ -1197,35 +1182,28 @@
         }
         .pastel-theme .modal-content h3 { color: #ff66a4; }
         .pastel-theme .modal-content label { color: #9381ff; }
-        .pastel-theme .modal-content select, .pastel-theme .modal-content input { background-color: #fff8f8; color: #5e548e; border-color: #b57edc; }
+        .pastel-theme .modal-content select { background-color: #fff8f8; color: #5e548e; border-color: #b57edc; }
 
         .celuapuestas-theme .modal-content {
             background-color: #20202d;
             border-color: #333344;
         }
         .celuapuestas-theme .modal-content h3 { color: #62B4E9; }
-        .celuapuestas-theme .modal-content select, .celuapuestas-theme .modal-content input { background-color: #12121b; color: #f0f0f0; border-color: #444; }
+        .celuapuestas-theme .modal-content select { background-color: #12121b; color: #f0f0f0; border-color: #444; }
 
         .simple-dark-theme .modal-content {
             background-color: #1e1e1e;
             border-color: #333;
         }
         .simple-dark-theme .modal-content h3 { color: #7aa5d2; }
-        .simple-dark-theme .modal-content select, .simple-dark-theme .modal-content input { background-color: #252525; color: #e0e0e0; border-color: #444; }
+        .simple-dark-theme .modal-content select { background-color: #252525; color: #e0e0e0; border-color: #444; }
 
         .matrix-theme .modal-content {
             background-color: rgba(0, 0, 0, 0.85);
             border-color: #0f0;
         }
         .matrix-theme .modal-content h3 { color: #0f0; }
-        .matrix-theme .modal-content select, .matrix-theme .modal-content input { background-color: #000; color: #0f0; border: 1px solid #0f0; }
-
-        .modal-step {
-            display: none;
-        }
-        .modal-step.active {
-            display: block;
-        }
+        .matrix-theme .modal-content select { background-color: #000; color: #0f0; border: 1px solid #0f0; }
     </style>
 </head>
 <body>
@@ -1317,63 +1295,12 @@
         const deleteUnsoldButton = document.getElementById('delete-unsold-button');
         
         // --- Modal Elements ---
-        const freeNumberModal = document.createElement('div');
-        freeNumberModal.className = 'modal-overlay';
-        freeNumberModal.id = 'free-number-modal';
-        freeNumberModal.innerHTML = `
-            <div class="modal-content">
-                <h3>Gestionar Número #<span id="modal-number"></span></h3>
-                <div id="modal-step-1" class="modal-step active">
-                    <div class="button-group">
-                        <button id="modal-assign-existing-button">Asignar a existente</button>
-                        <button id="modal-assign-new-button">Asignar a nuevo</button>
-                    </div>
-                    <div class="button-group">
-                        <button id="modal-delete-button" class="delete-button">Eliminar</button>
-                        <button id="modal-cancel-button" class="cancel-button">Cancelar</button>
-                    </div>
-                </div>
-
-                <div id="modal-step-2" class="modal-step">
-                    <div class="form-group">
-                        <label for="new-participant-name">Nombre del nuevo participante:</label>
-                        <input type="text" id="new-participant-name" placeholder="Escribe el nombre aquí">
-                    </div>
-                    <div class="button-group">
-                        <button id="modal-create-new-button">Crear y Asignar</button>
-                        <button id="modal-cancel-button-2" class="cancel-button">Cancelar</button>
-                    </div>
-                </div>
-
-                <div id="modal-step-3" class="modal-step">
-                    <div class="form-group">
-                        <label for="assign-to-participant-select">Selecciona un participante:</label>
-                        <select id="assign-to-participant-select"></select>
-                    </div>
-                    <div class="button-group">
-                        <button id="modal-confirm-assign-button">Confirmar Asignación</button>
-                        <button id="modal-cancel-button-3">Cancelar</button>
-                    </div>
-                </div>
-            </div>
-        `;
-        document.body.appendChild(freeNumberModal);
-
+        const freeNumberModal = document.getElementById('free-number-modal');
         const modalNumberSpan = document.getElementById('modal-number');
-        const modalStep1 = document.getElementById('modal-step-1');
-        const modalStep2 = document.getElementById('modal-step-2');
-        const modalStep3 = document.getElementById('modal-step-3');
-        const modalDeleteButton = document.getElementById('modal-delete-button');
-        const modalAssignExistingButton = document.getElementById('modal-assign-existing-button');
-        const modalAssignNewButton = document.getElementById('modal-assign-new-button');
         const assignToParticipantSelect = document.getElementById('assign-to-participant-select');
-        const newParticipantNameInput = document.getElementById('new-participant-name');
-        const modalCreateNewButton = document.getElementById('modal-create-new-button');
-        const modalConfirmAssignButton = document.getElementById('modal-confirm-assign-button');
-        const modalCancelButton1 = document.getElementById('modal-cancel-button');
-        const modalCancelButton2 = document.getElementById('modal-cancel-button-2');
-        const modalCancelButton3 = document.getElementById('modal-cancel-button-3');
-
+        const modalAssignButton = document.getElementById('modal-assign-button');
+        const modalDeleteButton = document.getElementById('modal-delete-button');
+        const modalCancelButton = document.getElementById('modal-cancel-button');
 
         let currentNumberInModal = null;
         let allNumbers = [];
@@ -1404,41 +1331,24 @@
             currentNumberInModal = number;
             modalNumberSpan.textContent = number;
             populateParticipantsDropdown();
-            showModalStep(1);
             freeNumberModal.style.display = 'flex';
         }
 
         function closeFreeNumberModal() {
             currentNumberInModal = null;
-            newParticipantNameInput.value = '';
             freeNumberModal.style.display = 'none';
-        }
-        
-        function showModalStep(step) {
-            modalStep1.classList.remove('active');
-            modalStep2.classList.remove('active');
-            modalStep3.classList.remove('active');
-            if (step === 1) {
-                modalStep1.classList.add('active');
-            } else if (step === 2) {
-                modalStep2.classList.add('active');
-            } else if (step === 3) {
-                modalStep3.classList.add('active');
-            }
-            // Aseguramos que los botones de cancelar cierren el modal
-            modalCancelButton1.onclick = closeFreeNumberModal;
-            modalCancelButton2.onclick = closeFreeNumberModal;
-            modalCancelButton3.onclick = closeFreeNumberModal;
         }
 
         function deleteSingleNumber() {
             if (currentNumberInModal === null) return;
-            const numberToDelete = currentNumberInModal;
 
-            if (confirm(`¿Estás seguro de que quieres eliminar el número ${numberToDelete}? Esta acción no se puede deshacer.`)) {
+            if (confirm(`¿Estás seguro de que quieres eliminar el número ${currentNumberInModal}? Esta acción no se puede deshacer.`)) {
+                const numberToDelete = currentNumberInModal;
+
                 allNumbers = allNumbers.filter(num => num !== numberToDelete);
                 assignedNumbers.delete(numberToDelete);
                 selectedNumbers.delete(numberToDelete);
+
                 renderNumbers();
                 saveToLocalStorage();
                 closeFreeNumberModal();
@@ -1448,33 +1358,37 @@
 
         function populateParticipantsDropdown() {
             assignToParticipantSelect.innerHTML = '';
+
             if (participants.length === 0) {
                 const option = document.createElement('option');
                 option.textContent = 'No hay participantes todavía';
                 option.disabled = true;
                 assignToParticipantSelect.appendChild(option);
-                modalConfirmAssignButton.disabled = true;
+                modalAssignButton.disabled = true;
             } else {
                 const placeholder = document.createElement('option');
                 placeholder.textContent = 'Selecciona un participante...';
                 placeholder.value = '';
                 assignToParticipantSelect.appendChild(placeholder);
+
                 participants.forEach((person, index) => {
                     const option = document.createElement('option');
                     option.value = index;
                     option.textContent = person.name;
                     assignToParticipantSelect.appendChild(option);
                 });
-                modalConfirmAssignButton.disabled = false;
+                modalAssignButton.disabled = false;
             }
         }
 
-        function assignNumberToExistingParticipant() {
+        function assignNumberToParticipant() {
             const selectedParticipantIndex = assignToParticipantSelect.value;
-            if (selectedParticipantIndex === '') {
+
+            if (selectedParticipantIndex === '' || currentNumberInModal === null) {
                 alert('Por favor, selecciona un participante.');
                 return;
             }
+
             const participant = participants[selectedParticipantIndex];
             const numberToAssign = currentNumberInModal;
 
@@ -1486,29 +1400,8 @@
             renderParticipants();
             saveToLocalStorage();
             closeFreeNumberModal();
+
             alert(`El número ${numberToAssign} ha sido asignado a ${participant.name}.`);
-        }
-
-        function assignNumberToNewParticipant() {
-            const name = newParticipantNameInput.value.trim();
-            if (name === '') {
-                alert('Por favor, introduce un nombre para el nuevo participante.');
-                return;
-            }
-            const numberToAssign = currentNumberInModal;
-
-            const newParticipant = {
-                name: name,
-                numbers: [numberToAssign]
-            };
-            participants.push(newParticipant);
-            assignedNumbers.add(numberToAssign);
-            
-            renderNumbers();
-            renderParticipants();
-            saveToLocalStorage();
-            closeFreeNumberModal();
-            alert(`El número ${numberToAssign} ha sido asignado al nuevo participante: ${name}.`);
         }
 
         function renderNumbers() {
@@ -1521,17 +1414,24 @@
 
                 if (assignedNumbers.has(num)) {
                     numberBox.classList.add('assigned');
-                } else if (selectedNumbers.has(num)) {
+                }
+                if (selectedNumbers.has(num)) {
                     numberBox.classList.add('selected');
                 }
 
                 numberBox.addEventListener('click', () => {
                     if (assignedNumbers.has(num)) {
-                         // Si el número ya está asignado, no hacemos nada.
+                        // Si el número ya está asignado, no hacemos nada.
                         return;
                     }
 
-                    if (personNameInput.value.trim() !== '') {
+                    // Comportamiento dual: seleccionar vs. gestionar.
+                    // Si hay un nombre en el campo de texto, el clic selecciona/deselecciona.
+                    // Si no hay nombre, el clic abre el modal de gestión.
+                    const isAddingParticipant = personNameInput.value.trim() !== '';
+
+                    if (isAddingParticipant) {
+                        // Modo selección: El clic selecciona o deselecciona el número.
                         if (selectedNumbers.has(num)) {
                             selectedNumbers.delete(num);
                             numberBox.classList.remove('selected');
@@ -1540,6 +1440,14 @@
                             numberBox.classList.add('selected');
                         }
                     } else {
+                        // Modo gestión: El clic abre el modal para números libres.
+                        // Esto soluciona el problema original del usuario.
+                        if (selectedNumbers.has(num)) {
+                            // Si el número estaba seleccionado (ej. con +10), se deselecciona
+                            // para evitar conflictos antes de abrir el modal.
+                            selectedNumbers.delete(num);
+                            numberBox.classList.remove('selected');
+                        }
                         openFreeNumberModal(num);
                     }
                 });
@@ -1553,6 +1461,13 @@
                 alert('Por favor, introduce un nombre.');
                 return;
             }
+
+            // Sincronizar selectedNumbers desde el DOM para asegurar consistencia
+            selectedNumbers.clear();
+            const selectedBoxes = numbersContainer.querySelectorAll('.number-box.selected');
+            selectedBoxes.forEach(box => {
+                selectedNumbers.add(parseInt(box.dataset.number, 10));
+            });
 
             if (selectedNumbers.size === 0) {
                 alert('Por favor, selecciona al menos un número.');
@@ -1773,8 +1688,7 @@
             const data = {
                 participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
-                theme: themeSelector.value,
-                allNumbers: allNumbers
+                theme: themeSelector.value
             };
             const compressedData = btoa(JSON.stringify(data));
             localStorage.setItem('raffleData', compressedData);
@@ -1785,17 +1699,9 @@
             if (compressedData) {
                 try {
                     const decompressedData = JSON.parse(atob(compressedData));
-
-                    // Check for essential data. If it's missing, treat as invalid.
-                    if (!decompressedData.allNumbers || !Array.isArray(decompressedData.allNumbers) || decompressedData.allNumbers.length === 0) {
-                        // Data is invalid or from an old version. Reset.
-                        throw new Error("Invalid or old data format: allNumbers missing.");
-                    }
-
                     participants = decompressedData.participants || [];
                     assignedNumbers = new Set(decompressedData.assignedNumbers || []);
-                    allNumbers = decompressedData.allNumbers;
-                    
+
                     if (decompressedData.theme) {
                         themeSelector.value = decompressedData.theme;
                         applyTheme(decompressedData.theme);
@@ -1806,16 +1712,7 @@
                 } catch (e) {
                     console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
                     localStorage.removeItem('raffleData');
-
-                    // Reset state completely
-                    participants = [];
-                    assignedNumbers = new Set();
-                    generateNumbers(100);
-                    renderParticipants();
                 }
-            } else {
-                generateNumbers(100);
-                renderParticipants();
             }
         }
 
@@ -1823,8 +1720,7 @@
             const data = {
                 participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
-                theme: themeSelector.value,
-                allNumbers: allNumbers
+                theme: themeSelector.value
             };
             const compressedData = btoa(JSON.stringify(data));
             savedCodeSpan.textContent = compressedData;
@@ -1836,10 +1732,9 @@
             if (code) {
                 try {
                     const decompressedData = JSON.parse(atob(code));
-                    participants = decompressedData.participants || [];
-                    assignedNumbers = new Set(decompressedData.assignedNumbers || []);
-                    allNumbers = decompressedData.allNumbers || [];
-
+                    participants = decompressedData.participants;
+                    assignedNumbers = new Set(decompressedData.assignedNumbers);
+                    
                     renderNumbers();
                     renderParticipants();
                     
@@ -1849,7 +1744,6 @@
                     }
                 } catch (e) {
                     alert('Código inválido.');
-                    console.error("Error al cargar desde el código:", e);
                 }
             }
         }
@@ -1861,7 +1755,6 @@
 
         function startMatrixAnimation() {
             if (matrixAnimationInterval) clearInterval(matrixAnimationInterval);
-            if (!matrixCanvas) return;
 
             matrixCanvas.width = window.innerWidth;
             matrixCanvas.height = window.innerHeight;
@@ -1892,6 +1785,7 @@
                     drops[i]++;
                 }
             }
+
             matrixAnimationInterval = setInterval(drawMatrix, 33);
         }
 
@@ -1914,6 +1808,7 @@
             document.body.className = '';
             document.body.classList.add(`${theme}-theme`);
             localStorage.setItem('selectedTheme', theme);
+
             if (theme === 'matrix') {
                 startMatrixAnimation();
             } else {
@@ -1921,18 +1816,19 @@
             }
         }
 
-        // --- Event Listeners ---
+        themeSelector.addEventListener('change', (event) => {
+            applyTheme(event.target.value);
+        });
+
         document.addEventListener('DOMContentLoaded', () => {
             const savedTheme = localStorage.getItem('selectedTheme') || 'default';
             themeSelector.value = savedTheme;
             applyTheme(savedTheme);
             loadFromLocalStorage();
+            generateNumbers(100);
         });
 
-        themeSelector.addEventListener('change', (event) => {
-            applyTheme(event.target.value);
-        });
-
+        // --- Event Listeners ---
         addButton.addEventListener('click', addParticipant);
         clearButton.addEventListener('click', clearSelection);
         sorteoButton.addEventListener('click', realizarSorteo);
@@ -1942,10 +1838,39 @@
         saveDataButton.addEventListener('click', generateSaveCode);
         loadDataButton.addEventListener('click', loadFromCode);
         deleteUnsoldButton.addEventListener('click', deleteUnassignedNumbers);
-        
-        // --- Modal Buttons ---
-        modalCancelButton1.addEventListener('click', closeFreeNumberModal);
-        modalCancelButton2.addEventListener('click', closeFreeNumberModal);
-        modalCancelButton3.addEventListener('click', closeFreeNumberModal);
+        modalCancelButton.addEventListener('click', closeFreeNumberModal);
         modalDeleteButton.addEventListener('click', deleteSingleNumber);
-        modalAssignNewButton.addEventListener('click', () => showModalStep(2));
+        modalAssignButton.addEventListener('click', assignNumberToParticipant);
+
+        numbersContainer.addEventListener('scroll', () => {
+            if (isLoading) return;
+
+            if (numbersContainer.scrollTop + numbersContainer.clientHeight >= numbersContainer.scrollHeight - 5) {
+                isLoading = true;
+                addMoreNumbers(100);
+                isLoading = false;
+            }
+        });
+    </script>
+
+    <!-- Modal para gestionar número libre -->
+    <div id="free-number-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 id="modal-title">Gestionar Número #<span id="modal-number"></span></h3>
+            <div class="form-group">
+                <label for="assign-to-participant-select">Asignar a un participante existente:</label>
+                <select id="assign-to-participant-select">
+                    <!-- Opciones se llenarán con JS -->
+                </select>
+            </div>
+            <div class="button-group">
+                <button id="modal-assign-button">Asignar</button>
+                <button id="modal-delete-button" class="delete-button">Eliminar Número</button>
+                <button id="modal-cancel-button" class="cancel-button">Cancelar</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+
+Cheka el código nose q tiene de malo, no me deja agregar participando nuevo
