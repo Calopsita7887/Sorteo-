@@ -1421,12 +1421,34 @@
 
                 numberBox.addEventListener('click', () => {
                     if (assignedNumbers.has(num)) {
-                        return; // Do nothing for assigned numbers
+                        // Si el número ya está asignado, no hacemos nada.
+                        return;
                     }
 
-                    // If a free number is clicked, open the modal
-                    if (!selectedNumbers.has(num)) {
-                         openFreeNumberModal(num);
+                    // Comportamiento dual: seleccionar vs. gestionar.
+                    // Si hay un nombre en el campo de texto, el clic selecciona/deselecciona.
+                    // Si no hay nombre, el clic abre el modal de gestión.
+                    const isAddingParticipant = personNameInput.value.trim() !== '';
+
+                    if (isAddingParticipant) {
+                        // Modo selección: El clic selecciona o deselecciona el número.
+                        if (selectedNumbers.has(num)) {
+                            selectedNumbers.delete(num);
+                            numberBox.classList.remove('selected');
+                        } else {
+                            selectedNumbers.add(num);
+                            numberBox.classList.add('selected');
+                        }
+                    } else {
+                        // Modo gestión: El clic abre el modal para números libres.
+                        // Esto soluciona el problema original del usuario.
+                        if (selectedNumbers.has(num)) {
+                            // Si el número estaba seleccionado (ej. con +10), se deselecciona
+                            // para evitar conflictos antes de abrir el modal.
+                            selectedNumbers.delete(num);
+                            numberBox.classList.remove('selected');
+                        }
+                        openFreeNumberModal(num);
                     }
                 });
                 numbersContainer.appendChild(numberBox);
