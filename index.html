@@ -1090,7 +1090,7 @@
             }
         }
 
-        /* --- ESTILOS PARA EL MODAL --- */
+        /* --- ESTILOS PARA EL MODAL DE NUMERO LIBRE --- */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -1142,7 +1142,6 @@
             display: flex;
             justify-content: center;
         }
-
         .modal-content .button-group button {
             width: auto;
             flex-grow: 0;
@@ -1221,10 +1220,10 @@
         .matrix-theme .modal-content h3 { color: #0f0; }
         .matrix-theme .modal-content select, .matrix-theme .modal-content input { background-color: #000; color: #0f0; border: 1px solid #0f0; }
 
-        .modal-step-1, .modal-step-2 {
+        .modal-step {
             display: none;
         }
-        .modal-step-1.active, .modal-step-2.active {
+        .modal-step.active {
             display: block;
         }
     </style>
@@ -1318,17 +1317,63 @@
         const deleteUnsoldButton = document.getElementById('delete-unsold-button');
         
         // --- Modal Elements ---
-        const freeNumberModal = document.getElementById('free-number-modal');
+        const freeNumberModal = document.createElement('div');
+        freeNumberModal.className = 'modal-overlay';
+        freeNumberModal.id = 'free-number-modal';
+        freeNumberModal.innerHTML = `
+            <div class="modal-content">
+                <h3>Gestionar Número #<span id="modal-number"></span></h3>
+                <div id="modal-step-1" class="modal-step active">
+                    <div class="button-group">
+                        <button id="modal-assign-existing-button">Asignar a existente</button>
+                        <button id="modal-assign-new-button">Asignar a nuevo</button>
+                    </div>
+                    <div class="button-group">
+                        <button id="modal-delete-button" class="delete-button">Eliminar</button>
+                        <button id="modal-cancel-button" class="cancel-button">Cancelar</button>
+                    </div>
+                </div>
+
+                <div id="modal-step-2" class="modal-step">
+                    <div class="form-group">
+                        <label for="new-participant-name">Nombre del nuevo participante:</label>
+                        <input type="text" id="new-participant-name" placeholder="Escribe el nombre aquí">
+                    </div>
+                    <div class="button-group">
+                        <button id="modal-create-new-button">Crear y Asignar</button>
+                        <button id="modal-cancel-button-2" class="cancel-button">Cancelar</button>
+                    </div>
+                </div>
+
+                <div id="modal-step-3" class="modal-step">
+                    <div class="form-group">
+                        <label for="assign-to-participant-select">Selecciona un participante:</label>
+                        <select id="assign-to-participant-select"></select>
+                    </div>
+                    <div class="button-group">
+                        <button id="modal-confirm-assign-button">Confirmar Asignación</button>
+                        <button id="modal-cancel-button-3">Cancelar</button>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.body.appendChild(freeNumberModal);
+
         const modalNumberSpan = document.getElementById('modal-number');
-        const assignToParticipantSelect = document.getElementById('assign-to-participant-select');
-        const modalAssignExistingButton = document.getElementById('modal-assign-existing-button');
-        const modalAssignNewButton = document.getElementById('modal-assign-new-button');
-        const modalDeleteButton = document.getElementById('modal-delete-button');
-        const modalCancelButton = document.getElementById('modal-cancel-button');
         const modalStep1 = document.getElementById('modal-step-1');
         const modalStep2 = document.getElementById('modal-step-2');
+        const modalStep3 = document.getElementById('modal-step-3');
+        const modalDeleteButton = document.getElementById('modal-delete-button');
+        const modalAssignExistingButton = document.getElementById('modal-assign-existing-button');
+        const modalAssignNewButton = document.getElementById('modal-assign-new-button');
+        const assignToParticipantSelect = document.getElementById('assign-to-participant-select');
         const newParticipantNameInput = document.getElementById('new-participant-name');
         const modalCreateNewButton = document.getElementById('modal-create-new-button');
+        const modalConfirmAssignButton = document.getElementById('modal-confirm-assign-button');
+        const modalCancelButton1 = document.getElementById('modal-cancel-button');
+        const modalCancelButton2 = document.getElementById('modal-cancel-button-2');
+        const modalCancelButton3 = document.getElementById('modal-cancel-button-3');
+
 
         let currentNumberInModal = null;
         let allNumbers = [];
@@ -1370,25 +1415,30 @@
         }
         
         function showModalStep(step) {
+            modalStep1.classList.remove('active');
+            modalStep2.classList.remove('active');
+            modalStep3.classList.remove('active');
             if (step === 1) {
                 modalStep1.classList.add('active');
-                modalStep2.classList.remove('active');
             } else if (step === 2) {
-                modalStep1.classList.remove('active');
                 modalStep2.classList.add('active');
+            } else if (step === 3) {
+                modalStep3.classList.add('active');
             }
+            // Aseguramos que los botones de cancelar cierren el modal
+            modalCancelButton1.onclick = closeFreeNumberModal;
+            modalCancelButton2.onclick = closeFreeNumberModal;
+            modalCancelButton3.onclick = closeFreeNumberModal;
         }
 
         function deleteSingleNumber() {
             if (currentNumberInModal === null) return;
+            const numberToDelete = currentNumberInModal;
 
-            if (confirm(`¿Estás seguro de que quieres eliminar el número ${currentNumberInModal}? Esta acción no se puede deshacer.`)) {
-                const numberToDelete = currentNumberInModal;
-
+            if (confirm(`¿Estás seguro de que quieres eliminar el número ${numberToDelete}? Esta acción no se puede deshacer.`)) {
                 allNumbers = allNumbers.filter(num => num !== numberToDelete);
                 assignedNumbers.delete(numberToDelete);
                 selectedNumbers.delete(numberToDelete);
-
                 renderNumbers();
                 saveToLocalStorage();
                 closeFreeNumberModal();
@@ -1398,26 +1448,24 @@
 
         function populateParticipantsDropdown() {
             assignToParticipantSelect.innerHTML = '';
-
             if (participants.length === 0) {
                 const option = document.createElement('option');
                 option.textContent = 'No hay participantes todavía';
                 option.disabled = true;
                 assignToParticipantSelect.appendChild(option);
-                modalAssignExistingButton.disabled = true;
+                modalConfirmAssignButton.disabled = true;
             } else {
                 const placeholder = document.createElement('option');
                 placeholder.textContent = 'Selecciona un participante...';
                 placeholder.value = '';
                 assignToParticipantSelect.appendChild(placeholder);
-
                 participants.forEach((person, index) => {
                     const option = document.createElement('option');
                     option.value = index;
                     option.textContent = person.name;
                     assignToParticipantSelect.appendChild(option);
                 });
-                modalAssignExistingButton.disabled = false;
+                modalConfirmAssignButton.disabled = false;
             }
         }
 
@@ -1492,7 +1540,6 @@
                             numberBox.classList.add('selected');
                         }
                     } else {
-                        // Si no hay nombre en el input, el clic abre el modal
                         openFreeNumberModal(num);
                     }
                 });
@@ -1623,3 +1670,268 @@
             const allAssignedNumbers = Array.from(assignedNumbers);
             if (allAssignedNumbers.length === 0) {
                 alert('No hay números asignados para sortear.');
+                return;
+            }
+
+            sorteoButton.disabled = true;
+            clearButton.disabled = true;
+
+            ganadorNombre.textContent = '';
+            ganadorNumero.textContent = '';
+            countdownTimer.style.display = 'block';
+
+            let countdown = 3;
+            const countdownInterval = setInterval(() => {
+                countdownTimer.textContent = countdown;
+                if (countdown === 0) {
+                    clearInterval(countdownInterval);
+                    countdownTimer.style.display = 'none';
+                    rollRandomNumber(allAssignedNumbers);
+                }
+                countdown--;
+            }, 1000);
+        }
+
+        function rollRandomNumber(numbersPool) {
+            let rollCount = 0;
+            const maxRolls = 100;
+            const rollInterval = 50;
+
+            const finalWinnerNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
+
+            const rollingInterval = setInterval(() => {
+                const tempNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
+                ganadorNumero.textContent = tempNumber;
+
+                // Animar el número mientras se "sortea"
+                ganadorNumero.classList.add('sorteo-running');
+
+                rollCount++;
+                if (rollCount >= maxRolls) {
+                    clearInterval(rollingInterval);
+                    ganadorNumero.classList.remove('sorteo-running');
+                    showWinner(finalWinnerNumber);
+                }
+            }, rollInterval);
+        }
+
+        function showWinner(winnerNumber) {
+            const winner = participants.find(p => p.numbers.includes(winnerNumber));
+            const winningPersonName = winner ? winner.name : 'Desconocido';
+
+            ganadorNombre.textContent = winningPersonName;
+            ganadorNumero.textContent = winnerNumber;
+            
+            ganadorNombre.classList.add('ganador-zoom');
+            ganadorNumero.classList.add('ganador-zoom');
+
+            setTimeout(() => {
+                ganadorNombre.classList.remove('ganador-zoom');
+                ganadorNumero.classList.remove('ganador-zoom');
+            }, 1000);
+
+            // Resaltar el número ganador
+            const winningNumberBox = document.querySelector(`.number-box[data-number="${winnerNumber}"]`);
+            if (winningNumberBox) {
+                winningNumberBox.classList.add('resaltado');
+            }
+
+            createConfetti();
+
+            sorteoButton.disabled = false;
+            clearButton.disabled = false;
+            saveToLocalStorage();
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = `${Math.random() * 100}%`;
+                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
+                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
+                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
+                document.body.appendChild(confetti);
+
+                confetti.addEventListener('animationend', () => {
+                    confetti.remove();
+                });
+            }
+        }
+
+        function deleteUnassignedNumbers() {
+            if (confirm('¿Estás seguro de que quieres eliminar todos los números libres? Esta acción no se puede deshacer y solo conservará los números ya vendidos.')) {
+                allNumbers = allNumbers.filter(num => assignedNumbers.has(num));
+                renderNumbers();
+                saveToLocalStorage();
+                alert('Se han eliminado todos los números libres.');
+            }
+        }
+
+        // --- Funcionalidad de Guardado y Carga ---
+        function saveToLocalStorage() {
+            const data = {
+                participants: participants,
+                assignedNumbers: Array.from(assignedNumbers),
+                theme: themeSelector.value,
+                allNumbers: allNumbers
+            };
+            const compressedData = btoa(JSON.stringify(data));
+            localStorage.setItem('raffleData', compressedData);
+        }
+
+        function loadFromLocalStorage() {
+            const compressedData = localStorage.getItem('raffleData');
+            if (compressedData) {
+                try {
+                    const decompressedData = JSON.parse(atob(compressedData));
+                    participants = decompressedData.participants || [];
+                    assignedNumbers = new Set(decompressedData.assignedNumbers || []);
+                    allNumbers = decompressedData.allNumbers || [];
+                    
+                    if (decompressedData.theme) {
+                        themeSelector.value = decompressedData.theme;
+                        applyTheme(decompressedData.theme);
+                    }
+                
+                    renderNumbers();
+                    renderParticipants();
+                } catch (e) {
+                    console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
+                    localStorage.removeItem('raffleData');
+                }
+            } else {
+                generateNumbers(100);
+            }
+        }
+
+        function generateSaveCode() {
+            const data = {
+                participants: participants,
+                assignedNumbers: Array.from(assignedNumbers),
+                theme: themeSelector.value,
+                allNumbers: allNumbers
+            };
+            const compressedData = btoa(JSON.stringify(data));
+            savedCodeSpan.textContent = compressedData;
+            saveCodeContainer.style.display = 'block';
+        }
+
+        function loadFromCode() {
+            const code = prompt('Introduce el código de guardado:');
+            if (code) {
+                try {
+                    const decompressedData = JSON.parse(atob(code));
+                    participants = decompressedData.participants || [];
+                    assignedNumbers = new Set(decompressedData.assignedNumbers || []);
+                    allNumbers = decompressedData.allNumbers || [];
+
+                    renderNumbers();
+                    renderParticipants();
+                    
+                    if (decompressedData.theme) {
+                        themeSelector.value = decompressedData.theme;
+                        applyTheme(decompressedData.theme);
+                    }
+                } catch (e) {
+                    alert('Código inválido.');
+                    console.error("Error al cargar desde el código:", e);
+                }
+            }
+        }
+
+        // --- Lógica del Tema Matrix ---
+        const matrixCanvas = document.getElementById('matrix-canvas');
+        const matrixCtx = matrixCanvas.getContext('2d');
+        let matrixAnimationInterval;
+
+        function startMatrixAnimation() {
+            if (matrixAnimationInterval) clearInterval(matrixAnimationInterval);
+            if (!matrixCanvas) return;
+
+            matrixCanvas.width = window.innerWidth;
+            matrixCanvas.height = window.innerHeight;
+
+            const letters = '0123456789';
+            const fontSize = 16;
+            const columns = matrixCanvas.width / fontSize;
+
+            const drops = [];
+            for (let x = 0; x < columns; x++) {
+                drops[x] = 1;
+            }
+
+            function drawMatrix() {
+                matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+                matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+
+                matrixCtx.fillStyle = '#0f0';
+                matrixCtx.font = fontSize + 'px arial';
+
+                for (let i = 0; i < drops.length; i++) {
+                    const text = letters.charAt(Math.floor(Math.random() * letters.length));
+                    matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
+
+                    if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
+                        drops[i] = 0;
+                    }
+                    drops[i]++;
+                }
+            }
+            matrixAnimationInterval = setInterval(drawMatrix, 33);
+        }
+
+        function stopMatrixAnimation() {
+            if (matrixAnimationInterval) {
+                clearInterval(matrixAnimationInterval);
+                matrixAnimationInterval = null;
+                matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
+            }
+        }
+
+        window.addEventListener('resize', () => {
+            if (document.body.classList.contains('matrix-theme')) {
+                startMatrixAnimation();
+            }
+        });
+
+        // --- Manejo de Temas ---
+        function applyTheme(theme) {
+            document.body.className = '';
+            document.body.classList.add(`${theme}-theme`);
+            localStorage.setItem('selectedTheme', theme);
+            if (theme === 'matrix') {
+                startMatrixAnimation();
+            } else {
+                stopMatrixAnimation();
+            }
+        }
+
+        // --- Event Listeners ---
+        document.addEventListener('DOMContentLoaded', () => {
+            const savedTheme = localStorage.getItem('selectedTheme') || 'default';
+            themeSelector.value = savedTheme;
+            applyTheme(savedTheme);
+            loadFromLocalStorage();
+        });
+
+        themeSelector.addEventListener('change', (event) => {
+            applyTheme(event.target.value);
+        });
+
+        addButton.addEventListener('click', addParticipant);
+        clearButton.addEventListener('click', clearSelection);
+        sorteoButton.addEventListener('click', realizarSorteo);
+        add10Button.addEventListener('click', () => selectRange(10));
+        add25Button.addEventListener('click', () => selectRange(25));
+        add50Button.addEventListener('click', () => selectRange(50));
+        saveDataButton.addEventListener('click', generateSaveCode);
+        loadDataButton.addEventListener('click', loadFromCode);
+        deleteUnsoldButton.addEventListener('click', deleteUnassignedNumbers);
+        
+        // --- Modal Buttons ---
+        modalCancelButton1.addEventListener('click', closeFreeNumberModal);
+        modalCancelButton2.addEventListener('click', closeFreeNumberModal);
+        modalCancelButton3.addEventListener('click', closeFreeNumberModal);
+        modalDeleteButton.addEventListener('click', deleteSingleNumber);
+        modalAssignNewButton.addEventListener('click', () => showModalStep(2));
