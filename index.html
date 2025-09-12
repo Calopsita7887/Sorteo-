@@ -982,12 +982,18 @@
         }
 
         // --- Lógica de Búsqueda ---
+        function clearHighlight() {
+            const highlighted = participantsList.querySelector('.person-entry.highlight');
+            if (highlighted) {
+                highlighted.classList.remove('highlight');
+            }
+        }
+
         function searchByNumber() {
-            clearSearch();
+            clearHighlight(); // Corrected: only clears previous highlight
             const numberToFind = parseInt(searchInput.value.trim(), 10);
 
             if (isNaN(numberToFind)) {
-                // No alert for empty input, just return silently
                 if (searchInput.value.trim() !== '') {
                     alert('Por favor, introduce un número válido.');
                 }
@@ -1015,10 +1021,7 @@
         }
 
         function clearSearch() {
-            const highlighted = participantsList.querySelector('.person-entry.highlight');
-            if (highlighted) {
-                highlighted.classList.remove('highlight');
-            }
+            clearHighlight();
             searchInput.value = '';
         }
 
