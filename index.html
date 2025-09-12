@@ -1089,6 +1089,121 @@
                 grid-template-columns: repeat(15, 1fr);
             }
         }
+
+        /* --- ESTILOS PARA EL MODAL --- */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background-color: #1e1e1e;
+            padding: 25px;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.6);
+            border: 1px solid #444;
+            width: 90%;
+            max-width: 400px;
+            text-align: center;
+        }
+
+        .modal-content h3 {
+            margin-top: 0;
+            color: #7aa5d2;
+        }
+
+        .modal-content .form-group {
+            margin-bottom: 20px;
+        }
+
+        .modal-content select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #444;
+            border-radius: 4px;
+            font-size: 16px;
+            background-color: #252525;
+            color: #e0e0e0;
+        }
+
+        .modal-content .button-group {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .modal-content .button-group button {
+            width: auto;
+            flex-grow: 0;
+            margin: 0 10px;
+        }
+
+        #modal-delete-button {
+            background-color: #b86a6a;
+        }
+        #modal-delete-button:hover {
+            background-color: #a35c5c;
+        }
+
+        #modal-cancel-button {
+            background-color: #8c8c8c;
+        }
+        #modal-cancel-button:hover {
+            background-color: #7a7a7a;
+        }
+
+        /* Adaptaciones para temas */
+        .cosmic-theme .modal-content {
+            background-color: #1a0033;
+            border-color: #5d00a0;
+        }
+        .cosmic-theme .modal-content h3 { color: #d495ff; }
+        .cosmic-theme .modal-content select { background-color: #220044; color: #a0d4ff; border-color: #4b0082; }
+
+        .neon-theme .modal-content {
+            background-color: #1a1a2a;
+            border-color: #64ffda;
+            box-shadow: 0 0 20px 5px rgba(100, 255, 255, 0.4);
+        }
+        .neon-theme .modal-content h3 { color: #ff00ff; }
+        .neon-theme .modal-content select { background-color: #333344; color: #64ffda; border-color: #64ffda; }
+
+        .pastel-theme .modal-content {
+            background-color: #fff0f3;
+            border-color: #b57edc;
+        }
+        .pastel-theme .modal-content h3 { color: #ff66a4; }
+        .pastel-theme .modal-content label { color: #9381ff; }
+        .pastel-theme .modal-content select { background-color: #fff8f8; color: #5e548e; border-color: #b57edc; }
+
+        .celuapuestas-theme .modal-content {
+            background-color: #20202d;
+            border-color: #333344;
+        }
+        .celuapuestas-theme .modal-content h3 { color: #62B4E9; }
+        .celuapuestas-theme .modal-content select { background-color: #12121b; color: #f0f0f0; border-color: #444; }
+
+        .simple-dark-theme .modal-content {
+            background-color: #1e1e1e;
+            border-color: #333;
+        }
+        .simple-dark-theme .modal-content h3 { color: #7aa5d2; }
+        .simple-dark-theme .modal-content select { background-color: #252525; color: #e0e0e0; border-color: #444; }
+
+        .matrix-theme .modal-content {
+            background-color: rgba(0, 0, 0, 0.85);
+            border-color: #0f0;
+        }
+        .matrix-theme .modal-content h3 { color: #0f0; }
+        .matrix-theme .modal-content select { background-color: #000; color: #0f0; border: 1px solid #0f0; }
     </style>
 </head>
 <body>
@@ -1179,6 +1294,15 @@
         const themeSelector = document.getElementById('theme-selector');
         const deleteUnsoldButton = document.getElementById('delete-unsold-button');
         
+        // --- Modal Elements ---
+        const freeNumberModal = document.getElementById('free-number-modal');
+        const modalNumberSpan = document.getElementById('modal-number');
+        const assignToParticipantSelect = document.getElementById('assign-to-participant-select');
+        const modalAssignButton = document.getElementById('modal-assign-button');
+        const modalDeleteButton = document.getElementById('modal-delete-button');
+        const modalCancelButton = document.getElementById('modal-cancel-button');
+
+        let currentNumberInModal = null;
         let allNumbers = [];
         let assignedNumbers = new Set();
         let selectedNumbers = new Set();
@@ -1203,6 +1327,83 @@
             saveToLocalStorage();
         }
 
+        function openFreeNumberModal(number) {
+            currentNumberInModal = number;
+            modalNumberSpan.textContent = number;
+            populateParticipantsDropdown();
+            freeNumberModal.style.display = 'flex';
+        }
+
+        function closeFreeNumberModal() {
+            currentNumberInModal = null;
+            freeNumberModal.style.display = 'none';
+        }
+
+        function deleteSingleNumber() {
+            if (currentNumberInModal === null) return;
+
+            if (confirm(`¿Estás seguro de que quieres eliminar el número ${currentNumberInModal}? Esta acción no se puede deshacer.`)) {
+                const numberToDelete = currentNumberInModal;
+
+                allNumbers = allNumbers.filter(num => num !== numberToDelete);
+                assignedNumbers.delete(numberToDelete);
+                selectedNumbers.delete(numberToDelete);
+
+                renderNumbers();
+                saveToLocalStorage();
+                closeFreeNumberModal();
+                alert(`El número ${numberToDelete} ha sido eliminado.`);
+            }
+        }
+
+        function populateParticipantsDropdown() {
+            assignToParticipantSelect.innerHTML = '';
+
+            if (participants.length === 0) {
+                const option = document.createElement('option');
+                option.textContent = 'No hay participantes todavía';
+                option.disabled = true;
+                assignToParticipantSelect.appendChild(option);
+                modalAssignButton.disabled = true;
+            } else {
+                const placeholder = document.createElement('option');
+                placeholder.textContent = 'Selecciona un participante...';
+                placeholder.value = '';
+                assignToParticipantSelect.appendChild(placeholder);
+
+                participants.forEach((person, index) => {
+                    const option = document.createElement('option');
+                    option.value = index;
+                    option.textContent = person.name;
+                    assignToParticipantSelect.appendChild(option);
+                });
+                modalAssignButton.disabled = false;
+            }
+        }
+
+        function assignNumberToParticipant() {
+            const selectedParticipantIndex = assignToParticipantSelect.value;
+
+            if (selectedParticipantIndex === '' || currentNumberInModal === null) {
+                alert('Por favor, selecciona un participante.');
+                return;
+            }
+
+            const participant = participants[selectedParticipantIndex];
+            const numberToAssign = currentNumberInModal;
+
+            participant.numbers.push(numberToAssign);
+            participant.numbers.sort((a, b) => a - b);
+            assignedNumbers.add(numberToAssign);
+
+            renderNumbers();
+            renderParticipants();
+            saveToLocalStorage();
+            closeFreeNumberModal();
+
+            alert(`El número ${numberToAssign} ha sido asignado a ${participant.name}.`);
+        }
+
         function renderNumbers() {
             numbersContainer.innerHTML = '';
             allNumbers.forEach(num => {
@@ -1219,14 +1420,13 @@
                 }
 
                 numberBox.addEventListener('click', () => {
-                    if (!assignedNumbers.has(num)) {
-                        if (selectedNumbers.has(num)) {
-                            selectedNumbers.delete(num);
-                            numberBox.classList.remove('selected');
-                        } else {
-                            selectedNumbers.add(num);
-                            numberBox.classList.add('selected');
-                        }
+                    if (assignedNumbers.has(num)) {
+                        return; // Do nothing for assigned numbers
+                    }
+
+                    // If a free number is clicked, open the modal
+                    if (!selectedNumbers.has(num)) {
+                         openFreeNumberModal(num);
                     }
                 });
                 numbersContainer.appendChild(numberBox);
@@ -1608,6 +1808,9 @@
         saveDataButton.addEventListener('click', generateSaveCode);
         loadDataButton.addEventListener('click', loadFromCode);
         deleteUnsoldButton.addEventListener('click', deleteUnassignedNumbers);
+        modalCancelButton.addEventListener('click', closeFreeNumberModal);
+        modalDeleteButton.addEventListener('click', deleteSingleNumber);
+        modalAssignButton.addEventListener('click', assignNumberToParticipant);
 
         numbersContainer.addEventListener('scroll', () => {
             if (isLoading) return;
@@ -1619,5 +1822,23 @@
             }
         });
     </script>
+
+    <!-- Modal para gestionar número libre -->
+    <div id="free-number-modal" class="modal-overlay" style="display: none;">
+        <div class="modal-content">
+            <h3 id="modal-title">Gestionar Número #<span id="modal-number"></span></h3>
+            <div class="form-group">
+                <label for="assign-to-participant-select">Asignar a un participante existente:</label>
+                <select id="assign-to-participant-select">
+                    <!-- Opciones se llenarán con JS -->
+                </select>
+            </div>
+            <div class="button-group">
+                <button id="modal-assign-button">Asignar</button>
+                <button id="modal-delete-button" class="delete-button">Eliminar Número</button>
+                <button id="modal-cancel-button" class="cancel-button">Cancelar</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
