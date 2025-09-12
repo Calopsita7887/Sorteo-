@@ -1785,9 +1785,16 @@
             if (compressedData) {
                 try {
                     const decompressedData = JSON.parse(atob(compressedData));
+
+                    // Check for essential data. If it's missing, treat as invalid.
+                    if (!decompressedData.allNumbers || !Array.isArray(decompressedData.allNumbers) || decompressedData.allNumbers.length === 0) {
+                        // Data is invalid or from an old version. Reset.
+                        throw new Error("Invalid or old data format: allNumbers missing.");
+                    }
+
                     participants = decompressedData.participants || [];
                     assignedNumbers = new Set(decompressedData.assignedNumbers || []);
-                    allNumbers = decompressedData.allNumbers || [];
+                    allNumbers = decompressedData.allNumbers;
                     
                     if (decompressedData.theme) {
                         themeSelector.value = decompressedData.theme;
@@ -1799,9 +1806,16 @@
                 } catch (e) {
                     console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
                     localStorage.removeItem('raffleData');
+
+                    // Reset state completely
+                    participants = [];
+                    assignedNumbers = new Set();
+                    generateNumbers(100);
+                    renderParticipants();
                 }
             } else {
                 generateNumbers(100);
+                renderParticipants();
             }
         }
 
