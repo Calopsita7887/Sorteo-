@@ -991,6 +991,11 @@
                 <button id="add-25-button">+25</button>
                 <button id="add-50-button">+50</button>
             </div>
+            <div class="range-buttons">
+                <button id="add-100-more-button">+100 Números</button>
+                <button id="add-500-more-button">+500 Números</button>
+                <button id="add-1000-more-button">+1000 Números</button>
+            </div>
             <div class="button-group">
                 <button id="add-button">Añadir Participante</button>
                 <button id="clear-button">Limpiar Selección</button>
@@ -1045,6 +1050,9 @@
         const add10Button = document.getElementById('add-10-button');
         const add25Button = document.getElementById('add-25-button');
         const add50Button = document.getElementById('add-50-button');
+        const add100MoreButton = document.getElementById('add-100-more-button');
+        const add500MoreButton = document.getElementById('add-500-more-button');
+        const add1000MoreButton = document.getElementById('add-1000-more-button');
         const saveDataButton = document.getElementById('save-data-button');
         const loadDataButton = document.getElementById('load-data-button');
         const saveCodeContainer = document.getElementById('save-code-container');
@@ -1064,6 +1072,15 @@
         function generateNumbers(count = 100) {
             allNumbers = Array.from({ length: count }, (_, i) => i + 1);
             renderNumbers();
+        }
+
+        function addMoreNumbers(count) {
+            const currentMax = allNumbers.length > 0 ? Math.max(...allNumbers) : 0;
+            for (let i = 1; i <= count; i++) {
+                allNumbers.push(currentMax + i);
+            }
+            renderNumbers();
+            saveToLocalStorage();
         }
 
         function renderNumbers() {
@@ -1493,6 +1510,9 @@
         add10Button.addEventListener('click', () => selectRange(10));
         add25Button.addEventListener('click', () => selectRange(25));
         add50Button.addEventListener('click', () => selectRange(50));
+        add100MoreButton.addEventListener('click', () => addMoreNumbers(100));
+        add500MoreButton.addEventListener('click', () => addMoreNumbers(500));
+        add1000MoreButton.addEventListener('click', () => addMoreNumbers(1000));
         saveDataButton.addEventListener('click', generateSaveCode);
         loadDataButton.addEventListener('click', loadFromCode);
     </script>
