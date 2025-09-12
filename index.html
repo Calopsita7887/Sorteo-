@@ -1136,6 +1136,7 @@
         
         <div class="button-group hide-on-edit-mode">
             <button id="sorteo-button">Realizar Sorteo</button>
+            <button id="delete-unsold-button">Eliminar Libres</button>
             <button id="save-data-button">Guardar Datos</button>
             <button id="load-data-button">Cargar Datos</button>
         </div>
@@ -1176,6 +1177,7 @@
         const saveCodeContainer = document.getElementById('save-code-container');
         const savedCodeSpan = document.getElementById('saved-code');
         const themeSelector = document.getElementById('theme-selector');
+        const deleteUnsoldButton = document.getElementById('delete-unsold-button');
         
         let allNumbers = [];
         let assignedNumbers = new Set();
@@ -1442,6 +1444,15 @@
             }
         }
 
+        function deleteUnassignedNumbers() {
+            if (confirm('¿Estás seguro de que quieres eliminar todos los números libres? Esta acción no se puede deshacer y solo conservará los números ya vendidos.')) {
+                allNumbers = allNumbers.filter(num => assignedNumbers.has(num));
+                renderNumbers();
+                saveToLocalStorage();
+                alert('Se han eliminado todos los números libres.');
+            }
+        }
+
         // --- Funcionalidad de Guardado y Carga ---
         function saveToLocalStorage() {
             const data = {
@@ -1596,6 +1607,7 @@
         add50Button.addEventListener('click', () => selectRange(50));
         saveDataButton.addEventListener('click', generateSaveCode);
         loadDataButton.addEventListener('click', loadFromCode);
+        deleteUnsoldButton.addEventListener('click', deleteUnassignedNumbers);
 
         numbersContainer.addEventListener('scroll', () => {
             if (isLoading) return;
