@@ -420,6 +420,7 @@
         </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.20.0/matter.min.js"></script>
     <script>
         const personNameInput = document.getElementById('person-name');
         const numbersContainer = document.getElementById('numbers-container');
@@ -768,51 +769,117 @@
 
             const finalWinnerNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
             const animationDuration = 7000; // 7 seconds
-            const numAnimatedNumbers = 15;
+            const containerWidth = animationContainer.offsetWidth;
+            const containerHeight = animationContainer.offsetHeight;
 
-            for (let i = 0; i < numAnimatedNumbers; i++) {
-                const numberDiv = document.createElement('div');
-                numberDiv.classList.add('animated-number');
-                numberDiv.textContent = numbersPool[Math.floor(Math.random() * numbersPool.length)];
+            // module aliases
+            var Engine = Matter.Engine,
+                Render = Matter.Render,
+                Runner = Matter.Runner,
+                Bodies = Matter.Bodies,
+                Composite = Matter.Composite;
 
-                const x = Math.random() * (animationContainer.offsetWidth - 50);
-                const y = Math.random() * (animationContainer.offsetHeight - 50);
-                numberDiv.style.left = `${x}px`;
-                numberDiv.style.top = `${y}px`;
+            // create an engine
+            var engine = Engine.create();
+            engine.world.gravity.y = 0.1; // A bit of gravity to make it interesting
 
-                const randomDuration = Math.random() * 2 + 1; // 1s to 3s
-                const randomDelay = Math.random() * 1;
+            // create a renderer
+            var render = Render.create({
+                element: animationContainer,
+                engine: engine,
+                options: {
+                    width: containerWidth,
+                    height: containerHeight,
+                    wireframes: false, // We want to see the colors
+                    background: 'transparent'
+                }
+            });
 
-                // We'll create a dynamic animation for each element
-                const keyframes = `
-                    @keyframes shuffle-${i} {
-                        0% { transform: translate(0, 0) rotate(0deg); }
-                        25% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(720deg); }
-                        50% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(0deg); }
-                        75% { transform: translate(${Math.random() * 100 - 50}px, ${Math.random() * 100 - 50}px) rotate(-720deg); }
-                        100% { transform: translate(0, 0) rotate(0deg); }
-                    }
-                `;
+            // Create boundaries
+            const wallOptions = { isStatic: true, render: { visible: false } };
+            Composite.add(engine.world, [
+                Bodies.rectangle(containerWidth / 2, 5, containerWidth, 10, wallOptions), // Top
+                Bodies.rectangle(containerWidth / 2, containerHeight - 5, containerWidth, 10, wallOptions), // Bottom
+                Bodies.rectangle(5, containerHeight / 2, 10, containerHeight, wallOptions), // Left
+                Bodies.rectangle(containerWidth - 5, containerHeight / 2, 10, containerHeight, wallOptions) // Right
+            ]);
 
-                const styleSheet = document.createElement("style");
-                styleSheet.type = "text/css";
-                styleSheet.innerText = keyframes;
-                document.head.appendChild(styleSheet);
-
-                numberDiv.style.animation = `shuffle-${i} ${randomDuration}s ease-in-out ${randomDelay}s infinite alternate, spin 1.5s linear infinite`;
-
-                animationContainer.appendChild(numberDiv);
+            // Helper function to create a texture with the number
+            function createBallTexture(number) {
+                const canvas = document.createElement('canvas');
+                canvas.width = 50;
+                canvas.height = 50;
+                const context = canvas.getContext('2d');
+                context.beginPath();
+                context.arc(25, 25, 25, 0, 2 * Math.PI);
+                context.fillStyle = '#0f0'; // Green ball
+                context.fill();
+                context.fillStyle = '#000'; // Black text
+                context.font = 'bold 24px "Courier New"';
+                context.textAlign = 'center';
+                context.textBaseline = 'middle';
+                context.fillText(number, 25, 25);
+                return canvas.toDataURL();
             }
 
-            setTimeout(() => {
-                animationContainer.innerHTML = ''; // Clear animation
-                // Also remove the dynamically created stylesheets
-                const stylesheets = document.querySelectorAll('head > style');
-                stylesheets.forEach(sheet => {
-                    if (sheet.innerText.includes('@keyframes shuffle-')) {
-                        sheet.remove();
+            // Create balls
+            const balls = [];
+            const numBalls = Math.min(numbersPool.length, 30); // Limit to 30 balls for performance
+            let usedNumbers = new Set();
+
+            for (let i = 0; i < numBalls; i++) {
+                let number;
+                do {
+                    number = numbersPool[Math.floor(Math.random() * numbersPool.length)];
+                } while (usedNumbers.has(number));
+                usedNumbers.add(number);
+
+                const ball = Bodies.circle(
+                    Math.random() * (containerWidth - 60) + 30, // x
+                    Math.random() * (containerHeight - 60) + 30, // y
+                    25, // radius
+                    {
+                        restitution: 0.8, // bounciness
+                        friction: 0.01,
+                        frictionAir: 0.01,
+                        render: {
+                            sprite: {
+                                texture: createBallTexture(number),
+                                xScale: 1,
+                                yScale: 1
+                            }
+                        }
                     }
+                );
+                // Give it a random initial velocity
+                Matter.Body.setVelocity(ball, {
+                    x: (Math.random() - 0.5) * 15,
+                    y: (Math.random() - 0.5) * 15
                 });
+                balls.push(ball);
+            }
+
+            Composite.add(engine.world, balls);
+
+            // run the renderer
+            Render.run(render);
+
+            // create runner
+            var runner = Runner.create();
+
+            // run the engine
+            Runner.run(runner, engine);
+
+            setTimeout(() => {
+                // Stop the simulation
+                Runner.stop(runner);
+                Render.stop(render);
+                Composite.clear(engine.world, false);
+                Engine.clear(engine);
+                if (render.canvas) {
+                    render.canvas.remove();
+                }
+
                 showWinner(finalWinnerNumber);
             }, animationDuration);
         }
