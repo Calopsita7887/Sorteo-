@@ -776,12 +776,14 @@
             var Engine = Matter.Engine,
                 Render = Matter.Render,
                 Runner = Matter.Runner,
+                Events = Matter.Events,
+                Body = Matter.Body,
                 Bodies = Matter.Bodies,
                 Composite = Matter.Composite;
 
             // create an engine
             var engine = Engine.create();
-            engine.world.gravity.y = 0.1; // A bit of gravity to make it interesting
+            engine.world.gravity.y = 0; // No gravity
 
             // create a renderer
             var render = Render.create({
@@ -839,9 +841,9 @@
                     Math.random() * (containerHeight - 60) + 30, // y
                     25, // radius
                     {
-                        restitution: 0.8, // bounciness
-                        friction: 0.01,
-                        frictionAir: 0.01,
+                        restitution: 1, // bounciness
+                        friction: 0,
+                        frictionAir: 0,
                         render: {
                             sprite: {
                                 texture: createBallTexture(number),
@@ -852,7 +854,7 @@
                     }
                 );
                 // Give it a random initial velocity
-                Matter.Body.setVelocity(ball, {
+                Body.setVelocity(ball, {
                     x: (Math.random() - 0.5) * 15,
                     y: (Math.random() - 0.5) * 15
                 });
@@ -860,6 +862,18 @@
             }
 
             Composite.add(engine.world, balls);
+
+            // Keep balls moving
+            Events.on(engine, 'beforeUpdate', function(event) {
+                for (var i = 0; i < balls.length; i++) {
+                    var ball = balls[i];
+                    // Apply a small random force
+                    Body.applyForce(ball, ball.position, {
+                        x: (Math.random() - 0.5) * 0.001,
+                        y: (Math.random() - 0.5) * 0.001
+                    });
+                }
+            });
 
             // run the renderer
             Render.run(render);
