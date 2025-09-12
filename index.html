@@ -171,6 +171,24 @@
         .action-button:hover {
             color: #fff;
         }
+        .person-entry.highlight {
+            background-color: #0f0;
+            color: #000 !important;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 5px 0;
+            transition: all 0.3s ease;
+        }
+        .person-entry.highlight .person-name,
+        .person-entry.highlight .person-numbers {
+            color: #000;
+        }
+        .person-entry.highlight .action-button {
+            color: #000;
+        }
+        .person-entry.highlight .action-button:hover {
+            color: #333;
+        }
         #ganador-container {
             margin-top: 20px;
             text-align: center;
@@ -374,6 +392,14 @@
         
         <div id="results-container">
             <h2>Participantes</h2>
+            <div class="form-group">
+                <label for="search-input">Buscar por número:</label>
+                <div style="display: flex; gap: 10px;">
+                    <input type="text" id="search-input" placeholder="Introduce un número">
+                    <button id="search-button">Buscar</button>
+                    <button id="clear-search-button">Limpiar</button>
+                </div>
+            </div>
             <div id="participants-list"></div>
         </div>
         
@@ -441,6 +467,11 @@
         const loadDataButton = document.getElementById('load-data-button');
         const savedCodeSpan = document.getElementById('saved-code');
         const deleteUnsoldButton = document.getElementById('delete-unsold-button');
+
+        // Search Elements
+        const searchInput = document.getElementById('search-input');
+        const searchButton = document.getElementById('search-button');
+        const clearSearchButton = document.getElementById('clear-search-button');
         
         // Modal Elements
         const freeNumberModal = document.getElementById('free-number-modal');
@@ -950,6 +981,47 @@
             }
         }
 
+        // --- Lógica de Búsqueda ---
+        function searchByNumber() {
+            clearSearch();
+            const numberToFind = parseInt(searchInput.value.trim(), 10);
+
+            if (isNaN(numberToFind)) {
+                // No alert for empty input, just return silently
+                if (searchInput.value.trim() !== '') {
+                    alert('Por favor, introduce un número válido.');
+                }
+                return;
+            }
+
+            let foundParticipantIndex = -1;
+            for (let i = 0; i < participants.length; i++) {
+                if (participants[i].numbers.includes(numberToFind)) {
+                    foundParticipantIndex = i;
+                    break;
+                }
+            }
+
+            if (foundParticipantIndex !== -1) {
+                const participantElements = participantsList.querySelectorAll('.person-entry');
+                const participantElement = participantElements[foundParticipantIndex];
+                if (participantElement) {
+                    participantElement.classList.add('highlight');
+                    participantElement.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }
+            } else {
+                alert(`El número ${numberToFind} no está asignado a ningún participante.`);
+            }
+        }
+
+        function clearSearch() {
+            const highlighted = participantsList.querySelector('.person-entry.highlight');
+            if (highlighted) {
+                highlighted.classList.remove('highlight');
+            }
+            searchInput.value = '';
+        }
+
         // --- Funcionalidad de Guardado y Carga ---
         function saveToLocalStorage() {
             const data = {
@@ -1079,6 +1151,13 @@
         modalCancelButton.addEventListener('click', closeFreeNumberModal);
         modalDeleteButton.addEventListener('click', deleteSingleNumber);
         modalAssignButton.addEventListener('click', assignNumberToParticipant);
+        searchButton.addEventListener('click', searchByNumber);
+        clearSearchButton.addEventListener('click', clearSearch);
+        searchInput.addEventListener('keyup', (event) => {
+            if (event.key === 'Enter') {
+                searchByNumber();
+            }
+        });
 
     </script>
 </body>
