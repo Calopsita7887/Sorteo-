@@ -1461,6 +1461,14 @@
                 alert('Por favor, introduce un nombre.');
                 return;
             }
+
+            // Sincronizar selectedNumbers desde el DOM para asegurar consistencia
+            selectedNumbers.clear();
+            const selectedBoxes = numbersContainer.querySelectorAll('.number-box.selected');
+            selectedBoxes.forEach(box => {
+                selectedNumbers.add(parseInt(box.dataset.number, 10));
+            });
+
             if (selectedNumbers.size === 0) {
                 alert('Por favor, selecciona al menos un número.');
                 return;
