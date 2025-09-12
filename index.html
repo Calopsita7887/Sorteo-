@@ -919,15 +919,6 @@
         modalDeleteButton.addEventListener('click', deleteSingleNumber);
         modalAssignButton.addEventListener('click', assignNumberToParticipant);
 
-        numbersContainer.addEventListener('scroll', () => {
-            if (isLoading) return;
-
-            if (numbersContainer.scrollTop + numbersContainer.clientHeight >= numbersContainer.scrollHeight - 5) {
-                isLoading = true;
-                addMoreNumbers(100);
-                isLoading = false;
-            }
-        });
     </script>
 </body>
 </html>
