@@ -1099,9 +1099,9 @@
                 <option value="default">Clásico</option>
                 <option value="cosmic">Cósmico</option>
                 <option value="neon">Neon Party</option>
-                <option value="pastel">Sueños de Pastel</option>
+                <option value="pastel">Pastel Dreams</option>
                 <option value="celuapuestas">CeluApuestas</option>
-                <option value="simple-dark">Oscuro Simple</option>
+                <option value="simple-dark">Simple Dark</option>
                 <option value="matrix">Matrix</option>
             </select>
         </div>
@@ -1152,6 +1152,11 @@
             <div id="countdown-timer"></div>
         </div>
         
+        <div id="history-container">
+            <h2>Historial de Sorteos</h2>
+            <div id="history-list"></div>
+        </div>
+
         <p class="footer">
             <a href="https://www.redpilar.com.ar" target="_blank">CELUAPUESTAS</a> - RED PILAR - design by Clau Admin Calopsita
         </p>
@@ -1168,6 +1173,7 @@
         const ganadorNombre = document.getElementById('ganador-nombre');
         const ganadorNumero = document.getElementById('ganador-numero');
         const countdownTimer = document.getElementById('countdown-timer');
+        const historyList = document.getElementById('history-list');
         const add10Button = document.getElementById('add-10-button');
         const add25Button = document.getElementById('add-25-button');
         const add50Button = document.getElementById('add-50-button');
@@ -1181,6 +1187,7 @@
         let assignedNumbers = new Set();
         let selectedNumbers = new Set();
         let participants = [];
+        let history = [];
         
         let isEditing = false;
         let editingIndex = -1;
@@ -1349,6 +1356,11 @@
                 alert('No hay participantes para el sorteo.');
                 return;
             }
+            if (history.length > 0 && confirm('¿Deseas realizar otro sorteo? El historial será conservado.')) {
+                // Si el usuario confirma, no hacemos nada más que continuar con el sorteo.
+            } else if (history.length > 0) {
+                return; // Si el usuario cancela, no hacemos nada.
+            }
             
             const allAssignedNumbers = Array.from(assignedNumbers);
             if (allAssignedNumbers.length === 0) {
@@ -1419,11 +1431,34 @@
                 winningNumberBox.classList.add('resaltado');
             }
 
+            // Registrar en el historial
+            history.push({
+                winnerName: winningPersonName,
+                winnerNumber: winnerNumber,
+                timestamp: new Date().toLocaleString()
+            });
+
+            renderHistory();
             createConfetti();
 
             sorteoButton.disabled = false;
             clearButton.disabled = false;
             saveToLocalStorage();
+        }
+
+        function renderHistory() {
+            historyList.innerHTML = '';
+            history.forEach(entry => {
+                const historyEntry = document.createElement('div');
+                historyEntry.classList.add('history-entry');
+                historyEntry.innerHTML = `
+                    <div class="person-info">
+                        <div class="person-name">Ganador: ${entry.winnerName}</div>
+                        <div class="person-numbers">Número: ${entry.winnerNumber} (${entry.timestamp})</div>
+                    </div>
+                `;
+                historyList.appendChild(historyEntry);
+            });
         }
 
         function createConfetti() {
@@ -1447,6 +1482,7 @@
             const data = {
                 participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
+                history: history,
                 theme: themeSelector.value
             };
             const compressedData = btoa(JSON.stringify(data));
@@ -1460,6 +1496,7 @@
                     const decompressedData = JSON.parse(atob(compressedData));
                     participants = decompressedData.participants || [];
                     assignedNumbers = new Set(decompressedData.assignedNumbers || []);
+                    history = decompressedData.history || [];
 
                     if (decompressedData.theme) {
                         themeSelector.value = decompressedData.theme;
@@ -1468,6 +1505,7 @@
                 
                     renderNumbers();
                     renderParticipants();
+                    renderHistory();
                 } catch (e) {
                     console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
                     localStorage.removeItem('raffleData');
@@ -1479,6 +1517,7 @@
             const data = {
                 participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
+                history: history,
                 theme: themeSelector.value
             };
             const compressedData = btoa(JSON.stringify(data));
@@ -1493,9 +1532,11 @@
                     const decompressedData = JSON.parse(atob(code));
                     participants = decompressedData.participants;
                     assignedNumbers = new Set(decompressedData.assignedNumbers);
+                    history = decompressedData.history;
                     
                     renderNumbers();
                     renderParticipants();
+                    renderHistory();
                     
                     if (decompressedData.theme) {
                         themeSelector.value = decompressedData.theme;
