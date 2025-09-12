@@ -1119,12 +1119,15 @@
             margin-top: 0;
             color: #7aa5d2;
         }
-
+        #modal-number {
+            font-size: 2em;
+            font-weight: bold;
+        }
         .modal-content .form-group {
             margin-bottom: 20px;
         }
 
-        .modal-content select {
+        .modal-content select, .modal-content input {
             width: 100%;
             padding: 10px;
             border: 1px solid #444;
@@ -1143,7 +1146,7 @@
         .modal-content .button-group button {
             width: auto;
             flex-grow: 0;
-            margin: 0 10px;
+            margin: 0 5px;
         }
 
         #modal-delete-button {
@@ -1160,13 +1163,26 @@
             background-color: #7a7a7a;
         }
 
+        #modal-assign-new-button {
+            background-color: #7aa5d2;
+        }
+        #modal-assign-new-button:hover {
+            background-color: #5c8bb8;
+        }
+
+        #modal-assign-existing-button {
+            background-color: #c5a365;
+        }
+        #modal-assign-existing-button:hover {
+            background-color: #a08451;
+        }
         /* Adaptaciones para temas */
         .cosmic-theme .modal-content {
             background-color: #1a0033;
             border-color: #5d00a0;
         }
         .cosmic-theme .modal-content h3 { color: #d495ff; }
-        .cosmic-theme .modal-content select { background-color: #220044; color: #a0d4ff; border-color: #4b0082; }
+        .cosmic-theme .modal-content select, .cosmic-theme .modal-content input { background-color: #220044; color: #a0d4ff; border-color: #4b0082; }
 
         .neon-theme .modal-content {
             background-color: #1a1a2a;
@@ -1174,7 +1190,7 @@
             box-shadow: 0 0 20px 5px rgba(100, 255, 255, 0.4);
         }
         .neon-theme .modal-content h3 { color: #ff00ff; }
-        .neon-theme .modal-content select { background-color: #333344; color: #64ffda; border-color: #64ffda; }
+        .neon-theme .modal-content select, .neon-theme .modal-content input { background-color: #333344; color: #64ffda; border-color: #64ffda; }
 
         .pastel-theme .modal-content {
             background-color: #fff0f3;
@@ -1182,28 +1198,35 @@
         }
         .pastel-theme .modal-content h3 { color: #ff66a4; }
         .pastel-theme .modal-content label { color: #9381ff; }
-        .pastel-theme .modal-content select { background-color: #fff8f8; color: #5e548e; border-color: #b57edc; }
+        .pastel-theme .modal-content select, .pastel-theme .modal-content input { background-color: #fff8f8; color: #5e548e; border-color: #b57edc; }
 
         .celuapuestas-theme .modal-content {
             background-color: #20202d;
             border-color: #333344;
         }
         .celuapuestas-theme .modal-content h3 { color: #62B4E9; }
-        .celuapuestas-theme .modal-content select { background-color: #12121b; color: #f0f0f0; border-color: #444; }
+        .celuapuestas-theme .modal-content select, .celuapuestas-theme .modal-content input { background-color: #12121b; color: #f0f0f0; border-color: #444; }
 
         .simple-dark-theme .modal-content {
             background-color: #1e1e1e;
             border-color: #333;
         }
         .simple-dark-theme .modal-content h3 { color: #7aa5d2; }
-        .simple-dark-theme .modal-content select { background-color: #252525; color: #e0e0e0; border-color: #444; }
+        .simple-dark-theme .modal-content select, .simple-dark-theme .modal-content input { background-color: #252525; color: #e0e0e0; border-color: #444; }
 
         .matrix-theme .modal-content {
             background-color: rgba(0, 0, 0, 0.85);
             border-color: #0f0;
         }
         .matrix-theme .modal-content h3 { color: #0f0; }
-        .matrix-theme .modal-content select { background-color: #000; color: #0f0; border: 1px solid #0f0; }
+        .matrix-theme .modal-content select, .matrix-theme .modal-content input { background-color: #000; color: #0f0; border: 1px solid #0f0; }
+
+        .modal-step-1, .modal-step-2 {
+            display: none;
+        }
+        .modal-step-1.active, .modal-step-2.active {
+            display: block;
+        }
     </style>
 </head>
 <body>
@@ -1298,9 +1321,14 @@
         const freeNumberModal = document.getElementById('free-number-modal');
         const modalNumberSpan = document.getElementById('modal-number');
         const assignToParticipantSelect = document.getElementById('assign-to-participant-select');
-        const modalAssignButton = document.getElementById('modal-assign-button');
+        const modalAssignExistingButton = document.getElementById('modal-assign-existing-button');
+        const modalAssignNewButton = document.getElementById('modal-assign-new-button');
         const modalDeleteButton = document.getElementById('modal-delete-button');
         const modalCancelButton = document.getElementById('modal-cancel-button');
+        const modalStep1 = document.getElementById('modal-step-1');
+        const modalStep2 = document.getElementById('modal-step-2');
+        const newParticipantNameInput = document.getElementById('new-participant-name');
+        const modalCreateNewButton = document.getElementById('modal-create-new-button');
 
         let currentNumberInModal = null;
         let allNumbers = [];
@@ -1331,12 +1359,24 @@
             currentNumberInModal = number;
             modalNumberSpan.textContent = number;
             populateParticipantsDropdown();
+            showModalStep(1);
             freeNumberModal.style.display = 'flex';
         }
 
         function closeFreeNumberModal() {
             currentNumberInModal = null;
+            newParticipantNameInput.value = '';
             freeNumberModal.style.display = 'none';
+        }
+        
+        function showModalStep(step) {
+            if (step === 1) {
+                modalStep1.classList.add('active');
+                modalStep2.classList.remove('active');
+            } else if (step === 2) {
+                modalStep1.classList.remove('active');
+                modalStep2.classList.add('active');
+            }
         }
 
         function deleteSingleNumber() {
@@ -1364,7 +1404,7 @@
                 option.textContent = 'No hay participantes todavía';
                 option.disabled = true;
                 assignToParticipantSelect.appendChild(option);
-                modalAssignButton.disabled = true;
+                modalAssignExistingButton.disabled = true;
             } else {
                 const placeholder = document.createElement('option');
                 placeholder.textContent = 'Selecciona un participante...';
@@ -1377,18 +1417,16 @@
                     option.textContent = person.name;
                     assignToParticipantSelect.appendChild(option);
                 });
-                modalAssignButton.disabled = false;
+                modalAssignExistingButton.disabled = false;
             }
         }
 
-        function assignNumberToParticipant() {
+        function assignNumberToExistingParticipant() {
             const selectedParticipantIndex = assignToParticipantSelect.value;
-
-            if (selectedParticipantIndex === '' || currentNumberInModal === null) {
+            if (selectedParticipantIndex === '') {
                 alert('Por favor, selecciona un participante.');
                 return;
             }
-
             const participant = participants[selectedParticipantIndex];
             const numberToAssign = currentNumberInModal;
 
@@ -1400,8 +1438,29 @@
             renderParticipants();
             saveToLocalStorage();
             closeFreeNumberModal();
-
             alert(`El número ${numberToAssign} ha sido asignado a ${participant.name}.`);
+        }
+
+        function assignNumberToNewParticipant() {
+            const name = newParticipantNameInput.value.trim();
+            if (name === '') {
+                alert('Por favor, introduce un nombre para el nuevo participante.');
+                return;
+            }
+            const numberToAssign = currentNumberInModal;
+
+            const newParticipant = {
+                name: name,
+                numbers: [numberToAssign]
+            };
+            participants.push(newParticipant);
+            assignedNumbers.add(numberToAssign);
+            
+            renderNumbers();
+            renderParticipants();
+            saveToLocalStorage();
+            closeFreeNumberModal();
+            alert(`El número ${numberToAssign} ha sido asignado al nuevo participante: ${name}.`);
         }
 
         function renderNumbers() {
@@ -1414,24 +1473,17 @@
 
                 if (assignedNumbers.has(num)) {
                     numberBox.classList.add('assigned');
-                }
-                if (selectedNumbers.has(num)) {
+                } else if (selectedNumbers.has(num)) {
                     numberBox.classList.add('selected');
                 }
 
                 numberBox.addEventListener('click', () => {
                     if (assignedNumbers.has(num)) {
-                        // Si el número ya está asignado, no hacemos nada.
+                         // Si el número ya está asignado, no hacemos nada.
                         return;
                     }
 
-                    // Comportamiento dual: seleccionar vs. gestionar.
-                    // Si hay un nombre en el campo de texto, el clic selecciona/deselecciona.
-                    // Si no hay nombre, el clic abre el modal de gestión.
-                    const isAddingParticipant = personNameInput.value.trim() !== '';
-
-                    if (isAddingParticipant) {
-                        // Modo selección: El clic selecciona o deselecciona el número.
+                    if (personNameInput.value.trim() !== '') {
                         if (selectedNumbers.has(num)) {
                             selectedNumbers.delete(num);
                             numberBox.classList.remove('selected');
@@ -1440,14 +1492,7 @@
                             numberBox.classList.add('selected');
                         }
                     } else {
-                        // Modo gestión: El clic abre el modal para números libres.
-                        // Esto soluciona el problema original del usuario.
-                        if (selectedNumbers.has(num)) {
-                            // Si el número estaba seleccionado (ej. con +10), se deselecciona
-                            // para evitar conflictos antes de abrir el modal.
-                            selectedNumbers.delete(num);
-                            numberBox.classList.remove('selected');
-                        }
+                        // Si no hay nombre en el input, el clic abre el modal
                         openFreeNumberModal(num);
                     }
                 });
@@ -1461,13 +1506,6 @@
                 alert('Por favor, introduce un nombre.');
                 return;
             }
-
-            // Sincronizar selectedNumbers desde el DOM para asegurar consistencia
-            selectedNumbers.clear();
-            const selectedBoxes = numbersContainer.querySelectorAll('.number-box.selected');
-            selectedBoxes.forEach(box => {
-                selectedNumbers.add(parseInt(box.dataset.number, 10));
-            });
 
             if (selectedNumbers.size === 0) {
                 alert('Por favor, selecciona al menos un número.');
@@ -1585,290 +1623,3 @@
             const allAssignedNumbers = Array.from(assignedNumbers);
             if (allAssignedNumbers.length === 0) {
                 alert('No hay números asignados para sortear.');
-                return;
-            }
-
-            sorteoButton.disabled = true;
-            clearButton.disabled = true;
-
-            ganadorNombre.textContent = '';
-            ganadorNumero.textContent = '';
-            countdownTimer.style.display = 'block';
-
-            let countdown = 3;
-            const countdownInterval = setInterval(() => {
-                countdownTimer.textContent = countdown;
-                if (countdown === 0) {
-                    clearInterval(countdownInterval);
-                    countdownTimer.style.display = 'none';
-                    rollRandomNumber(allAssignedNumbers);
-                }
-                countdown--;
-            }, 1000);
-        }
-
-        function rollRandomNumber(numbersPool) {
-            let rollCount = 0;
-            const maxRolls = 100;
-            const rollInterval = 50;
-
-            const finalWinnerNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
-
-            const rollingInterval = setInterval(() => {
-                const tempNumber = numbersPool[Math.floor(Math.random() * numbersPool.length)];
-                ganadorNumero.textContent = tempNumber;
-
-                // Animar el número mientras se "sortea"
-                ganadorNumero.classList.add('sorteo-running');
-
-                rollCount++;
-                if (rollCount >= maxRolls) {
-                    clearInterval(rollingInterval);
-                    ganadorNumero.classList.remove('sorteo-running');
-                    showWinner(finalWinnerNumber);
-                }
-            }, rollInterval);
-        }
-
-        function showWinner(winnerNumber) {
-            const winner = participants.find(p => p.numbers.includes(winnerNumber));
-            const winningPersonName = winner ? winner.name : 'Desconocido';
-
-            ganadorNombre.textContent = winningPersonName;
-            ganadorNumero.textContent = winnerNumber;
-            
-            ganadorNombre.classList.add('ganador-zoom');
-            ganadorNumero.classList.add('ganador-zoom');
-
-            setTimeout(() => {
-                ganadorNombre.classList.remove('ganador-zoom');
-                ganadorNumero.classList.remove('ganador-zoom');
-            }, 1000);
-
-            // Resaltar el número ganador
-            const winningNumberBox = document.querySelector(`.number-box[data-number="${winnerNumber}"]`);
-            if (winningNumberBox) {
-                winningNumberBox.classList.add('resaltado');
-            }
-
-            createConfetti();
-
-            sorteoButton.disabled = false;
-            clearButton.disabled = false;
-            saveToLocalStorage();
-        }
-
-        function createConfetti() {
-            for (let i = 0; i < 50; i++) {
-                const confetti = document.createElement('div');
-                confetti.classList.add('confetti');
-                confetti.style.left = `${Math.random() * 100}%`;
-                confetti.style.backgroundColor = `hsl(${Math.random() * 360}, 100%, 50%)`;
-                confetti.style.animationDelay = `${Math.random() * 0.5}s`;
-                confetti.style.animationDuration = `${Math.random() * 3 + 2}s`;
-                document.body.appendChild(confetti);
-
-                confetti.addEventListener('animationend', () => {
-                    confetti.remove();
-                });
-            }
-        }
-
-        function deleteUnassignedNumbers() {
-            if (confirm('¿Estás seguro de que quieres eliminar todos los números libres? Esta acción no se puede deshacer y solo conservará los números ya vendidos.')) {
-                allNumbers = allNumbers.filter(num => assignedNumbers.has(num));
-                renderNumbers();
-                saveToLocalStorage();
-                alert('Se han eliminado todos los números libres.');
-            }
-        }
-
-        // --- Funcionalidad de Guardado y Carga ---
-        function saveToLocalStorage() {
-            const data = {
-                participants: participants,
-                assignedNumbers: Array.from(assignedNumbers),
-                theme: themeSelector.value
-            };
-            const compressedData = btoa(JSON.stringify(data));
-            localStorage.setItem('raffleData', compressedData);
-        }
-
-        function loadFromLocalStorage() {
-            const compressedData = localStorage.getItem('raffleData');
-            if (compressedData) {
-                try {
-                    const decompressedData = JSON.parse(atob(compressedData));
-                    participants = decompressedData.participants || [];
-                    assignedNumbers = new Set(decompressedData.assignedNumbers || []);
-
-                    if (decompressedData.theme) {
-                        themeSelector.value = decompressedData.theme;
-                        applyTheme(decompressedData.theme);
-                    }
-                
-                    renderNumbers();
-                    renderParticipants();
-                } catch (e) {
-                    console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
-                    localStorage.removeItem('raffleData');
-                }
-            }
-        }
-
-        function generateSaveCode() {
-            const data = {
-                participants: participants,
-                assignedNumbers: Array.from(assignedNumbers),
-                theme: themeSelector.value
-            };
-            const compressedData = btoa(JSON.stringify(data));
-            savedCodeSpan.textContent = compressedData;
-            saveCodeContainer.style.display = 'block';
-        }
-
-        function loadFromCode() {
-            const code = prompt('Introduce el código de guardado:');
-            if (code) {
-                try {
-                    const decompressedData = JSON.parse(atob(code));
-                    participants = decompressedData.participants;
-                    assignedNumbers = new Set(decompressedData.assignedNumbers);
-                    
-                    renderNumbers();
-                    renderParticipants();
-                    
-                    if (decompressedData.theme) {
-                        themeSelector.value = decompressedData.theme;
-                        applyTheme(decompressedData.theme);
-                    }
-                } catch (e) {
-                    alert('Código inválido.');
-                }
-            }
-        }
-
-        // --- Lógica del Tema Matrix ---
-        const matrixCanvas = document.getElementById('matrix-canvas');
-        const matrixCtx = matrixCanvas.getContext('2d');
-        let matrixAnimationInterval;
-
-        function startMatrixAnimation() {
-            if (matrixAnimationInterval) clearInterval(matrixAnimationInterval);
-
-            matrixCanvas.width = window.innerWidth;
-            matrixCanvas.height = window.innerHeight;
-
-            const letters = '0123456789';
-            const fontSize = 16;
-            const columns = matrixCanvas.width / fontSize;
-
-            const drops = [];
-            for (let x = 0; x < columns; x++) {
-                drops[x] = 1;
-            }
-
-            function drawMatrix() {
-                matrixCtx.fillStyle = 'rgba(0, 0, 0, 0.05)';
-                matrixCtx.fillRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-
-                matrixCtx.fillStyle = '#0f0';
-                matrixCtx.font = fontSize + 'px arial';
-
-                for (let i = 0; i < drops.length; i++) {
-                    const text = letters.charAt(Math.floor(Math.random() * letters.length));
-                    matrixCtx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                    if (drops[i] * fontSize > matrixCanvas.height && Math.random() > 0.975) {
-                        drops[i] = 0;
-                    }
-                    drops[i]++;
-                }
-            }
-
-            matrixAnimationInterval = setInterval(drawMatrix, 33);
-        }
-
-        function stopMatrixAnimation() {
-            if (matrixAnimationInterval) {
-                clearInterval(matrixAnimationInterval);
-                matrixAnimationInterval = null;
-                matrixCtx.clearRect(0, 0, matrixCanvas.width, matrixCanvas.height);
-            }
-        }
-
-        window.addEventListener('resize', () => {
-            if (document.body.classList.contains('matrix-theme')) {
-                startMatrixAnimation();
-            }
-        });
-
-        // --- Manejo de Temas ---
-        function applyTheme(theme) {
-            document.body.className = '';
-            document.body.classList.add(`${theme}-theme`);
-            localStorage.setItem('selectedTheme', theme);
-
-            if (theme === 'matrix') {
-                startMatrixAnimation();
-            } else {
-                stopMatrixAnimation();
-            }
-        }
-
-        themeSelector.addEventListener('change', (event) => {
-            applyTheme(event.target.value);
-        });
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const savedTheme = localStorage.getItem('selectedTheme') || 'default';
-            themeSelector.value = savedTheme;
-            applyTheme(savedTheme);
-            loadFromLocalStorage();
-            generateNumbers(100);
-        });
-
-        // --- Event Listeners ---
-        addButton.addEventListener('click', addParticipant);
-        clearButton.addEventListener('click', clearSelection);
-        sorteoButton.addEventListener('click', realizarSorteo);
-        add10Button.addEventListener('click', () => selectRange(10));
-        add25Button.addEventListener('click', () => selectRange(25));
-        add50Button.addEventListener('click', () => selectRange(50));
-        saveDataButton.addEventListener('click', generateSaveCode);
-        loadDataButton.addEventListener('click', loadFromCode);
-        deleteUnsoldButton.addEventListener('click', deleteUnassignedNumbers);
-        modalCancelButton.addEventListener('click', closeFreeNumberModal);
-        modalDeleteButton.addEventListener('click', deleteSingleNumber);
-        modalAssignButton.addEventListener('click', assignNumberToParticipant);
-
-        numbersContainer.addEventListener('scroll', () => {
-            if (isLoading) return;
-
-            if (numbersContainer.scrollTop + numbersContainer.clientHeight >= numbersContainer.scrollHeight - 5) {
-                isLoading = true;
-                addMoreNumbers(100);
-                isLoading = false;
-            }
-        });
-    </script>
-
-    <!-- Modal para gestionar número libre -->
-    <div id="free-number-modal" class="modal-overlay" style="display: none;">
-        <div class="modal-content">
-            <h3 id="modal-title">Gestionar Número #<span id="modal-number"></span></h3>
-            <div class="form-group">
-                <label for="assign-to-participant-select">Asignar a un participante existente:</label>
-                <select id="assign-to-participant-select">
-                    <!-- Opciones se llenarán con JS -->
-                </select>
-            </div>
-            <div class="button-group">
-                <button id="modal-assign-button">Asignar</button>
-                <button id="modal-delete-button" class="delete-button">Eliminar Número</button>
-                <button id="modal-cancel-button" class="cancel-button">Cancelar</button>
-            </div>
-        </div>
-    </div>
-</body>
-</html>
