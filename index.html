@@ -8,8 +8,8 @@
         /* --- ESTILOS GENERALES (TEMA PREDETERMINADO) --- */
         body {
             font-family: Arial, sans-serif;
-            background-color: #f0f2f5;
-            color: #333;
+            background-color: #121212;
+            color: #e0e0e0;
             margin: 0;
             padding: 20px;
             transition: background-color 0.5s ease, color 0.5s ease;
@@ -17,10 +17,11 @@
         .container {
             max-width: 600px;
             margin: auto;
-            background-color: #fff;
+            background-color: #1e1e1e;
             padding: 20px;
             border-radius: 8px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+            border: 1px solid #333;
             position: relative;
             overflow: hidden;
             transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
@@ -32,9 +33,10 @@
         .logo {
             width: 150px;
             height: auto;
+            filter: invert(1);
         }
         h1 {
-            color: #4CAF50;
+            color: #7aa5d2; /* Azul apagado */
             text-align: center;
             transition: color 0.5s ease;
         }
@@ -45,14 +47,17 @@
             display: block;
             margin-bottom: 5px;
             font-weight: bold;
+            color: #e0e0e0;
             transition: color 0.5s ease;
         }
         input[type="text"] {
             width: calc(100% - 22px);
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #444;
             border-radius: 4px;
             font-size: 16px;
+            background-color: #252525;
+            color: #e0e0e0;
             transition: border-color 0.5s ease, background-color 0.5s ease, color 0.5s ease;
         }
         #numbers-container {
@@ -61,15 +66,17 @@
             gap: 5px;
             margin-top: 10px;
             padding: 10px;
-            border: 1px solid #ccc;
+            border: 1px solid #444;
             border-radius: 4px;
             max-height: 250px;
             overflow-y: auto;
+            background-color: #121212;
             transition: border-color 0.5s ease, background-color 0.5s ease;
         }
         .number-box {
-            background-color: #fff;
-            border: 1px solid #ddd;
+            background-color: #2c2c2c;
+            border: 1px solid #444;
+            color: #e0e0e0;
             text-align: center;
             padding: 8px 0;
             border-radius: 4px;
@@ -79,17 +86,18 @@
             font-weight: bold;
         }
         .number-box:hover {
-            background-color: #f0f0f0;
+            background-color: #3e3e3e;
         }
         .number-box.selected {
-            background-color: #4CAF50;
-            color: #fff;
+            background-color: #c5a365; /* Oro suave */
+            color: #121212;
             transform: scale(1.05);
+            box-shadow: 0 0 5px #c5a365;
         }
         .number-box.assigned {
-            background-color: #ccc;
+            background-color: #222222;
             text-decoration: line-through;
-            color: #777;
+            color: #555;
             cursor: not-allowed;
         }
         .button-group, .add-numbers-group, #theme-toggle-group, .range-buttons {
@@ -114,28 +122,32 @@
             transition: background-color 0.2s;
             flex-grow: 1;
             margin: 0 5px;
+            font-weight: bold;
         }
         button:first-child { margin-left: 0; }
         button:last-child { margin-right: 0; }
-        #add-button { background-color: #4CAF50; }
-        #add-button:hover { background-color: #45a049; }
-        #clear-button { background-color: #f44336; }
-        #clear-button:hover { background-color: #da190b; }
-        #sorteo-button { background-color: #007BFF; }
-        #sorteo-button:hover { background-color: #0056b3; }
-        .add-numbers-group button, .range-buttons button { background-color: #17a2b8; }
-        .add-numbers-group button:hover, .range-buttons button:hover { background-color: #138496; }
+        #add-button { background-color: #7aa5d2; color: #121212; }
+        #add-button:hover { background-color: #5c8bb8; }
+        #clear-button { background-color: #8c8c8c; }
+        #clear-button:hover { background-color: #7a7a7a; }
+        #sorteo-button { background-color: #b86a6a; } /* Rojo apagado */
+        #sorteo-button:hover { background-color: #a35c5c; }
+        .add-numbers-group button, .range-buttons button { background-color: #4a4a58; color: #f0f0f0; }
+        .add-numbers-group button:hover, .range-buttons button:hover { background-color: #5a5a68; }
         #results-container, #history-container {
             margin-top: 30px;
             padding: 15px;
-            background-color: #fff;
+            background-color: #1e1e1e;
             border-radius: 8px;
-            border: 1px solid #eee;
+            border: 1px solid #333;
             box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
             transition: background-color 0.5s ease, border-color 0.5s ease, box-shadow 0.5s ease;
         }
+        #history-container {
+            display: none;
+        }
         .person-entry, .history-entry {
-            border-bottom: 1px solid #eee;
+            border-bottom: 1px solid #333;
             padding: 10px 0;
             display: flex;
             justify-content: space-between;
@@ -150,7 +162,7 @@
         }
         .person-name {
             font-weight: bold;
-            color: #007BFF;
+            color: #7aa5d2;
             margin-bottom: 5px;
             transition: color 0.5s ease;
         }
@@ -166,11 +178,11 @@
             cursor: pointer;
             font-size: 1.2em;
             margin-left: 5px;
-            color: #777;
+            color: #e0e0e0;
             transition: color 0.2s;
         }
         .action-button:hover {
-            color: #000;
+            color: #c5a365;
         }
         .edit-mode .person-info, .edit-mode .person-actions {
             flex-direction: column;
@@ -227,13 +239,13 @@
             position: relative;
         }
         #ganador-container h2 {
-            color: #ffc107;
+            color: #c5a365;
             transition: color 0.5s ease;
         }
         #ganador-nombre, #ganador-numero {
             font-size: 2em;
             font-weight: bold;
-            color: #007BFF;
+            color: #b86a6a;
             transition: transform 0.5s ease-in-out, color 0.5s ease;
             min-height: 1.5em;
             display: flex;
@@ -241,7 +253,7 @@
             justify-content: center;
         }
         #ganador-numero {
-            color: #4CAF50;
+            color: #7aa5d2;
             margin-bottom: 10px;
             transition: color 0.5s ease;
         }
@@ -259,7 +271,7 @@
         #countdown-timer {
             font-size: 3em;
             font-weight: bold;
-            color: #f44336;
+            color: #c5a365;
             margin-top: 20px;
             transition: color 0.5s ease;
         }
@@ -1087,9 +1099,9 @@
                 <option value="default">Clásico</option>
                 <option value="cosmic">Cósmico</option>
                 <option value="neon">Neon Party</option>
-                <option value="pastel">Pastel Dreams</option>
+                <option value="pastel">Sueños de Pastel</option>
                 <option value="celuapuestas">CeluApuestas</option>
-                <option value="simple-dark">Simple Dark</option>
+                <option value="simple-dark">Oscuro Simple</option>
                 <option value="matrix">Matrix</option>
             </select>
         </div>
@@ -1140,11 +1152,6 @@
             <div id="countdown-timer"></div>
         </div>
         
-        <div id="history-container">
-            <h2>Historial de Sorteos</h2>
-            <div id="history-list"></div>
-        </div>
-
         <p class="footer">
             <a href="https://www.redpilar.com.ar" target="_blank">CELUAPUESTAS</a> - RED PILAR - design by Clau Admin Calopsita
         </p>
@@ -1161,7 +1168,6 @@
         const ganadorNombre = document.getElementById('ganador-nombre');
         const ganadorNumero = document.getElementById('ganador-numero');
         const countdownTimer = document.getElementById('countdown-timer');
-        const historyList = document.getElementById('history-list');
         const add10Button = document.getElementById('add-10-button');
         const add25Button = document.getElementById('add-25-button');
         const add50Button = document.getElementById('add-50-button');
@@ -1175,7 +1181,6 @@
         let assignedNumbers = new Set();
         let selectedNumbers = new Set();
         let participants = [];
-        let history = [];
         
         let isEditing = false;
         let editingIndex = -1;
@@ -1344,11 +1349,6 @@
                 alert('No hay participantes para el sorteo.');
                 return;
             }
-            if (history.length > 0 && confirm('¿Deseas realizar otro sorteo? El historial será conservado.')) {
-                // Si el usuario confirma, no hacemos nada más que continuar con el sorteo.
-            } else if (history.length > 0) {
-                return; // Si el usuario cancela, no hacemos nada.
-            }
             
             const allAssignedNumbers = Array.from(assignedNumbers);
             if (allAssignedNumbers.length === 0) {
@@ -1419,34 +1419,11 @@
                 winningNumberBox.classList.add('resaltado');
             }
 
-            // Registrar en el historial
-            history.push({
-                winnerName: winningPersonName,
-                winnerNumber: winnerNumber,
-                timestamp: new Date().toLocaleString()
-            });
-
-            renderHistory();
             createConfetti();
 
             sorteoButton.disabled = false;
             clearButton.disabled = false;
             saveToLocalStorage();
-        }
-
-        function renderHistory() {
-            historyList.innerHTML = '';
-            history.forEach(entry => {
-                const historyEntry = document.createElement('div');
-                historyEntry.classList.add('history-entry');
-                historyEntry.innerHTML = `
-                    <div class="person-info">
-                        <div class="person-name">Ganador: ${entry.winnerName}</div>
-                        <div class="person-numbers">Número: ${entry.winnerNumber} (${entry.timestamp})</div>
-                    </div>
-                `;
-                historyList.appendChild(historyEntry);
-            });
         }
 
         function createConfetti() {
@@ -1470,7 +1447,6 @@
             const data = {
                 participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
-                history: history,
                 theme: themeSelector.value
             };
             const compressedData = btoa(JSON.stringify(data));
@@ -1484,7 +1460,6 @@
                     const decompressedData = JSON.parse(atob(compressedData));
                     participants = decompressedData.participants || [];
                     assignedNumbers = new Set(decompressedData.assignedNumbers || []);
-                    history = decompressedData.history || [];
 
                     if (decompressedData.theme) {
                         themeSelector.value = decompressedData.theme;
@@ -1493,7 +1468,6 @@
                 
                     renderNumbers();
                     renderParticipants();
-                    renderHistory();
                 } catch (e) {
                     console.error("Error al analizar los datos de localStorage, reseteando. Error:", e);
                     localStorage.removeItem('raffleData');
@@ -1505,7 +1479,6 @@
             const data = {
                 participants: participants,
                 assignedNumbers: Array.from(assignedNumbers),
-                history: history,
                 theme: themeSelector.value
             };
             const compressedData = btoa(JSON.stringify(data));
@@ -1520,11 +1493,9 @@
                     const decompressedData = JSON.parse(atob(code));
                     participants = decompressedData.participants;
                     assignedNumbers = new Set(decompressedData.assignedNumbers);
-                    history = decompressedData.history;
                     
                     renderNumbers();
                     renderParticipants();
-                    renderHistory();
                     
                     if (decompressedData.theme) {
                         themeSelector.value = decompressedData.theme;
